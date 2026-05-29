@@ -22,4 +22,30 @@ function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-module.exports = { formatDate, formatTime, EMOTION_MAP, pickRandom }
+/** 获取指定路径的课程进度（已完成课数） */
+function getCourseProgress(path) {
+  const courses = require('../data/courses')
+  const course = courses[path]
+  if (!course) return 0
+  let completed = 0
+  course.lessons.forEach(l => {
+    if (wx.getStorageSync(`lesson_${path}_${l.id}`)) completed++
+  })
+  return completed
+}
+
+/** 标记课程完成并更新进度 */
+function completeLesson(path, lessonId, coinReward = 2) {
+  const key = `lesson_${path}_${lessonId}`
+  if (wx.getStorageSync(key)) return false
+  wx.setStorageSync(key, true)
+
+  const coins = wx.getStorageSync('awakeningCoins') || 0
+  wx.setStorageSync('awakeningCoins', coins + coinReward)
+
+  const progress = getCourseProgress(path)
+  wx.setStorageSync(`progress_${path}`, progress)
+  return true
+}
+
+module.exports = { formatDate, formatTime, EMOTION_MAP, pickRandom, getCourseProgress, completeLesson }

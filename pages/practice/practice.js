@@ -1,3 +1,5 @@
+const { completeLesson } = require('../../utils/util')
+
 Page({
   data: {
     steps: [],
@@ -21,7 +23,6 @@ Page({
       return
     }
 
-    // 按双换行拆分练习步骤
     const steps = practiceText.split('\n\n').filter(s => s.trim().length > 0)
 
     this.setData({
@@ -41,34 +42,13 @@ Page({
         currentStep: steps[currentIndex + 1]
       })
     } else {
-      // 最后一步，显示完成
       this.setData({ isComplete: true })
     }
   },
 
   onComplete() {
-    // 标记课程完成 + 奖励
     const { path, lessonId } = this.data
-    const key = `lesson_${path}_${lessonId}`
-    if (!wx.getStorageSync(key)) {
-      wx.setStorageSync(key, true)
-
-      // 更新进度
-      const courses = require('../../data/courses')
-      const course = courses[path]
-      if (course) {
-        let completed = 0
-        course.lessons.forEach(l => {
-          if (wx.getStorageSync(`lesson_${path}_${l.id}`)) completed++
-        })
-        wx.setStorageSync(`progress_${path}`, completed)
-      }
-
-      // 奖励觉醒币
-      const coins = wx.getStorageSync('awakeningCoins') || 0
-      wx.setStorageSync('awakeningCoins', coins + 2)
-    }
-
+    completeLesson(path, lessonId)
     wx.showToast({ title: '+2 觉醒币 ✓', icon: 'success' })
     setTimeout(() => wx.navigateBack(), 1200)
   }

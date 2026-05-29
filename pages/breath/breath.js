@@ -25,8 +25,7 @@ Page({
 
   onUnload() {
     if (this._timer) {
-      clearInterval(this._timer)
-      clearTimeout(this._timeout)
+      clearTimeout(this._timer)
     }
   },
 
@@ -34,6 +33,7 @@ Page({
     if (this.data.phase === 'running') return
     const key = e.currentTarget.dataset.key
     const pattern = PATTERNS[key]
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
     this.setData({
       selectedPattern: key,
       phaseIcon: pattern.icon
@@ -43,6 +43,7 @@ Page({
 
   setTarget(e) {
     const n = parseInt(e.currentTarget.dataset.n)
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
     this.setData({ targetRounds: n })
   },
 
@@ -77,24 +78,34 @@ Page({
     const pattern = PATTERNS[this.data.selectedPattern]
     const idx = this.data.currentPhaseIndex
     const phase = pattern.phases[idx]
-    let sec = phase.sec
+    const totalSec = phase.sec
+    const startedAt = Date.now()
 
-    // Haptic feedback at start of each phase
+    // Haptic at phase transitions
     if (phase.label === '吸气') wx.vibrateShort({ type: 'medium' }).catch(() => {})
     else if (phase.label === '呼气') wx.vibrateShort({ type: 'heavy' }).catch(() => {})
 
-    this.setData({ countdown: sec, timerProgress: 100 })
+    const tick = () => {
+      const elapsed = Math.round((Date.now() - startedAt) / 1000)
+      const remaining = totalSec - elapsed
 
-    this._timer = setInterval(() => {
-      sec--
-      const progress = (sec / phase.sec) * 100
-      this.setData({ countdown: sec, timerProgress: progress })
-
-      if (sec <= 0) {
-        clearInterval(this._timer)
+      if (remaining <= 0) {
+        this.setData({ countdown: 0, timerProgress: 0 })
         this.nextPhase()
+        return
       }
-    }, 1000)
+
+      this.setData({
+        countdown: remaining,
+        timerProgress: (remaining / totalSec) * 100
+      })
+
+      // Self-correcting: schedule next tick at next second boundary
+      const drift = (Date.now() - startedAt) - (elapsed * 1000)
+      this._timer = setTimeout(tick, Math.max(50, 1000 - drift))
+    }
+
+    this._timer = setTimeout(tick, 1000)
   },
 
   nextPhase() {

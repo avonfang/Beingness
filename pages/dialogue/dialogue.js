@@ -60,8 +60,8 @@ Page({
     const text = this.data.inputValue.trim()
     if (!text || this.data.loading || this.data.coins < 3) return
 
-    this.data.coins -= 3
-    wx.setStorageSync('awakeningCoins', this.data.coins)
+    const coins = this.data.coins - 3
+    wx.setStorageSync('awakeningCoins', coins)
 
     const newMsg = { role: 'user', content: text }
     const messages = [...this.data.messages, newMsg]
@@ -73,7 +73,7 @@ Page({
       messages,
       inputValue: '',
       loading: true,
-      coins: this.data.coins,
+      coins,
       detectedEmotion: emotion
     })
 
