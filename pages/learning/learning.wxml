@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="page-header fade-in">
     <text class="page-title">学习课程</text>
     <text class="page-subtitle">三条觉醒之路</text>

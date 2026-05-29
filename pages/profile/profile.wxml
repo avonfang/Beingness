@@ -22,7 +22,7 @@
     </view>
   </view>
 
-  <!-- Coins + earnings -->
+  <!-- Coins + earn -->
   <view class="coins-section">
     <view class="coins-icon-bg">✦</view>
     <view class="coins-info">
@@ -30,29 +30,31 @@
       <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 签到 + 里程碑奖励</text>
     </view>
   </view>
+
+  <!-- Coin shop -->
   <view class="shop-card">
-    <text class="card-title">获得方式</text>
-    <view class="shop-row">
-      <text class="shop-icon">🆘</text>
-      <text class="shop-desc">情绪急救</text>
-      <text class="shop-cost">+1 / 次</text>
+    <text class="card-title">觉醒币商城</text>
+    <view class="shop-row" wx:for="{{coinPacks}}" wx:key="id" catchtap="buyCoins" data-id="{{item.id}}">
+      <text class="shop-icon">{{item.icon}}</text>
+      <view class="shop-info">
+        <text class="shop-desc">{{item.label}}</text>
+        <text class="shop-bonus" wx:if="{{item.bonus}}">赠 {{item.bonus}} 币</text>
+      </view>
+      <text class="shop-price">{{item.price}}</text>
     </view>
-    <view class="shop-row">
-      <text class="shop-icon">📖</text>
-      <text class="shop-desc">完成课程</text>
-      <text class="shop-cost">+2 / 课</text>
+  </view>
+
+  <!-- Premium upgrade card -->
+  <view class="premium-card" wx:if="{{!isPremium}}">
+    <view class="premium-header">
+      <text class="premium-icon">👑</text>
+      <text class="premium-title">此刻 · 无限版</text>
     </view>
-    <view class="shop-row">
-      <text class="shop-icon">🌬️</text>
-      <text class="shop-desc">呼吸练习</text>
-      <text class="shop-cost">+1 / 次</text>
+    <text class="premium-desc">无限深度对话 · 高级呼吸模式 · 专属主题 · 优先新内容</text>
+    <view class="premium-price-row">
+      <text class="premium-amount">¥9.9<text class="premium-unit">/月</text></text>
+      <view class="btn btn-primary btn-md" catchtap="buyPremium">订阅</view>
     </view>
-    <view class="shop-row">
-      <text class="shop-icon">🏆</text>
-      <text class="shop-desc">签到里程碑</text>
-      <text class="shop-cost">+5 ~ +30</text>
-    </view>
-    <view class="shop-note">觉醒币代表你的练习积累。持续练习，解锁更多成长可能。</view>
   </view>
 
   <!-- Section: 练习概览 -->
@@ -154,6 +156,22 @@
   <view class="insight-card">
     <text class="card-title">数据洞察</text>
     <text class="insight-text">{{insight}}</text>
+  </view>
+
+  <!-- Section: 主题 -->
+  <text class="section-header">主题</text>
+
+  <view class="theme-card">
+    <text class="card-title">选择外观主题</text>
+    <view class="theme-grid">
+      <view class="theme-item {{currentTheme === item.id ? 'active' : ''}} {{item.premium && !isPremium ? 'locked' : ''}}" wx:for="{{themes}}" wx:key="id" data-theme="{{item.id}}" bindtap="selectTheme">
+        <view class="theme-swatch theme-swatch-{{item.id}}">
+          <text class="theme-swatch-icon">{{item.premium && !isPremium ? '🔒' : '✓'}}</text>
+        </view>
+        <text class="theme-name">{{item.name}}</text>
+        <text class="theme-desc">{{item.desc}}</text>
+      </view>
+    </view>
   </view>
 
   <!-- Export -->

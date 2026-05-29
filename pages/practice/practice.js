@@ -8,10 +8,13 @@ Page({
     totalSteps: 0,
     isComplete: false,
     path: '',
-    lessonId: ''
+    lessonId: '',
+    themeClass: 'theme-default'
   },
 
   onLoad(options) {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
     const path = options.path || ''
     const lessonId = options.lessonId || ''
     const practiceText = wx.getStorageSync('practiceText') || ''

@@ -1,6 +1,6 @@
 <onboarding-guide wx:if="{{!hasSeenOnboarding}}" bind:finish="onOnboardingFinish" />
 
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- Minimal header -->
   <view class="header-bar">
     <text class="logo-word">此刻</text>
@@ -29,14 +29,15 @@
   </view>
 
   <!-- Daily practice card -->
-  <view class="daily-card fade-in" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
+  <view class="daily-card fade-in {{dailyPractice.premium && !isPremium ? 'locked' : ''}}" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
     <view class="daily-header">
       <text class="daily-label">今日练习</text>
       <text class="daily-path">{{dailyPractice.pathLabel}}</text>
+      <text class="daily-premium-badge" wx:if="{{dailyPractice.premium && !isPremium}}">无限版</text>
     </view>
-    <text class="daily-title">{{dailyPractice.title}}</text>
+    <text class="daily-title">{{dailyPractice.premium && !isPremium ? '🔒 ' : ''}}{{dailyPractice.title}}</text>
     <text class="daily-subtitle">{{dailyPractice.subtitle}}</text>
-    <view class="daily-arrow">→ 开始练习</view>
+    <view class="daily-arrow">{{dailyPractice.premium && !isPremium ? '升级解锁' : '→ 开始练习'}}</view>
   </view>
 
   <!-- Recommendation -->

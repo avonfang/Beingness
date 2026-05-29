@@ -1,8 +1,9 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- Pattern selector -->
   <view class="pattern-selector" wx:if="{{phase === 'ready'}}">
-    <view class="pattern-tag {{selectedPattern === key ? 'active' : ''}}" wx:for="{{patterns}}" wx:key="key" data-key="{{key}}" bindtap="selectPattern">
-      <text>{{item.icon}} {{item.name}}</text>
+    <view class="pattern-tag {{selectedPattern === key ? 'active' : ''}} {{item.premium && !isPremium ? 'locked' : ''}}" wx:for="{{patterns}}" wx:key="key" data-key="{{key}}" bindtap="selectPattern">
+      <text>{{item.premium && !isPremium ? '🔒' : item.icon}} {{item.name}}</text>
+      <text class="premium-badge" wx:if="{{item.premium && !isPremium}}">无限版</text>
     </view>
   </view>
 

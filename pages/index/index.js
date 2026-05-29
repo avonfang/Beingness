@@ -52,23 +52,29 @@ Page({
     showCheckIn: false,
     streakDays: 0,
     recommendation: null,
-    dailyPractice: null
+    dailyPractice: null,
+    isPremium: false,
+    themeClass: 'theme-default'
   },
 
   onLoad() {
     const today = new Date().getDate()
     const hasSeen = wx.getStorageSync('hasSeenOnboarding') || false
+    const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({
       dailyQuote: quotes[today % quotes.length],
       hasSeenOnboarding: hasSeen,
-      dailyPractice: getDailyPractice()
+      dailyPractice: getDailyPractice(),
+      themeClass: 'theme-' + theme
     })
   },
 
   onShow() {
     const coins = wx.getStorageSync('awakeningCoins') || 0
     const streakDays = wx.getStorageSync('streakDays') || 0
-    this.setData({ awakeningCoins: coins, streakDays })
+    const isPremium = wx.getStorageSync('isPremium') || false
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ awakeningCoins: coins, streakDays, isPremium, themeClass: 'theme-' + theme })
 
     this.checkDailyCheckIn()
     this.loadRecommendation()
@@ -186,6 +192,26 @@ Page({
   goDailyPractice() {
     const p = this.data.dailyPractice
     if (!p) return
+
+    // Premium gate
+    if (p.premium) {
+      const isPremium = wx.getStorageSync('isPremium') || false
+      if (!isPremium) {
+        wx.showModal({
+          title: '高级内容',
+          content: '今日练习为无限版专属内容。升级后即可解锁全部练习。',
+          confirmText: '查看升级',
+          cancelText: '稍后',
+          success: (res) => {
+            if (res.confirm) {
+              wx.navigateTo({ url: '/pages/profile/profile' })
+            }
+          }
+        })
+        return
+      }
+    }
+
     wx.navigateTo({
       url: `/pages/learning/lesson/lesson?path=${p.pathKey}&lessonIndex=${p.lessonIndex}`
     })

@@ -12,6 +12,11 @@
 .chat-back:active { opacity: 0.6; }
 .chat-header-icon { font-size: var(--text-body-large); }
 .chat-header-title { font-size: var(--text-body-large); font-weight: 500; color: var(--text); flex: 1; }
+.daily-badge {
+  font-size: var(--text-caption); color: var(--text-tertiary); background: var(--bg);
+  padding: var(--space-2) var(--space-8); border-radius: var(--radius-lg);
+}
+.daily-badge.premium { color: var(--gold); background: var(--gold-light); font-weight: 600; }
 
 .msg-list { flex: 1; padding: var(--space-12) var(--space-16); overflow-y: auto; }
 
@@ -58,6 +63,18 @@
   transition: transform 0.12s;
 }
 .suggestion-tag:active { transform: scale(0.97); }
+
+/* Upgrade banner */
+.upgrade-banner {
+  display: flex; align-items: flex-start; gap: var(--space-8);
+  background: var(--gold-light); border-radius: var(--radius-sm);
+  padding: var(--space-12); margin-bottom: var(--space-12);
+  border-left: 6rpx solid var(--gold);
+}
+.upgrade-icon { font-size: var(--space-16); display: block; line-height: 1.4; }
+.upgrade-info { flex: 1; }
+.upgrade-title { font-size: var(--text-body); font-weight: 600; color: var(--text); display: block; }
+.upgrade-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-2); line-height: 1.6; }
 
 /* Emotion badge */
 .emotion-badge { text-align: center; margin-bottom: var(--space-12); }

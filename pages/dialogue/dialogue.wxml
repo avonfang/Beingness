@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- Header -->
   <view class="chat-header">
     <view class="chat-back" bindtap="goBack">
@@ -6,6 +6,8 @@
     </view>
     <text class="chat-header-icon">🧘</text>
     <text class="chat-header-title">深度对话</text>
+    <text class="daily-badge" wx:if="{{!isPremium}}">免费 {{dailyRemaining}}/5</text>
+    <text class="daily-badge premium" wx:if="{{isPremium}}">无限</text>
   </view>
 
   <!-- Messages -->
@@ -42,6 +44,15 @@
     <!-- Emotion badge -->
     <view class="emotion-badge" wx:if="{{detectedEmotion}}">
       <text class="badge-text">检测到：{{detectedEmotion === 'anxiety' ? '焦虑' : detectedEmotion === 'anger' ? '愤怒' : detectedEmotion === 'low' ? '低落' : detectedEmotion === 'tangled' ? '纠结' : ''}}</text>
+    </view>
+
+    <!-- Upgrade prompt -->
+    <view class="upgrade-banner" wx:if="{{showUpgrade}}">
+      <text class="upgrade-icon">✦</text>
+      <view class="upgrade-info">
+        <text class="upgrade-title">今日免费对话已达上限</text>
+        <text class="upgrade-desc">订阅后无限使用深度对话。每天 5 条免费额度，聊完了明天继续。</text>
+      </view>
     </view>
 
     <!-- History -->

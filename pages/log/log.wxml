@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <view class="page-header">
     <text class="page-title">情绪日志</text>
     <text class="page-subtitle">回顾你的内在旅程</text>

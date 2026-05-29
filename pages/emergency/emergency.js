@@ -17,11 +17,18 @@ Page({
     selectedOptions: {},
     note: '',
     rating: 0,
-    startTime: null
+    startTime: null,
+    themeClass: 'theme-default'
   },
 
   onLoad() {
-    this.setData({ startTime: Date.now() })
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme, startTime: Date.now() })
+  },
+
+  onShow() {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
   },
 
   onEmotionSelect(e) {

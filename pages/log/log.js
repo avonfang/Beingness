@@ -1,9 +1,13 @@
 const util = require('../../utils/util')
 
 Page({
-  data: { list: [] },
+  data: { list: [], themeClass: 'theme-default' },
 
-  onShow() { this.loadEntries() },
+  onShow() {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
+    this.loadEntries()
+  },
 
   loadEntries() {
     const entries = wx.getStorageSync('pendingEntries') || []

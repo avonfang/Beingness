@@ -1,9 +1,13 @@
 const courses = require('../../data/courses')
 
 Page({
-  data: { paths: [] },
+  data: { paths: [], themeClass: 'theme-default' },
 
-  onShow() { this.loadProgress() },
+  onShow() {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
+    this.loadProgress()
+  },
 
   loadProgress() {
     const paths = Object.entries(courses).map(([key, course]) => {

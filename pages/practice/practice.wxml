@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- Background decoration -->
   <view class="bg-circle top-left"></view>
   <view class="bg-circle bottom-right"></view>

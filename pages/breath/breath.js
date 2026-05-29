@@ -1,7 +1,9 @@
 const PATTERNS = {
   '478': { name: '4-7-8 放松', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 7 }, { label: '呼气', sec: 8 }], icon: '🌙' },
   '444': { name: '4-4-4 平衡', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }], icon: '⚖️' },
-  'box': { name: '箱式呼吸', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 4 }], icon: '🧊' }
+  'box': { name: '箱式呼吸', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 4 }], icon: '🧊' },
+  'coherent': { name: '谐振呼吸', phases: [{ label: '吸气', sec: 5 }, { label: '呼气', sec: 5 }], icon: '🌊', premium: true },
+  'fire': { name: '火呼吸', phases: [{ label: '吸气', sec: 2 }, { label: '屏息', sec: 1 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 1 }], icon: '🔥', premium: true }
 }
 
 Page({
@@ -17,11 +19,24 @@ Page({
     targetRounds: 6,
     timerProgress: 0,
     phaseLabel: '',
-    phaseIcon: '🌙'
+    phaseIcon: '🌙',
+    isPremium: false,
+    themeClass: 'theme-default'
   },
 
   onLoad() {
+    this.refreshState()
     this.resetReady()
+  },
+
+  onShow() {
+    this.refreshState()
+  },
+
+  refreshState() {
+    const isPremium = wx.getStorageSync('isPremium') || false
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ isPremium, themeClass: 'theme-' + theme })
   },
 
   onUnload() {
@@ -34,6 +49,23 @@ Page({
     if (this.data.phase === 'running') return
     const key = e.currentTarget.dataset.key
     const pattern = PATTERNS[key]
+
+    // Premium gate
+    if (pattern.premium && !this.data.isPremium) {
+      wx.showModal({
+        title: '高级呼吸模式',
+        content: '「' + pattern.name + '」仅限无限版订阅用户使用。升级后还可解锁更多主题和内容。',
+        confirmText: '查看升级',
+        cancelText: '稍后',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({ url: '/pages/profile/profile' })
+          }
+        }
+      })
+      return
+    }
+
     wx.vibrateShort({ type: 'light' }).catch(() => {})
     this.setData({
       selectedPattern: key,

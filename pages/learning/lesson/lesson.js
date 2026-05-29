@@ -7,10 +7,13 @@ Page({
     lessonIndex: 0,
     lesson: {},
     isCompleted: false,
-    hasNext: false
+    hasNext: false,
+    themeClass: 'theme-default'
   },
 
   onLoad(options) {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
     const path = options.path || 'presence'
     const lessonIndex = parseInt(options.lessonIndex) || 0
     this.loadLesson(path, lessonIndex)

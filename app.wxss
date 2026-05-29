@@ -62,6 +62,10 @@ page {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Theme packs — accent color override */
+.theme-ocean { --primary: #5B8FB9; --primary-dark: #4A7A9E; --primary-light: #D4E8F4; --gold: #5B8FB9; --gold-light: #D4E8F4; }
+.theme-forest { --primary: #7A9E7E; --primary-dark: #5E8262; --primary-light: #D8E8DA; --gold: #7A9E7E; --gold-light: #D8E8DA; }
+
 /* Dark mode — 柔和深色，降低视觉疲劳 */
 @media (prefers-color-scheme: dark) {
   page {

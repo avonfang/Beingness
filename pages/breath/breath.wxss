@@ -10,6 +10,8 @@
 }
 .pattern-tag.active { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
 .pattern-tag:active { transform: scale(0.97); }
+.pattern-tag.locked { opacity: 0.55; position: relative; }
+.premium-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-light); padding: 2rpx 8rpx; border-radius: 8rpx; margin-left: var(--space-4); vertical-align: middle; }
 
 /* Breath circle */
 .breath-circle {

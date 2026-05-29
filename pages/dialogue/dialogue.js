@@ -1,12 +1,29 @@
 const { generateReply, detectEmotion } = require('../../data/dialogue')
 
+const DAILY_FREE_LIMIT = 5
+
 Page({
   data: {
     messages: [],
     inputValue: '',
     loading: false,
     scrollTarget: '',
-    detectedEmotion: null
+    detectedEmotion: null,
+    dailyRemaining: DAILY_FREE_LIMIT,
+    isPremium: false,
+    showUpgrade: false,
+    themeClass: 'theme-default'
+  },
+
+  onLoad() {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
+    this.checkDailyLimit()
+  },
+
+  onShow() {
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ themeClass: 'theme-' + theme })
   },
 
   onHide() {
@@ -45,21 +62,48 @@ Page({
     this.sendMessage()
   },
 
+  checkDailyLimit() {
+    const today = new Date().toLocaleDateString('zh-CN')
+    const lastDate = wx.getStorageSync('dailyMsgDate') || ''
+    const isPremium = wx.getStorageSync('isPremium') || false
+
+    if (lastDate !== today) {
+      // New day, reset counter
+      wx.setStorageSync('dailyMsgDate', today)
+      wx.setStorageSync('dailyMsgCount', 0)
+      this.setData({ dailyRemaining: DAILY_FREE_LIMIT, isPremium, showUpgrade: false })
+    } else {
+      const count = wx.getStorageSync('dailyMsgCount') || 0
+      const remaining = isPremium ? 999 : Math.max(0, DAILY_FREE_LIMIT - count)
+      this.setData({ dailyRemaining: remaining, isPremium, showUpgrade: remaining <= 0 && !isPremium })
+    }
+  },
+
   sendMessage() {
     const text = this.data.inputValue.trim()
     if (!text || this.data.loading) return
 
+    // Check daily limit
+    if (!this.data.isPremium && this.data.dailyRemaining <= 0) {
+      this.setData({ showUpgrade: true })
+      return
+    }
+
+    // Increment daily counter
+    const count = (wx.getStorageSync('dailyMsgCount') || 0) + 1
+    wx.setStorageSync('dailyMsgCount', count)
+
     const newMsg = { role: 'user', content: text }
     const messages = [...this.data.messages, newMsg]
 
-    // Detect emotion for UI feedback
     const emotion = detectEmotion(text)
 
     this.setData({
       messages,
       inputValue: '',
       loading: true,
-      detectedEmotion: emotion
+      detectedEmotion: emotion,
+      dailyRemaining: this.data.isPremium ? 999 : Math.max(0, DAILY_FREE_LIMIT - count)
     })
 
     this.scrollToBottom()

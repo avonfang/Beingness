@@ -6,6 +6,7 @@ function getAllPractices() {
   const practices = []
   for (const [pathKey, course] of Object.entries(courses)) {
     course.lessons.forEach((lesson, idx) => {
+      const isPremium = pathKey === 'openness' && (idx === 4 || idx === 5)
       practices.push({
         id: `${pathKey}_${lesson.id}`,
         title: lesson.title,
@@ -13,7 +14,8 @@ function getAllPractices() {
         practice: lesson.practice,
         pathLabel: `${course.icon} ${course.title}`,
         pathKey,
-        lessonIndex: idx
+        lessonIndex: idx,
+        premium: isPremium
       })
     })
   }
