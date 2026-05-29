@@ -7,7 +7,11 @@
   <view wx:if="{{list.length === 0}}" class="empty-state">
     <text class="empty-icon">🌱</text>
     <text class="empty-text">还没有记录</text>
-    <text class="empty-hint">完成一次急救或深度对话，这里就会出现记录</text>
+    <text class="empty-hint">完成一次急救或呼吸练习，第一条记录就会出现在这里</text>
+    <view class="empty-actions" style="margin-top: var(--space-16);">
+      <view class="btn btn-primary btn-md" bindtap="goEmergency">开始急救</view>
+      <view class="btn btn-outline btn-md" style="margin-top: var(--space-8);" bindtap="goBreath">呼吸练习</view>
+    </view>
   </view>
 
   <view wx:else class="timeline">

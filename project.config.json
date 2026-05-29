@@ -2,6 +2,7 @@
   "description": "此刻 - AI 觉醒导师",
   "miniprogramRoot": "./",
   "setting": {
+    "darkmode": true,
     "urlCheck": true,
     "es6": true,
     "minify": true,

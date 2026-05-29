@@ -5,13 +5,8 @@ Page({
     messages: [],
     inputValue: '',
     loading: false,
-    coins: 0,
     scrollTarget: '',
     detectedEmotion: null
-  },
-
-  onLoad() {
-    this.loadCoins()
   },
 
   onHide() {
@@ -21,13 +16,6 @@ Page({
   goBack() {
     this.saveDialogue()
     wx.navigateBack()
-  },
-
-  loadCoins() {
-    const coins = wx.getStorageSync('awakeningCoins')
-    if (typeof coins === 'number') {
-      this.setData({ coins })
-    }
   },
 
   onInput(e) {
@@ -59,10 +47,7 @@ Page({
 
   sendMessage() {
     const text = this.data.inputValue.trim()
-    if (!text || this.data.loading || this.data.coins < 3) return
-
-    const coins = this.data.coins - 3
-    wx.setStorageSync('awakeningCoins', coins)
+    if (!text || this.data.loading) return
 
     const newMsg = { role: 'user', content: text }
     const messages = [...this.data.messages, newMsg]
@@ -74,7 +59,6 @@ Page({
       messages,
       inputValue: '',
       loading: true,
-      coins,
       detectedEmotion: emotion
     })
 

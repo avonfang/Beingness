@@ -38,7 +38,6 @@
   font-size: var(--text-body); color: var(--text); line-height: 1.9;
   display: block; white-space: pre-wrap;
 }
-.coins-low { color: #D4786A; }
 .thinking { color: var(--text-tertiary); animation: pulse 1.2s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 

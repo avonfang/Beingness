@@ -62,6 +62,34 @@ page {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Dark mode — 柔和深色，降低视觉疲劳 */
+@media (prefers-color-scheme: dark) {
+  page {
+    --bg: #1A1A1A;
+    --card: #2A2A2A;
+    --primary: #C4A06A;
+    --primary-dark: #B8945E;
+    --primary-light: #2A241A;
+    --gold: #C4A06A;
+    --gold-light: #2A241A;
+    --accent-green: #1A2A1E;
+    --accent-peach: #2A1E1A;
+
+    --text: #EBE8E0;
+    --text-secondary: #9A958A;
+    --text-tertiary: #6B665A;
+
+    --border: #3A3A3A;
+    --border-light: #2E2E2E;
+    --accent-warm-bg: #2A1E1A;
+    --accent-warm-text: #D48870;
+
+    --shadow-sm: 0 2rpx 12rpx rgba(0,0,0,0.2);
+    --shadow-md: 0 8rpx 32rpx rgba(0,0,0,0.3);
+    --shadow-lg: 0 16rpx 48rpx rgba(0,0,0,0.4);
+  }
+}
+
 /* ====================================
    Card — 纯阴影，无边框
    ==================================== */

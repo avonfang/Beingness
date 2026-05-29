@@ -11,16 +11,22 @@
   />
 
   <!-- Guided steps -->
-  <guide-step
-    wx:elif="{{phase === 'guide'}}"
-    text="{{currentStep.text}}"
-    options="{{currentStep.options}}"
-    showNext="{{currentStep.showNext}}"
-    stepIndex="{{stepIndex}}"
-    totalSteps="{{totalSteps}}"
-    bind:select="onGuideSelect"
-    bind:next="onGuideNext"
-  />
+  <view wx:elif="{{phase === 'guide'}}" class="guide-header">
+    <view class="guide-back" bindtap="onGuideBack">
+      <text class="guide-back-icon">←</text>
+      <text wx:if="{{stepIndex > 0}}" class="guide-back-label">上一步</text>
+      <text wx:else class="guide-back-label">返回</text>
+    </view>
+    <guide-step
+      text="{{currentStep.text}}"
+      options="{{currentStep.options}}"
+      showNext="{{currentStep.showNext}}"
+      stepIndex="{{stepIndex}}"
+      totalSteps="{{totalSteps}}"
+      bind:select="onGuideSelect"
+      bind:next="onGuideNext"
+    />
+  </view>
 
   <!-- Complete + note -->
   <view wx:elif="{{phase === 'complete'}}" class="complete-view">

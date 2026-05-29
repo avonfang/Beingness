@@ -48,10 +48,6 @@
       <view class="tool-icon-wrap gold">💬</view>
       <text class="tool-label">对话</text>
     </view>
-    <view class="tool-btn" bindtap="goLearning">
-      <view class="tool-icon-wrap purple">📖</view>
-      <text class="tool-label">学习</text>
-    </view>
     <view class="tool-btn" bindtap="goProfile">
       <view class="tool-icon-wrap peach">📊</view>
       <text class="tool-label">报告</text>

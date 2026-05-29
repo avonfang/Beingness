@@ -83,6 +83,19 @@ Page({
     }
   },
 
+  onGuideBack() {
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
+    const stepIndex = this.data.stepIndex
+    if (stepIndex > 0) {
+      // Go back to previous step
+      const prevStep = this.resolveStep(this.data.steps[stepIndex - 1], null)
+      this.setData({ stepIndex: stepIndex - 1, currentStep: prevStep })
+    } else {
+      // Go back to emotion selection
+      this.setData({ phase: 'select', stepIndex: 0, selectedEmotion: '', selectedOptions: {} })
+    }
+  },
+
   onGuideNext() {
     const stepIndex = this.data.stepIndex
     if (stepIndex < this.data.steps.length - 1) {

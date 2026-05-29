@@ -15,14 +15,13 @@
       <view class="msg-avatar assistant">🧘</view>
       <view class="msg-content">
         <view class="welcome-bubble">
-          <text class="msg-text" wx:if="{{coins >= 3}}">你好。我在这里——不是给你答案，而是陪你一起看清。</text>
-          <text class="msg-text coins-low" wx:if="{{coins < 3}}">你的觉醒币不足，完成急救或课程可以获得更多。</text>
+          <text class="msg-text">你好。我在这里——不是给你答案，而是陪你一起看清。</text>
         </view>
       </view>
     </view>
 
     <!-- Suggested topics (first visit only) -->
-    <view class="suggestions" wx:if="{{messages.length === 0 && coins >= 3}}">
+    <view class="suggestions" wx:if="{{messages.length === 0}}">
       <text class="suggestions-label">试着聊聊：</text>
       <view class="suggestion-tags">
         <view class="suggestion-tag" bindtap="sendQuickMsg" data-msg="最近压力很大，睡不好">
@@ -77,8 +76,8 @@
       value="{{inputValue}}"
       bindinput="onInput"
       bindconfirm="sendMessage"
-      disabled="{{loading || coins < 3}}"
+      disabled="{{loading}}"
     />
-    <button class="btn btn-primary btn-send" bindtap="sendMessage" disabled="{{!inputValue.trim() || loading || coins < 3}}">发送</button>
+    <button class="btn btn-primary btn-send" bindtap="sendMessage" disabled="{{!inputValue.trim() || loading}}">发送</button>
   </view>
 </view>

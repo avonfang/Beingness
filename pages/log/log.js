@@ -43,5 +43,13 @@ Page({
       grouped[date].entries.sort((a, b) => b._sort - a._sort)
     })
     this.setData({ list: Object.values(grouped).sort((a, b) => b.date.localeCompare(a.date)) })
+  },
+
+  goEmergency() {
+    wx.navigateTo({ url: '/pages/emergency/emergency' })
+  },
+
+  goBreath() {
+    wx.navigateTo({ url: '/pages/breath/breath' })
   }
 })

@@ -49,6 +49,16 @@
 }
 .crisis-text { font-size: var(--text-caption); color: var(--accent-warm-text); line-height: 1.8; display: block; }
 
+/* Guide back nav */
+.guide-header { animation: fadeInUp 0.35s ease-out both; }
+.guide-back {
+  display: flex; align-items: center; gap: var(--space-4); padding: var(--space-8) 0;
+  transition: transform 0.12s;
+}
+.guide-back:active { transform: scale(0.97); }
+.guide-back-icon { font-size: var(--space-16); color: var(--text-secondary); }
+.guide-back-label { font-size: var(--text-caption); color: var(--text-secondary); }
+
 /* Ambient */
 .ambient-circle {
   width: 200rpx; height: 200rpx;
