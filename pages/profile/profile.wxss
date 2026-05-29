@@ -56,6 +56,14 @@
 }
 .card-title { font-size: var(--text-caption); color: var(--text-tertiary); font-weight: 600; letter-spacing: 2rpx; display: block; margin-bottom: var(--space-12); }
 
+/* Section headers — Apple Health-style grouping */
+.section-header {
+  font-size: var(--text-headline); font-weight: 600; color: var(--text);
+  display: block; margin-top: var(--space-24); margin-bottom: var(--space-8);
+  padding: 0 var(--space-4);
+}
+.section-header:first-of-type { margin-top: var(--space-4); }
+
 /* Emotion bars */
 .bar-row { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-12); }
 .bar-label { width: 80rpx; font-size: var(--text-caption); color: var(--text); font-weight: 500; display: block; }

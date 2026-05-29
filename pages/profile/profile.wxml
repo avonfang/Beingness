@@ -45,6 +45,9 @@
     <view class="shop-note">持续练习积累觉醒币，更多用途即将开放</view>
   </view>
 
+  <!-- Section: 练习概览 -->
+  <text class="section-header">练习概览</text>
+
   <!-- Stats -->
   <view class="stats-grid">
     <view class="stat-card">
@@ -64,6 +67,9 @@
       <text class="stat-label">完成课程</text>
     </view>
   </view>
+
+  <!-- Section: 情绪数据 -->
+  <text class="section-header">情绪数据</text>
 
   <!-- Emotion distribution -->
   <view class="emotion-card">
@@ -119,6 +125,9 @@
       </text>
     </view>
   </view>
+
+  <!-- Section: 成长 -->
+  <text class="section-header">成长</text>
 
   <!-- Achievements -->
   <view class="achievements-card" wx:if="{{achievements.length > 0}}">
