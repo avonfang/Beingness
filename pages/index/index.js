@@ -1,16 +1,10 @@
 const { getDailyPractice } = require('../../data/dailies')
 
-const quotes = [
-  '你不是你的情绪——你是观察者。',
-  '当下是你唯一真正拥有的东西。',
-  '痛苦只能存在于当下，但它无法存在于当下——这是个悖论。',
-  '你不是那片云，你是看云的人。',
-  '当你与思维认同时，你找到了暂时的避难所，却失去了永久的平静。',
-  '臣服不是放弃，而是放下对"此刻"的抗拒。',
-  '内心的能量如果不被阻塞，它就是生命的喜悦。',
-  '问题只存在于时间中。在当下，它不存在。',
-  '自由不是控制你的想法，而是不再被它们控制。',
-  '在观察者的位置，万事万物都顺其自然。'
+const EMOTION_TAGS = [
+  { value: 'anxiety', label: '焦虑', icon: '😰' },
+  { value: 'anger', label: '愤怒', icon: '😤' },
+  { value: 'low', label: '低落', icon: '😔' },
+  { value: 'tangled', label: '纠结', icon: '😵‍💫' }
 ]
 
 const RECOMMENDATIONS = {
@@ -46,26 +40,25 @@ const RECOMMENDATIONS = {
 
 Page({
   data: {
-    dailyQuote: '',
     awakeningCoins: 0,
     hasSeenOnboarding: false,
-    showCheckIn: false,
     streakDays: 0,
     recommendation: null,
     dailyPractice: null,
     isPremium: false,
-    themeClass: 'theme-default'
+    themeClass: 'theme-default',
+    showEmotionTags: true
   },
 
   onLoad() {
-    const today = new Date().getDate()
     const hasSeen = wx.getStorageSync('hasSeenOnboarding') || false
     const theme = wx.getStorageSync('appTheme') || 'default'
+    const tagUses = wx.getStorageSync('emotionTagUses') || 0
     this.setData({
-      dailyQuote: quotes[today % quotes.length],
       hasSeenOnboarding: hasSeen,
       dailyPractice: getDailyPractice(),
-      themeClass: 'theme-' + theme
+      themeClass: 'theme-' + theme,
+      showEmotionTags: tagUses < 3
     })
   },
 
@@ -76,8 +69,8 @@ Page({
     const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({ awakeningCoins: coins, streakDays, isPremium, themeClass: 'theme-' + theme })
 
-    this.checkDailyCheckIn()
     this.loadRecommendation()
+    this.tryAutoCheckIn()
   },
 
   loadRecommendation() {
@@ -96,37 +89,23 @@ Page({
     const recommendation = RECOMMENDATIONS[maxEmotion]
     if (!recommendation) return
 
-    // Check if already completed this lesson
     const course = require('../../data/courses')
     const lesson = course[recommendation.path]?.lessons[recommendation.lessonIndex]
     if (!lesson) return
 
     const completed = wx.getStorageSync(`lesson_${recommendation.path}_${lesson.id}`) || false
-    if (completed) return // Already completed, don't recommend
+    if (completed) return
 
     this.setData({ recommendation })
   },
 
-  goRecommendLesson() {
-    const rec = this.data.recommendation
-    if (!rec) return
-    wx.navigateTo({
-      url: `/pages/learning/lesson/lesson?path=${rec.path}&lessonIndex=${rec.lessonIndex}`
-    })
-  },
-
-  checkDailyCheckIn() {
+  // Auto check-in silently when user opens app on a new day
+  tryAutoCheckIn() {
     const lastDate = wx.getStorageSync('lastCheckInDate') || ''
     const today = new Date().toLocaleDateString('zh-CN')
-    if (lastDate !== today) {
-      this.setData({ showCheckIn: true })
-    }
-  },
+    if (lastDate === today) return
 
-  doCheckIn() {
-    const lastDate = wx.getStorageSync('lastCheckInDate') || ''
     const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('zh-CN')
-    const today = new Date().toLocaleDateString('zh-CN')
 
     let streakDays = wx.getStorageSync('streakDays') || 0
     if (lastDate === yesterday) {
@@ -138,31 +117,55 @@ Page({
     wx.setStorageSync('lastCheckInDate', today)
     wx.setStorageSync('streakDays', streakDays)
 
-    const coins = wx.getStorageSync('awakeningCoins') || 0
-
+    // Check milestone bonus
     let bonus = 0
     if (streakDays === 3) bonus = 5
     else if (streakDays === 7) bonus = 10
     else if (streakDays === 30) bonus = 30
     if (bonus > 0) {
+      const coins = wx.getStorageSync('awakeningCoins') || 0
       wx.setStorageSync('awakeningCoins', coins + bonus)
     }
 
     this.setData({
-      showCheckIn: false,
       streakDays,
       awakeningCoins: wx.getStorageSync('awakeningCoins') || 0
     })
 
-    const nextMilestone = streakDays < 3 ? 3 - streakDays : streakDays < 7 ? 7 - streakDays : streakDays < 30 ? 30 - streakDays : 0
-    let msg = `签到成功 · 连续 ${streakDays} 天`
-    if (bonus > 0) msg += `\n里程碑奖励 +${bonus} 觉醒币 ✦`
-    if (nextMilestone > 0) msg += `\n再签到 ${nextMilestone} 天到达下个里程碑`
-    wx.showToast({ title: msg, icon: 'none', duration: 2500 })
+    // Quiet notification — no modal, just a subtle toast
+    if (bonus > 0) {
+      wx.showToast({
+        title: `🔥 连续 ${streakDays} 天 · 奖励 ${bonus} 心意`,
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
 
-  skipCheckIn() {
-    this.setData({ showCheckIn: false })
+  // Emotion tag tapped → navigate to emergency with pre-selected emotion
+  onEmotionSelect(e) {
+    const emotion = e.currentTarget.dataset.emotion
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
+
+    // Track usage count — hide tags after 3 uses
+    const tagUses = (wx.getStorageSync('emotionTagUses') || 0) + 1
+    wx.setStorageSync('emotionTagUses', tagUses)
+    if (tagUses >= 3) {
+      this.setData({ showEmotionTags: false })
+    }
+
+    // Navigate to emergency with emotion pre-selected
+    wx.navigateTo({
+      url: `/pages/emergency/emergency?emotion=${emotion}`
+    })
+  },
+
+  goRecommendLesson() {
+    const rec = this.data.recommendation
+    if (!rec) return
+    wx.navigateTo({
+      url: `/pages/learning/lesson/lesson?path=${rec.path}&lessonIndex=${rec.lessonIndex}`
+    })
   },
 
   onOnboardingFinish() {
@@ -193,7 +196,6 @@ Page({
     const p = this.data.dailyPractice
     if (!p) return
 
-    // Premium gate
     if (p.premium) {
       const isPremium = wx.getStorageSync('isPremium') || false
       if (!isPremium) {

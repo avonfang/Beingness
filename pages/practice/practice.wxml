@@ -33,7 +33,7 @@
     <text class="complete-desc">你已经完成了这次练习</text>
 
     <view class="complete-badges">
-      <text class="badge">+2 觉醒币</text>
+      <text class="badge">+2 ❤️</text>
     </view>
 
     <view class="btn btn-primary btn-lg" bindtap="onComplete">返回课程</view>

@@ -1,12 +1,5 @@
 const util = require('../../utils/util')
 const report = require('../../utils/report')
-const { THEMES } = require('../../data/themes')
-
-const COIN_PACKS = [
-  { id: 'small', icon: '🌱', label: '6 枚觉醒币', price: '¥6', bonus: 0 },
-  { id: 'medium', icon: '🌿', label: '30 枚觉醒币', price: '¥25', bonus: 6 },
-  { id: 'large', icon: '🌳', label: '88 枚觉醒币', price: '¥68', bonus: 22 }
-]
 
 Page({
   data: {
@@ -23,16 +16,14 @@ Page({
     nextMilestone: null,
     achievements: [],
     weekReport: null,
-    coinPacks: COIN_PACKS,
     isPremium: false,
-    themes: Object.entries(THEMES).map(([id, t]) => ({ id, ...t })),
-    currentTheme: 'default'
+    themeClass: 'theme-default'
   },
 
   onShow() {
     const isPremium = wx.getStorageSync('isPremium') || false
-    const currentTheme = wx.getStorageSync('appTheme') || 'default'
-    this.setData({ isPremium, currentTheme })
+    const theme = wx.getStorageSync('appTheme') || 'default'
+    this.setData({ isPremium, themeClass: 'theme-' + theme })
     this.loadReport()
   },
 
@@ -117,89 +108,31 @@ Page({
     return { current, previous, trend }
   },
 
-  buyCoins(e) {
-    const packId = e.currentTarget.dataset.id
-    const pack = COIN_PACKS.find(p => p.id === packId)
-    if (!pack) return
-
-    wx.showModal({
-      title: `购买 ${pack.label}`,
-      content: `价格：${pack.price}${pack.bonus ? `（赠 ${pack.bonus} 币）` : ''}\n\n微信支付需开通商户号。点击确认模拟购买 +${pack.bonus > 0 ? pack.bonus + 6 : 6} 觉醒币。`,
-      success: (res) => {
-        if (res.confirm) {
-          const coins = wx.getStorageSync('awakeningCoins') || 0
-          const earned = pack.id === 'small' ? 6 : pack.id === 'medium' ? 36 : 110
-          wx.setStorageSync('awakeningCoins', coins + earned)
-          this.setData({ awakeningCoins: wx.getStorageSync('awakeningCoins') })
-          wx.showToast({ title: `+${earned} 觉醒币 ✦`, icon: 'success' })
-        }
-      }
-    })
-  },
-
   buyPremium() {
     wx.showModal({
-      title: '此刻 · 无限版',
-      content: '¥9.9/月 — 无限深度对话 · 高级呼吸模式 · 专属主题\n\n微信支付开通后即可订阅。点击确认模拟激活 30 天。',
+      title: '此刻 · 陪伴',
+      content: '¥9.9/月 — 无限使用此刻信箱 · 高级呼吸模式 · 每周专属练习\n\n微信支付开通后即可订阅。点击确认模拟激活 30 天。',
       success: (res) => {
         if (res.confirm) {
           wx.setStorageSync('isPremium', true)
           this.setData({ isPremium: true })
-          wx.showToast({ title: '无限版已激活 ✓', icon: 'success' })
+          wx.showToast({ title: '此刻 · 陪伴已激活 ✓', icon: 'success' })
         }
       }
     })
-  },
-
-  selectTheme(e) {
-    const themeId = e.currentTarget.dataset.theme
-    const theme = THEMES[themeId]
-    if (!theme) return
-
-    // Premium gate
-    if (theme.premium && !this.data.isPremium) {
-      wx.showModal({
-        title: '高级主题',
-        content: '「' + theme.name + '」主题仅限无限版订阅用户使用。升级后即可更换。',
-        confirmText: '查看升级',
-        cancelText: '稍后',
-        success: (res) => {
-          if (res.confirm) {
-            wx.showModal({
-              title: '此刻 · 无限版',
-              content: '¥9.9/月 — 解锁全部高级主题 · 无限对话 · 高级呼吸模式',
-              confirmText: '订阅',
-              cancelText: '取消',
-              success: (r) => {
-                if (r.confirm) {
-                  wx.setStorageSync('isPremium', true)
-                  this.setData({ isPremium: true })
-                  wx.showToast({ title: '无限版已激活 ✓', icon: 'success' })
-                }
-              }
-            })
-          }
-        }
-      })
-      return
-    }
-
-    wx.setStorageSync('appTheme', themeId)
-    this.setData({ currentTheme: themeId })
-    wx.showToast({ title: '已切换「' + theme.name + '」主题', icon: 'success' })
   },
 
   exportData() {
     const entries = wx.getStorageSync('pendingEntries') || []
     const dialogues = wx.getStorageSync('dialogueHistory') || []
 
-    let text = '=== 此刻 · 我的觉醒日志 ===\n'
+    let text = '=== 此刻 · 我的练习日志 ===\n'
     text += `导出时间：${new Date().toLocaleString('zh-CN')}\n`
     text += `连续练习：${this.data.streakDays} 天\n`
     text += `急救次数：${entries.length} 次\n`
-    text += `对话次数：${dialogues.length} 次\n`
+    text += `信件次数：${dialogues.length} 次\n`
     text += `完成课程：${this.data.totalLessons} 课\n`
-    text += `觉醒币：${this.data.awakeningCoins}\n\n`
+    text += `❤️ 心意：${this.data.awakeningCoins}\n\n`
 
     if (entries.length > 0) {
       text += '--- 情绪急救记录 ---\n'
@@ -216,11 +149,11 @@ Page({
     }
 
     if (dialogues.length > 0) {
-      text += '--- 深度对话记录 ---\n'
+      text += '--- 此刻信箱记录 ---\n'
       dialogues.forEach((d, i) => {
         const date = d.createdAt ? new Date(d.createdAt).toLocaleString('zh-CN') : '未知时间'
-        text += `${i + 1}. [${date}] ${d.messageCount} 条消息`
-        if (d.preview) text += ` · 「${d.preview}」`
+        text += `${i + 1}. [${date}]`
+        if (d.preview) text += ` 「${d.preview}」`
         text += '\n'
       })
     }

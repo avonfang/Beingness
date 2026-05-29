@@ -21,9 +21,35 @@ Page({
     themeClass: 'theme-default'
   },
 
-  onLoad() {
+  onLoad(options) {
     const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({ themeClass: 'theme-' + theme, startTime: Date.now() })
+
+    // If pre-selected emotion from homepage tags, skip selection
+    if (options && options.emotion) {
+      this.startWithEmotion(options.emotion)
+    }
+  },
+
+  startWithEmotion(emotion) {
+    const steps = guides[emotion].steps
+    const showCrisis = emotion === 'low'
+    if (showCrisis) {
+      wx.showModal({
+        title: '💛 我在这里',
+        content: '你选择面对此刻的感受，这已经很有勇气。\n\n如果你感到非常痛苦，请不要一个人承受。可以拨打心理援助热线：\n\n📞 全国心理援助热线：400-161-9995\n📞 北京心理危机研究与干预中心：010-82951332',
+        showCancel: false,
+        confirmText: '好的，继续'
+      })
+    }
+    this.setData({
+      selectedEmotion: emotion,
+      phase: 'guide',
+      steps: steps,
+      totalSteps: steps.length,
+      stepIndex: 0,
+      currentStep: this.resolveStep(steps[0], null)
+    })
   },
 
   onShow() {
@@ -144,7 +170,7 @@ Page({
     local.push(entry)
     wx.setStorageSync('pendingEntries', local)
     this.addCoin(1)
-    wx.showToast({ title: '+1 觉醒币', icon: 'success' })
+    wx.showToast({ title: '+1 ❤️', icon: 'success' })
     this.setData({ phase: 'done' })
   },
 

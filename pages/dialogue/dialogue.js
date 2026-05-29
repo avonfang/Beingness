@@ -4,11 +4,15 @@ const DAILY_FREE_LIMIT = 5
 
 Page({
   data: {
-    messages: [],
-    inputValue: '',
+    phase: 'compose', // compose | sent | upgrade
+    letterContent: '',
+    sentLetter: '',
+    reply: '',
+    replyParts: [], // empathy messages shown one by one
+    currentReplyIndex: -1,
     loading: false,
-    scrollTarget: '',
     detectedEmotion: null,
+    recommendedPractice: null,
     dailyRemaining: DAILY_FREE_LIMIT,
     isPremium: false,
     showUpgrade: false,
@@ -26,40 +30,15 @@ Page({
     this.setData({ themeClass: 'theme-' + theme })
   },
 
-  onHide() {
-    this.saveDialogue()
-  },
-
-  goBack() {
-    this.saveDialogue()
-    wx.navigateBack()
-  },
-
   onInput(e) {
-    this.setData({ inputValue: e.detail.value })
-  },
-
-  saveDialogue() {
-    const msgs = this.data.messages
-    if (msgs.length === 0) return
-
-    const history = wx.getStorageSync('dialogueHistory') || []
-    const firstMsg = msgs.find(m => m.role === 'user')
-    history.unshift({
-      id: Date.now(),
-      type: 'dialogue',
-      messageCount: msgs.length,
-      preview: firstMsg ? firstMsg.content.slice(0, 40) : '',
-      createdAt: new Date().toISOString()
-    })
-    wx.setStorageSync('dialogueHistory', history.slice(0, 50))
+    this.setData({ letterContent: e.detail.value })
   },
 
   sendQuickMsg(e) {
     wx.vibrateShort({ type: 'light' }).catch(() => {})
     const msg = e.currentTarget.dataset.msg
-    this.setData({ inputValue: msg })
-    this.sendMessage()
+    this.setData({ letterContent: msg })
+    this.sendLetter()
   },
 
   checkDailyLimit() {
@@ -68,7 +47,6 @@ Page({
     const isPremium = wx.getStorageSync('isPremium') || false
 
     if (lastDate !== today) {
-      // New day, reset counter
       wx.setStorageSync('dailyMsgDate', today)
       wx.setStorageSync('dailyMsgCount', 0)
       this.setData({ dailyRemaining: DAILY_FREE_LIMIT, isPremium, showUpgrade: false })
@@ -79,8 +57,8 @@ Page({
     }
   },
 
-  sendMessage() {
-    const text = this.data.inputValue.trim()
+  sendLetter() {
+    const text = this.data.letterContent.trim()
     if (!text || this.data.loading) return
 
     // Check daily limit
@@ -93,38 +71,102 @@ Page({
     const count = (wx.getStorageSync('dailyMsgCount') || 0) + 1
     wx.setStorageSync('dailyMsgCount', count)
 
-    const newMsg = { role: 'user', content: text }
-    const messages = [...this.data.messages, newMsg]
-
     const emotion = detectEmotion(text)
 
+    // Build recommended practice based on emotion
+    const practiceMap = {
+      anxiety: { label: '4-7-8 呼吸 · 3 分钟', page: 'breath', params: 'pattern=478' },
+      anger: { label: '箱式呼吸 · 4 分钟', page: 'breath', params: 'pattern=box' },
+      low: { label: '身体扫描练习', page: 'practice' },
+      tangled: { label: '观察思维练习', page: 'practice' }
+    }
+    const practice = practiceMap[emotion] || null
+
     this.setData({
-      messages,
-      inputValue: '',
+      phase: 'sent',
+      sentLetter: text,
+      letterContent: '',
       loading: true,
       detectedEmotion: emotion,
+      reply: '',
+      replyParts: [],
+      currentReplyIndex: -1,
+      recommendedPractice: practice,
       dailyRemaining: this.data.isPremium ? 999 : Math.max(0, DAILY_FREE_LIMIT - count)
     })
 
-    this.scrollToBottom()
-    setTimeout(() => this.localReply(text), 400)
+    this.saveLetter(text)
+    this.startEmpathySequence()
   },
 
-  localReply(userText) {
-    const reply = generateReply(this.data.messages)
-    setTimeout(() => {
-      this.setData({
-        messages: [...this.data.messages, { role: 'assistant', content: reply }],
-        loading: false,
-        detectedEmotion: null
-      })
-      this.scrollToBottom()
-    }, 800)
+  startEmpathySequence() {
+    const emotion = this.data.detectedEmotion
+    const emotionLabel = emotion === 'anxiety' ? '焦虑' : emotion === 'anger' ? '愤怒' : emotion === 'low' ? '低落' : '纠结'
+
+    // Empathy messages shown one by one
+    const empathyMessages = [
+      '我在看……',
+      `我感受到你的「${emotionLabel}」了`,
+      '让我想想怎么回你'
+    ]
+
+    this.setData({ replyParts: empathyMessages, currentReplyIndex: -1 })
+
+    // Show each empathy message with delay
+    empathyMessages.forEach((_, idx) => {
+      setTimeout(() => {
+        this.setData({ currentReplyIndex: idx })
+        // On last empathy message, generate the actual reply
+        if (idx === empathyMessages.length - 1) {
+          setTimeout(() => this.generateReply(), 400)
+        }
+      }, idx * 700)
+    })
   },
 
-  scrollToBottom() {
-    setTimeout(() => {
-      this.setData({ scrollTarget: 'scroll-bottom' })
-    }, 150)
+  generateReply() {
+    const reply = generateReply([{ role: 'user', content: this.data.sentLetter }])
+    this.setData({
+      reply,
+      loading: false
+    })
+  },
+
+  saveLetter(text) {
+    const history = wx.getStorageSync('dialogueHistory') || []
+    history.unshift({
+      id: Date.now(),
+      type: 'letter',
+      messageCount: 1,
+      preview: text.slice(0, 40),
+      createdAt: new Date().toISOString()
+    })
+    wx.setStorageSync('dialogueHistory', history.slice(0, 50))
+  },
+
+  goPractice() {
+    const practice = this.data.recommendedPractice
+    if (!practice) return
+    if (practice.page === 'breath') {
+      wx.navigateTo({ url: '/pages/breath/breath' })
+    } else {
+      wx.navigateTo({ url: '/pages/practice/practice' })
+    }
+  },
+
+  writeAnother() {
+    this.setData({
+      phase: 'compose',
+      sentLetter: '',
+      reply: '',
+      replyParts: [],
+      currentReplyIndex: -1,
+      detectedEmotion: null,
+      recommendedPractice: null
+    })
+  },
+
+  goBack() {
+    wx.navigateBack()
   }
 })

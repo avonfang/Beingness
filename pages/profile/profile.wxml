@@ -1,8 +1,8 @@
-<view class="container">
+<view class="container {{themeClass}}">
   <!-- Hero card -->
   <view class="hero-card">
-    <text class="hero-greeting">觉醒者</text>
-    <text class="hero-name">我的觉醒报告</text>
+    <text class="hero-greeting">我的练习报告</text>
+    <text class="hero-name">此刻</text>
     <text class="hero-streak">🔥 连续练习 {{streakDays}} 天</text>
   </view>
 
@@ -22,35 +22,22 @@
     </view>
   </view>
 
-  <!-- Coins + earn -->
+  <!-- ❤️ 心意 display -->
   <view class="coins-section">
-    <view class="coins-icon-bg">✦</view>
+    <view class="coins-icon-bg">❤️</view>
     <view class="coins-info">
       <text class="coins-amount">{{awakeningCoins}}</text>
       <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 签到 + 里程碑奖励</text>
     </view>
   </view>
 
-  <!-- Coin shop -->
-  <view class="shop-card">
-    <text class="card-title">觉醒币商城</text>
-    <view class="shop-row" wx:for="{{coinPacks}}" wx:key="id" catchtap="buyCoins" data-id="{{item.id}}">
-      <text class="shop-icon">{{item.icon}}</text>
-      <view class="shop-info">
-        <text class="shop-desc">{{item.label}}</text>
-        <text class="shop-bonus" wx:if="{{item.bonus}}">赠 {{item.bonus}} 币</text>
-      </view>
-      <text class="shop-price">{{item.price}}</text>
-    </view>
-  </view>
-
   <!-- Premium upgrade card -->
   <view class="premium-card" wx:if="{{!isPremium}}">
     <view class="premium-header">
-      <text class="premium-icon">👑</text>
-      <text class="premium-title">此刻 · 无限版</text>
+      <text class="premium-icon">💌</text>
+      <text class="premium-title">此刻 · 陪伴</text>
     </view>
-    <text class="premium-desc">无限深度对话 · 高级呼吸模式 · 专属主题 · 优先新内容</text>
+    <text class="premium-desc">无限使用此刻信箱 · 高级呼吸模式 · 每周专属练习 · 优先新内容</text>
     <view class="premium-price-row">
       <text class="premium-amount">¥9.9<text class="premium-unit">/月</text></text>
       <view class="btn btn-primary btn-md" catchtap="buyPremium">订阅</view>
@@ -68,7 +55,7 @@
     </view>
     <view class="stat-card">
       <text class="stat-num">{{totalDialogues}}</text>
-      <text class="stat-label">对话次数</text>
+      <text class="stat-label">信件次数</text>
     </view>
     <view class="stat-card">
       <text class="stat-num">{{avgRecovery}}<text class="stat-unit">min</text></text>
@@ -156,22 +143,6 @@
   <view class="insight-card">
     <text class="card-title">数据洞察</text>
     <text class="insight-text">{{insight}}</text>
-  </view>
-
-  <!-- Section: 主题 -->
-  <text class="section-header">主题</text>
-
-  <view class="theme-card">
-    <text class="card-title">选择外观主题</text>
-    <view class="theme-grid">
-      <view class="theme-item {{currentTheme === item.id ? 'active' : ''}} {{item.premium && !isPremium ? 'locked' : ''}}" wx:for="{{themes}}" wx:key="id" data-theme="{{item.id}}" bindtap="selectTheme">
-        <view class="theme-swatch theme-swatch-{{item.id}}">
-          <text class="theme-swatch-icon">{{item.premium && !isPremium ? '🔒' : '✓'}}</text>
-        </view>
-        <text class="theme-name">{{item.name}}</text>
-        <text class="theme-desc">{{item.desc}}</text>
-      </view>
-    </view>
   </view>
 
   <!-- Export -->

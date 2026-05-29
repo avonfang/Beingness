@@ -6,30 +6,50 @@
     <text class="logo-word">此刻</text>
     <view class="header-right">
       <text class="streak-badge">🔥 {{streakDays}}天</text>
-      <text class="coin-badge">✦ {{awakeningCoins}}</text>
+      <text class="coin-badge">❤️ {{awakeningCoins}}</text>
     </view>
   </view>
 
-  <!-- Daily check-in banner -- inline, non-blocking -->
-  <view class="checkin-banner" wx:if="{{showCheckIn}}" bindtap="doCheckIn">
-    <text class="checkin-banner-icon">🌅</text>
-    <view class="checkin-banner-info">
-      <text class="checkin-banner-title">签到</text>
-      <text class="checkin-banner-desc" wx:if="{{streakDays > 0}}">连续 {{streakDays}} 天</text>
-      <text class="checkin-banner-desc" wx:else>新的一天，从觉察开始</text>
-    </view>
-    <text class="checkin-banner-arrow">→</text>
+  <!-- New hero — 你现在感觉怎样？ -->
+  <view class="mood-hero">
+    <text class="mood-icon">🧘</text>
+    <text class="mood-question">你现在感觉怎样？</text>
   </view>
 
-  <!-- Hero CTA -- 此刻最重要的事 -->
-  <view class="hero-cta fade-in" bindtap="startEmergency">
-    <text class="cta-icon">🌿</text>
-    <text class="cta-title">心里有什么事吗？</text>
-    <text class="cta-desc">和我说说，我陪你一起看看</text>
+  <!-- Quick emotion tags (hide after 3 uses) -->
+  <view class="emotion-tags" wx:if="{{showEmotionTags}}">
+    <view class="emotion-tag" data-emotion="anxiety" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😰</text>
+      <text class="emotion-tag-label">焦虑</text>
+    </view>
+    <view class="emotion-tag" data-emotion="anger" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😤</text>
+      <text class="emotion-tag-label">愤怒</text>
+    </view>
+    <view class="emotion-tag" data-emotion="low" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😔</text>
+      <text class="emotion-tag-label">低落</text>
+    </view>
+    <view class="emotion-tag" data-emotion="tangled" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😵‍💫</text>
+      <text class="emotion-tag-label">纠结</text>
+    </view>
+  </view>
+
+  <!-- Quick actions -->
+  <view class="quick-actions">
+    <view class="quick-action" bindtap="goBreath">
+      <text class="quick-action-icon">🌬️</text>
+      <text class="quick-action-label">不想说话，先呼吸</text>
+    </view>
+    <view class="quick-action" bindtap="goDialogue">
+      <text class="quick-action-icon">💌</text>
+      <text class="quick-action-label">写一封信给自己</text>
+    </view>
   </view>
 
   <!-- Daily practice card -->
-  <view class="daily-card fade-in {{dailyPractice.premium && !isPremium ? 'locked' : ''}}" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
+  <view class="daily-card {{dailyPractice.premium && !isPremium ? 'locked' : ''}}" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
     <view class="daily-header">
       <text class="daily-label">今日练习</text>
       <text class="daily-path">{{dailyPractice.pathLabel}}</text>
@@ -37,7 +57,6 @@
     </view>
     <text class="daily-title">{{dailyPractice.premium && !isPremium ? '🔒 ' : ''}}{{dailyPractice.title}}</text>
     <text class="daily-subtitle">{{dailyPractice.subtitle}}</text>
-    <view class="daily-arrow">{{dailyPractice.premium && !isPremium ? '升级解锁' : '→ 开始练习'}}</view>
   </view>
 
   <!-- Recommendation -->
@@ -50,25 +69,5 @@
     <text class="rec-strip-go">→</text>
   </view>
 
-  <!-- Quick tools -->
-  <view class="tool-grid fade-in-d1">
-    <view class="tool-btn" bindtap="goBreath">
-      <view class="tool-icon-wrap green">🌬️</view>
-      <text class="tool-label">呼吸</text>
-    </view>
-    <view class="tool-btn" bindtap="goDialogue">
-      <view class="tool-icon-wrap gold">💬</view>
-      <text class="tool-label">对话</text>
-    </view>
-    <view class="tool-btn" bindtap="goProfile">
-      <view class="tool-icon-wrap peach">📊</view>
-      <text class="tool-label">报告</text>
-    </view>
-  </view>
-
-  <!-- Daily quote (below fold) -->
-  <view class="quote-strip fade-in-d2">
-    <text class="quote-mark">"</text>
-    <text class="quote-body">{{dailyQuote}}</text>
-  </view>
+  <!-- Check-in is no longer a banner — it auto-triggers after core actions -->
 </view>

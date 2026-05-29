@@ -12,7 +12,7 @@ const ACHIEVEMENTS = [
   { id: 'streak3', label: '三日初醒', desc: '连续签到 3 天', icon: '✨', check: (e, l, p, s) => s >= 3 },
   { id: 'streak7', label: '七日觉醒', desc: '连续签到 7 天', icon: '🌟', check: (e, l, p, s) => s >= 7 },
   { id: 'streak30', label: '三十日觉者', desc: '连续签到 30 天', icon: '👑', check: (e, l, p, s) => s >= 30 },
-  { id: 'first_dialogue', label: '初次对话', desc: '完成第一次深度对话', icon: '💬', check: (e, l, p, s, d) => d >= 1 },
+  { id: 'first_dialogue', label: '第一封信', desc: '给此刻写第一封信', icon: '💌', check: (e, l, p, s, d) => d >= 1 },
   { id: 'rich_emotions', label: '情绪光谱', desc: '体验过所有 4 种情绪急救', icon: '🌈', check: (e, l, p, s, d, types) => Object.keys(types).length >= 4 },
 ]
 
@@ -66,7 +66,7 @@ function generateInsight(entries, streakDays, totalLessons, totalDialogues) {
 
   // Dialogue insight
   if (totalDialogues > 0) {
-    parts.push(`进行了 ${totalDialogues} 次深度对话。通过表达，你看见了更多。`)
+    parts.push(`写了 ${totalDialogues} 封信。通过表达，你看见了更多。`)
   }
 
   return parts.join('\n')

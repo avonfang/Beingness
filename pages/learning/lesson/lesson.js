@@ -58,7 +58,7 @@ Page({
     if (!rewarded) return
 
     this.setData({ isCompleted: true })
-    wx.showToast({ title: '+2 觉醒币', icon: 'success' })
+    wx.showToast({ title: '+2 ❤️', icon: 'success' })
   },
 
   nextLesson() {

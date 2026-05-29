@@ -49,7 +49,7 @@
     </view>
     <text class="done-title">练习完成</text>
     <text class="done-desc">你完成了 {{totalRounds}} 轮呼吸</text>
-    <text class="done-coin">+1 觉醒币</text>
+    <text class="done-coin">+1 ❤️</text>
     <view class="done-actions">
       <view class="btn btn-outline btn-md" bindtap="restart">再来一次</view>
       <view class="btn btn-primary btn-md" bindtap="finish">完成</view>

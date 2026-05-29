@@ -29,7 +29,7 @@ Page({
           id: entry.id,
           type: 'dialogue',
           time: util.formatTime(ts),
-          preview: entry.preview || '深度对话',
+          preview: entry.preview || '此刻信箱',
           messageCount: entry.messageCount,
           _sort: ts.getTime()
         })

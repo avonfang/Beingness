@@ -36,7 +36,7 @@
       <view class="entry-card dialogue-entry" wx:for="{{item.entries}}" wx:for-item="entry" wx:key="id" wx:if="{{entry.type === 'dialogue'}}">
         <view class="entry-header">
           <text class="entry-emoji">💬</text>
-          <text class="entry-type">深度对话</text>
+          <text class="entry-type">此刻信箱</text>
           <text class="entry-time">{{entry.time}}</text>
         </view>
         <text class="entry-dialogue-preview">{{entry.preview}}</text>

@@ -1,31 +1,36 @@
 <view class="container {{themeClass}}">
   <!-- Header -->
-  <view class="chat-header">
-    <view class="chat-back" bindtap="goBack">
-      <text class="chat-back-icon">←</text>
+  <view class="letter-header">
+    <view class="letter-back" bindtap="goBack">
+      <text class="letter-back-icon">←</text>
     </view>
-    <text class="chat-header-icon">🧘</text>
-    <text class="chat-header-title">深度对话</text>
+    <text class="letter-header-icon">💌</text>
+    <text class="letter-header-title">此刻信箱</text>
     <text class="daily-badge" wx:if="{{!isPremium}}">免费 {{dailyRemaining}}/5</text>
     <text class="daily-badge premium" wx:if="{{isPremium}}">无限</text>
   </view>
 
-  <!-- Messages -->
-  <scroll-view class="msg-list" scroll-y scroll-into-view="{{scrollTarget}}" scroll-with-animation>
-    <!-- Welcome message -->
-    <view class="msg-row assistant" id="msg-0">
-      <view class="msg-avatar assistant">🧘</view>
-      <view class="msg-content">
-        <view class="welcome-bubble">
-          <text class="msg-text">你好。我在这里——不是给你答案，而是陪你一起看清。</text>
-        </view>
+  <!-- Compose phase — 写信 -->
+  <view class="letter-body" wx:if="{{phase === 'compose'}}">
+    <view class="letter-paper">
+      <text class="letter-salutation">给此刻的信：</text>
+      <textarea
+        class="letter-textarea"
+        placeholder="说说你此刻的感受……\n不用组织语言，想到什么写什么"
+        value="{{letterContent}}"
+        bindinput="onInput"
+        maxlength="-1"
+        auto-height
+      />
+      <view class="letter-paper-footer">
+        <text class="letter-paper-count">{{letterContent.length}} 字</text>
       </view>
     </view>
 
-    <!-- Suggested topics (first visit only) -->
-    <view class="suggestions" wx:if="{{messages.length === 0}}">
-      <text class="suggestions-label">试着聊聊：</text>
-      <view class="suggestion-tags">
+    <!-- Suggested topics for new users -->
+    <view class="letter-suggestions" wx:if="{{!letterContent}}">
+      <text class="letter-suggestions-label">不知从何说起？</text>
+      <view class="letter-suggestion-tags">
         <view class="suggestion-tag" bindtap="sendQuickMsg" data-msg="最近压力很大，睡不好">
           <text>😰 最近压力很大</text>
         </view>
@@ -41,54 +46,66 @@
       </view>
     </view>
 
-    <!-- Emotion badge -->
-    <view class="emotion-badge" wx:if="{{detectedEmotion}}">
-      <text class="badge-text">检测到：{{detectedEmotion === 'anxiety' ? '焦虑' : detectedEmotion === 'anger' ? '愤怒' : detectedEmotion === 'low' ? '低落' : detectedEmotion === 'tangled' ? '纠结' : ''}}</text>
+    <view class="letter-send-area" wx:if="{{letterContent.trim()}}">
+      <view class="btn btn-primary btn-md" bindtap="sendLetter">📮 寄出这封信</view>
     </view>
 
-    <!-- Upgrade prompt -->
+    <!-- Upgrade banner -->
     <view class="upgrade-banner" wx:if="{{showUpgrade}}">
       <text class="upgrade-icon">✦</text>
       <view class="upgrade-info">
-        <text class="upgrade-title">今日免费对话已达上限</text>
-        <text class="upgrade-desc">订阅后无限使用深度对话。每天 5 条免费额度，聊完了明天继续。</text>
+        <text class="upgrade-title">今日免费额度已达上限</text>
+        <text class="upgrade-desc">订阅后无限使用此刻信箱。每天 5 封免费额度，写完了明天继续。</text>
       </view>
     </view>
+  </view>
 
-    <!-- History -->
-    <view wx:for="{{messages}}" wx:key="index">
-      <view class="msg-row {{item.role === 'user' ? 'user' : 'assistant'}}">
-        <view class="msg-avatar {{item.role === 'assistant' ? 'assistant' : 'user'}}">
-          {{item.role === 'assistant' ? '🧘' : '🙂'}}
+  <!-- Sent phase — 显示回信 -->
+  <view class="letter-body" wx:if="{{phase === 'sent'}}">
+    <!-- The letter user sent -->
+    <view class="letter-paper sent">
+      <text class="letter-salutation">你写给此刻的信：</text>
+      <text class="letter-sent-text">{{sentLetter}}</text>
+    </view>
+
+    <!-- Reply section -->
+    <view class="reply-section">
+      <text class="reply-label">回信</text>
+
+      <!-- Empathy messages (shown one by one) -->
+      <view class="empathy-msg" wx:if="{{currentReplyIndex >= 0}}">
+        <text class="empathy-text">{{replyParts[0]}}</text>
+      </view>
+      <view class="empathy-msg" wx:if="{{currentReplyIndex >= 1}}">
+        <text class="empathy-text">{{replyParts[1]}}</text>
+      </view>
+      <view class="empathy-msg" wx:if="{{currentReplyIndex >= 2}}">
+        <text class="empathy-text">{{replyParts[2]}}</text>
+      </view>
+
+      <!-- Loading dots while generating reply -->
+      <text class="empathy-loading" wx:if="{{loading && currentReplyIndex >= 2}}">. . .</text>
+
+      <!-- Full reply -->
+      <view class="reply-content" wx:if="{{reply}}">
+        <text class="reply-text">{{reply}}</text>
+      </view>
+
+      <!-- Practice recommendation -->
+      <view class="practice-recommend" wx:if="{{recommendedPractice && reply}}">
+        <view class="practice-recommend-divider">推荐练习</view>
+        <view class="practice-recommend-btn" bindtap="goPractice">
+          <text class="practice-recommend-icon">🌬️</text>
+          <text class="practice-recommend-label">{{recommendedPractice.label}}</text>
+          <text class="practice-recommend-arrow">→</text>
         </view>
-        <view class="msg-content">
-          <text class="msg-text">{{item.content}}</text>
-        </view>
       </view>
     </view>
 
-    <!-- Loading -->
-    <view class="msg-row assistant" wx:if="{{loading}}">
-      <view class="msg-avatar assistant">🧘</view>
-      <view class="msg-content">
-        <text class="msg-text thinking">...</text>
-      </view>
+    <!-- Actions after reading -->
+    <view class="letter-actions" wx:if="{{reply}}">
+      <view class="btn btn-outline btn-md" bindtap="writeAnother">再写一封</view>
+      <view class="btn btn-primary btn-md" bindtap="goBack">完成</view>
     </view>
-
-    <view id="scroll-bottom"></view>
-  </scroll-view>
-
-  <!-- Input -->
-  <view class="input-area">
-    <input
-      class="msg-input"
-      type="text"
-      placeholder="说说你的感受..."
-      value="{{inputValue}}"
-      bindinput="onInput"
-      bindconfirm="sendMessage"
-      disabled="{{loading}}"
-    />
-    <button class="btn btn-primary btn-send" bindtap="sendMessage" disabled="{{!inputValue.trim() || loading}}">发送</button>
   </view>
 </view>

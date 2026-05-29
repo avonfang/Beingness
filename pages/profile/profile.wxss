@@ -1,7 +1,7 @@
-/* Profile v4 */
+/* Profile v5 — clean, no shop */
 .container { min-height: 100vh; padding: 0 var(--space-16); }
 
-/* Hero — 用深色渐变凸显层级 */
+/* Hero */
 .hero-card {
   background: linear-gradient(135deg, #1D1A13 0%, #3D3528 100%);
   border-radius: var(--radius-md); padding: var(--space-24) var(--space-20);
@@ -14,26 +14,32 @@
 .hero-name { font-size: var(--text-hero); font-weight: 600; display: block; margin-top: var(--space-2); }
 .hero-streak { font-size: var(--text-body); opacity: 0.7; display: block; margin-top: var(--space-4); }
 
-/* Milestone — 无边框纯阴影 */
+/* Milestone */
 .milestone-card { display: flex; align-items: center; gap: var(--space-12); background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-8); box-shadow: var(--shadow-sm); }
 .milestone-card.next { background: var(--bg); border: 2rpx dashed var(--border); box-shadow: none; }
 .milestone-emoji { font-size: var(--space-24); display: block; }
 .milestone-label { font-size: var(--text-body-large); font-weight: 600; color: var(--text); display: block; }
 .milestone-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
 
-/* Coins */
+/* ❤️ 心意 */
 .coins-section { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); display: flex; align-items: center; gap: var(--space-12); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); }
 .coins-icon-bg { width: 80rpx; height: 80rpx; border-radius: 50%; background: var(--gold-light); display: flex; align-items: center; justify-content: center; font-size: var(--space-20); flex-shrink: 0; }
 .coins-amount { font-size: var(--text-hero); font-weight: 700; color: var(--gold); display: block; line-height: 1; }
 .coins-rule { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-2); }
 
-/* Shop card */
-.shop-card { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); }
-.shop-row { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-8) 0; border-bottom: 2rpx solid var(--border-light); }
-.shop-icon { font-size: var(--space-16); width: var(--space-20); text-align: center; }
-.shop-desc { flex: 1; font-size: var(--text-body); color: var(--text); }
-.shop-cost { font-size: var(--text-caption); color: var(--gold); font-weight: 500; }
-.shop-note { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-8); text-align: center; }
+/* Premium card */
+.premium-card {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--card) 100%);
+  border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16);
+  box-shadow: var(--shadow-sm); border: 2rpx solid var(--gold-light);
+}
+.premium-header { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-8); }
+.premium-icon { font-size: var(--space-16); }
+.premium-title { font-size: var(--text-body-large); font-weight: 600; color: var(--text); }
+.premium-desc { font-size: var(--text-body); color: var(--text-secondary); display: block; line-height: 1.8; margin-bottom: var(--space-12); }
+.premium-price-row { display: flex; align-items: center; justify-content: space-between; }
+.premium-amount { font-size: var(--text-title); font-weight: 700; color: var(--gold); }
+.premium-unit { font-size: var(--text-body); color: var(--text-tertiary); font-weight: 400; }
 
 /* Stats */
 .stats-grid { display: flex; gap: var(--space-8); margin-bottom: var(--space-16); }
@@ -56,7 +62,7 @@
 }
 .card-title { font-size: var(--text-caption); color: var(--text-tertiary); font-weight: 600; letter-spacing: 2rpx; display: block; margin-bottom: var(--space-12); }
 
-/* Section headers — Apple Health-style grouping */
+/* Section headers */
 .section-header {
   font-size: var(--text-headline); font-weight: 600; color: var(--text);
   display: block; margin-top: var(--space-24); margin-bottom: var(--space-8);
@@ -97,21 +103,6 @@
 /* Insight */
 .insight-card { border-left: 6rpx solid var(--gold-light); }
 .insight-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 2; display: block; white-space: pre-line; }
-
-/* Theme selector */
-.theme-card { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); }
-.theme-grid { display: flex; gap: var(--space-8); }
-.theme-item { flex: 1; text-align: center; padding: var(--space-12) var(--space-8); border-radius: var(--radius-sm); border: 2rpx solid var(--border-light); transition: transform 0.12s, border-color 0.2s; }
-.theme-item.active { border-color: var(--gold); background: var(--gold-light); }
-.theme-item:active { transform: scale(0.97); }
-.theme-item.locked { opacity: 0.6; }
-.theme-swatch { width: 64rpx; height: 64rpx; border-radius: 50%; margin: 0 auto var(--space-4); display: flex; align-items: center; justify-content: center; }
-.theme-swatch-default { background: linear-gradient(135deg, #C4A06A, #E0C896); }
-.theme-swatch-ocean { background: linear-gradient(135deg, #5B8FB9, #8DB8D4); }
-.theme-swatch-forest { background: linear-gradient(135deg, #7A9E7E, #A8C8A8); }
-.theme-swatch-icon { font-size: var(--text-caption); color: #FFF; font-weight: 600; }
-.theme-name { font-size: var(--text-body); color: var(--text); font-weight: 500; display: block; }
-.theme-desc { font-size: 22rpx; color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
 
 /* Export */
 .export-area { text-align: center; padding: var(--space-24) 0 var(--space-40); }

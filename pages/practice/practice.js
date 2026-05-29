@@ -53,7 +53,7 @@ Page({
   onComplete() {
     const { path, lessonId } = this.data
     completeLesson(path, lessonId)
-    wx.showToast({ title: '+2 觉醒币 ✓', icon: 'success' })
+    wx.showToast({ title: '+2 ❤️', icon: 'success' })
     setTimeout(() => wx.navigateBack(), 1200)
   }
 })

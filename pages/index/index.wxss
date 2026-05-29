@@ -1,4 +1,4 @@
-/* Home page v4 */
+/* Home page v5 — 极简情绪入口 */
 .container { min-height: 100vh; padding: 0 var(--space-16); display: flex; flex-direction: column; }
 
 /* Header */
@@ -14,20 +14,33 @@
   padding: var(--space-2) var(--space-8); border-radius: var(--radius-lg);
 }
 
-/* Hero CTA */
-.hero-cta {
-  background: linear-gradient(135deg, #C4A06A 0%, #D4B88A 100%);
-  border-radius: var(--radius-md); padding: 48rpx var(--space-20);
-  text-align: center; margin: var(--space-4) 0 var(--space-12);
-  box-shadow: 0 8rpx 32rpx rgba(196,160,106,0.25);
-  transition: transform 0.12s;
-}
-.hero-cta:active { transform: scale(0.97); box-shadow: 0 4rpx 16rpx rgba(196,160,106,0.15); }
-.cta-icon { font-size: 56rpx; display: block; margin-bottom: var(--space-8); }
-.cta-title { font-size: var(--text-hero); font-weight: 600; color: #FFF; display: block; letter-spacing: 2rpx; }
-.cta-desc { font-size: var(--text-body); color: rgba(255,255,255,0.75); display: block; margin-top: var(--space-4); font-weight: 400; }
+/* Mood hero — 取代旧的 hero-cta */
+.mood-hero { text-align: center; padding: var(--space-24) 0 var(--space-16); animation: fadeInUp 0.35s ease-out both; }
+.mood-icon { font-size: 72rpx; display: block; margin-bottom: var(--space-8); }
+.mood-question { font-size: var(--text-title); font-weight: 600; color: var(--text); display: block; letter-spacing: 2rpx; }
 
-/* Daily practice card */
+/* Emotion quick tags — 4 宫格 */
+.emotion-tags { display: flex; gap: var(--space-8); margin-bottom: var(--space-16); animation: fadeInUp 0.35s ease-out 0.05s both; }
+.emotion-tag {
+  flex: 1; background: var(--card); border-radius: var(--radius-sm); padding: var(--space-12) var(--space-4);
+  text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.12s; box-sizing: border-box;
+}
+.emotion-tag:active { transform: scale(0.95); }
+.emotion-tag-icon { font-size: 40rpx; display: block; margin-bottom: var(--space-4); }
+.emotion-tag-label { font-size: var(--text-caption); color: var(--text-secondary); display: block; font-weight: 500; }
+
+/* Quick actions — 呼吸 + 写信 */
+.quick-actions { display: flex; gap: var(--space-8); margin-bottom: var(--space-16); animation: fadeInUp 0.35s ease-out 0.1s both; }
+.quick-action {
+  flex: 1; background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16);
+  display: flex; align-items: center; gap: var(--space-8); justify-content: center;
+  box-shadow: var(--shadow-sm); transition: transform 0.12s;
+}
+.quick-action:active { transform: scale(0.97); }
+.quick-action-icon { font-size: var(--space-16); }
+.quick-action-label { font-size: var(--text-body); color: var(--text-secondary); font-weight: 500; }
+
+/* Daily practice card — compact */
 .daily-card {
   background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16);
   margin-bottom: var(--space-12); box-shadow: var(--shadow-sm);
@@ -40,7 +53,6 @@
 .daily-path { font-size: var(--text-caption); color: var(--text-tertiary); display: block; }
 .daily-title { font-size: var(--text-body-large); font-weight: 600; color: var(--text); display: block; }
 .daily-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
-.daily-arrow { font-size: var(--text-caption); color: var(--gold); display: block; margin-top: var(--space-8); font-weight: 500; }
 .daily-card.locked { opacity: 0.7; }
 .daily-premium-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-light); padding: 2rpx 10rpx; border-radius: 8rpx; font-weight: 500; }
 
@@ -57,48 +69,3 @@
 .rec-strip-title { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
 .rec-strip-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-1); }
 .rec-strip-go { font-size: var(--space-16); color: var(--gold); }
-
-/* Tool grid */
-.tool-grid { display: flex; gap: var(--space-8); margin-bottom: var(--space-16); }
-.tool-btn {
-  flex: 1; background: var(--card); border-radius: var(--radius-sm);
-  padding: var(--space-20) var(--space-8); text-align: center; box-shadow: var(--shadow-sm);
-  box-sizing: border-box; transition: transform 0.12s;
-}
-.tool-btn:active { transform: scale(0.97); box-shadow: var(--shadow-md); }
-.tool-icon-wrap {
-  width: 80rpx; height: 80rpx; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 40rpx;
-  margin: 0 auto var(--space-8); transition: transform 0.12s;
-}
-.tool-icon-wrap.green { background: var(--accent-green); }
-.tool-icon-wrap.gold { background: var(--gold-light); }
-.tool-icon-wrap.purple { background: #F0ECF5; }
-.tool-icon-wrap.peach { background: var(--accent-peach); }
-.tool-label { font-size: var(--text-body); color: var(--text-secondary); display: block; }
-
-/* Quote */
-.quote-strip {
-  background: var(--card); border-radius: var(--radius-sm);
-  padding: var(--space-12) var(--space-16); margin-bottom: var(--space-24);
-  border-left: 6rpx solid var(--gold-light);
-  display: flex; gap: var(--space-4); align-items: flex-start;
-}
-.quote-mark { font-size: var(--text-headline); color: var(--gold); opacity: 0.3; line-height: 1; display: block; }
-.quote-body { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.9; display: block; font-style: italic; }
-
-/* Check-in banner -- inline, non-blocking */
-.checkin-banner {
-  display: flex; align-items: center; gap: var(--space-12);
-  background: var(--primary-light); border-radius: var(--radius-sm);
-  padding: var(--space-12) var(--space-16); margin: var(--space-4) 0 var(--space-12);
-  border-left: 6rpx solid var(--gold);
-  animation: fadeInUp 0.35s ease-out both;
-  transition: transform 0.12s;
-}
-.checkin-banner:active { transform: scale(0.97); }
-.checkin-banner-icon { font-size: var(--space-20); }
-.checkin-banner-info { flex: 1; }
-.checkin-banner-title { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
-.checkin-banner-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-1); }
-.checkin-banner-arrow { font-size: var(--space-16); color: var(--gold); }
