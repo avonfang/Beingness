@@ -1,0 +1,17 @@
+.container { padding: 20rpx 30rpx; min-height: 100vh; background: #FAFAF8; }
+.empty-state { display: flex; flex-direction: column; align-items: center; padding-top: 200rpx; }
+.empty-icon { font-size: 100rpx; }
+.empty-text { font-size: 32rpx; color: #999; margin-top: 24rpx; }
+.empty-hint { font-size: 26rpx; color: #CCC; margin-top: 12rpx; }
+.day-group { margin-bottom: 40rpx; }
+.day-label { font-size: 26rpx; color: #999; display: block; margin-bottom: 16rpx; }
+.entry-card {
+  background: #FFF; border-radius: 20rpx; padding: 28rpx; margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.03);
+}
+.entry-header { display: flex; align-items: center; gap: 12rpx; }
+.entry-emoji { font-size: 36rpx; }
+.entry-type { font-size: 28rpx; color: #3D3D3D; }
+.entry-time { font-size: 24rpx; color: #BBB; margin-left: auto; }
+.entry-recovery { display: block; font-size: 24rpx; color: #4A7C6F; margin-top: 12rpx; }
+.entry-note { display: block; font-size: 26rpx; color: #888; margin-top: 8rpx; }

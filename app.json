@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/emergency/emergency",
+    "pages/log/log",
+    "pages/learning/learning",
+    "pages/learning/lesson/lesson",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTitleText": "此刻",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#FAFAF8",
+    "backgroundColor": "#FAFAF8"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#4A7C6F",
+    "list": [
+      { "pagePath": "pages/log/log", "text": "日志", "iconPath": "images/log.png", "selectedIconPath": "images/log-active.png" },
+      { "pagePath": "pages/index/index", "text": "此刻", "iconPath": "images/moment.png", "selectedIconPath": "images/moment-active.png" },
+      { "pagePath": "pages/learning/learning", "text": "学习", "iconPath": "images/learn.png", "selectedIconPath": "images/learn-active.png" }
+    ]
+  }
+}

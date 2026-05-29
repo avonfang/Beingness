@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="logo-area">
+    <text class="logo">此刻</text>
+    <text class="subtitle">AI 觉醒导师</text>
+  </view>
+
+  <view class="entry-card" bindtap="startEmergency">
+    <text class="entry-title">现在感觉怎么样？</text>
+    <text class="entry-desc">情绪内耗时，我在这里</text>
+  </view>
+
+  <view class="quote-card">
+    <text class="quote-text">{{dailyQuote}}</text>
+    <text class="quote-source">—— 今日签</text>
+  </view>
+</view>

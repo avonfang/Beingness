@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="step-indicator" wx:if="{{phase !== 'select'}}">
+    <view class="step-dot {{stepIndex >= i ? 'active' : ''}}" wx:for="{{totalSteps}}" wx:key="*this"></view>
+  </view>
+
+  <mood-picker
+    wx:if="{{phase === 'select'}}"
+    title="现在感觉怎么样？"
+    options="{{emotionOptions}}"
+    bind:select="onEmotionSelect"
+  />
+
+  <guide-step
+    wx:elif="{{phase === 'guide'}}"
+    text="{{currentStep.text}}"
+    options="{{currentStep.options}}"
+    showNext="{{currentStep.showNext}}"
+    bind:select="onGuideSelect"
+    bind:next="onGuideNext"
+  />
+
+  <view wx:elif="{{phase === 'complete'}}" class="complete-view">
+    <text class="complete-icon">🌿</text>
+    <text class="complete-title">你在这里。一切都好。</text>
+    <text class="complete-desc">想记录点什么吗？</text>
+    <textarea class="note-input" placeholder="此刻的感受..." bindinput="onNoteInput"></textarea>
+    <view class="rating-area">
+      <text class="rating-label">现在感觉好些了吗？</text>
+      <view class="stars">
+        <text class="star {{rating >= i ? 'active' : ''}}" wx:for="{{[1,2,3,4,5]}}" wx:key="*this" bindtap="setRating" data-value="{{item}}">★</text>
+      </view>
+    </view>
+    <button class="save-btn" bindtap="saveAndExit">保存并完成</button>
+  </view>
+</view>

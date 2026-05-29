@@ -1,0 +1,12 @@
+<view class="chart-container">
+  <text class="chart-title">{{title}}</text>
+  <view class="bars">
+    <view class="bar-item" wx:for="{{data}}" wx:key="label">
+      <text class="bar-label">{{item.label}}</text>
+      <view class="bar-track">
+        <view class="bar-fill" style="height: {{item.percent}}%; background: {{color}}"></view>
+      </view>
+      <text class="bar-value">{{item.value}}</text>
+    </view>
+  </view>
+</view>

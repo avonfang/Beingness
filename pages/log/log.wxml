@@ -1,0 +1,22 @@
+<view class="container">
+  <view wx:if="{{list.length === 0}}" class="empty-state">
+    <text class="empty-icon">🌱</text>
+    <text class="empty-text">还没有记录</text>
+    <text class="empty-hint">当你感到情绪波动时，打开「此刻」</text>
+  </view>
+
+  <view wx:else class="timeline">
+    <view class="day-group" wx:for="{{list}}" wx:key="date">
+      <text class="day-label">{{item.date}}</text>
+      <view class="entry-card" wx:for="{{item.entries}}" wx:key="id">
+        <view class="entry-header">
+          <text class="entry-emoji">{{item.emotionIcon}}</text>
+          <text class="entry-type">{{item.emotionLabel}}</text>
+          <text class="entry-time">{{item.time}}</text>
+        </view>
+        <text class="entry-recovery" wx:if="{{item.recoveryMinutes}}">平复用时 {{item.recoveryMinutes}} 分钟</text>
+        <text class="entry-note" wx:if="{{item.note}}">{{item.note}}</text>
+      </view>
+    </view>
+  </view>
+</view>

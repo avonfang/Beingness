@@ -1,0 +1,19 @@
+.container { padding: 30rpx; min-height: 100vh; background: #FAFAF8; }
+.user-card { text-align: center; padding: 40rpx 0; }
+.avatar { font-size: 80rpx; }
+.nickname { font-size: 36rpx; font-weight: 500; color: #3D3D3D; display: block; margin-top: 16rpx; }
+.streak { font-size: 26rpx; color: #4A7C6F; display: block; margin-top: 8rpx; }
+.stats-row { display: flex; justify-content: space-around; margin: 30rpx 0; }
+.stat-item { text-align: center; }
+.stat-num { font-size: 44rpx; font-weight: 600; color: #3D3D3D; display: block; }
+.stat-label { font-size: 24rpx; color: #BBB; margin-top: 8rpx; }
+.section { margin-top: 40rpx; }
+.section-title { font-size: 28rpx; color: #999; display: block; margin-bottom: 20rpx; }
+.emotion-bars { background: #FFF; border-radius: 20rpx; padding: 24rpx; }
+.bar-row { display: flex; align-items: center; gap: 16rpx; margin-bottom: 16rpx; }
+.bar-row .bar-label { width: 80rpx; font-size: 26rpx; color: #555; }
+.bar-track { flex: 1; height: 20rpx; background: #F0F0F0; border-radius: 10rpx; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 10rpx; }
+.bar-count { font-size: 24rpx; color: #999; width: 60rpx; text-align: right; }
+.insight-card { background: #FFF; border-radius: 20rpx; padding: 32rpx; }
+.insight-text { font-size: 28rpx; color: #555; line-height: 1.8; white-space: pre-line; }

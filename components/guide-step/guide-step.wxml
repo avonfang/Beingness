@@ -1,0 +1,19 @@
+<view class="guide-container">
+  <view class="guide-bubble">
+    <text class="guide-text">{{text}}</text>
+  </view>
+  <view wx:if="{{options && options.length > 0}}" class="guide-options">
+    <view
+      class="guide-option"
+      wx:for="{{options}}"
+      wx:key="value"
+      bindtap="onSelect"
+      data-value="{{item.value}}"
+    >
+      <text class="guide-option-text">{{item.label}}</text>
+    </view>
+  </view>
+  <view wx:if="{{showNext}}" class="next-hint" bindtap="onNext">
+    <text>继续 →</text>
+  </view>
+</view>

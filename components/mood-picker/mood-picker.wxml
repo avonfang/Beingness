@@ -1,0 +1,15 @@
+<view class="picker-container">
+  <text class="picker-title">{{title}}</text>
+  <view class="options-grid">
+    <view
+      class="option-item {{selected === item.value ? 'active' : ''}}"
+      wx:for="{{options}}"
+      wx:key="value"
+      bindtap="onSelect"
+      data-value="{{item.value}}"
+    >
+      <text class="option-icon">{{item.icon}}</text>
+      <text class="option-label">{{item.label}}</text>
+    </view>
+  </view>
+</view>

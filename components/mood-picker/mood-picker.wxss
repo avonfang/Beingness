@@ -1,0 +1,14 @@
+.picker-container { padding: 40rpx 0; }
+.picker-title { font-size: 36rpx; color: #3D3D3D; text-align: center; display: block; margin-bottom: 48rpx; }
+.options-grid { display: flex; flex-wrap: wrap; gap: 24rpx; justify-content: center; }
+.option-item {
+  width: 280rpx;
+  padding: 32rpx 24rpx;
+  background: #FFF;
+  border-radius: 24rpx;
+  text-align: center;
+  border: 2rpx solid #F0F0F0;
+}
+.option-item.active { border-color: #4A7C6F; background: #F0F7F4; }
+.option-icon { font-size: 56rpx; display: block; }
+.option-label { font-size: 28rpx; color: #3D3D3D; margin-top: 12rpx; }

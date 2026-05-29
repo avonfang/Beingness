@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="path-card {{item.key}}" wx:for="{{paths}}" wx:key="key" bindtap="openPath" data-key="{{item.key}}">
+    <view class="path-header">
+      <text class="path-icon">{{item.icon}}</text>
+      <view class="path-info">
+        <text class="path-title">{{item.title}}</text>
+        <text class="path-subtitle">{{item.subtitle}}</text>
+      </view>
+    </view>
+    <view class="path-progress">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{item.progressPercent}}%"></view>
+      </view>
+      <text class="progress-text">{{item.progress}}/{{item.total}}</text>
+    </view>
+    <text class="path-source">{{item.source}}</text>
+  </view>
+</view>

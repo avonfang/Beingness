@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "trend-chart": "/components/trend-chart/trend-chart"
+  }
+}

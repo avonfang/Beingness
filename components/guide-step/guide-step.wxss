@@ -1,0 +1,18 @@
+.guide-container { padding: 40rpx 20rpx; }
+.guide-bubble {
+  background: #FFF;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  line-height: 1.8;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
+}
+.guide-text { font-size: 30rpx; color: #3D3D3D; white-space: pre-line; }
+.guide-options { margin-top: 40rpx; display: flex; flex-direction: column; gap: 20rpx; }
+.guide-option {
+  background: #F5F5F5;
+  border-radius: 20rpx;
+  padding: 32rpx 28rpx;
+  text-align: center;
+}
+.guide-option-text { font-size: 28rpx; color: #555; }
+.next-hint { text-align: center; margin-top: 40rpx; color: #4A7C6F; font-size: 28rpx; }

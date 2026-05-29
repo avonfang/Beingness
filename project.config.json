@@ -1,0 +1,12 @@
+{
+  "description": "此刻 - AI 觉醒导师",
+  "miniprogramRoot": "./",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "minify": true
+  },
+  "appid": "YOUR_APP_ID",
+  "compileType": "miniprogram"
+}

@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="user-card">
+    <view class="avatar">🧘</view>
+    <text class="nickname">觉醒者</text>
+    <text class="streak">连续练习 {{streakDays}} 天</text>
+  </view>
+
+  <view class="stats-row">
+    <view class="stat-item">
+      <text class="stat-num">{{totalSessions}}</text>
+      <text class="stat-label">急救次数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{avgRecovery}}min</text>
+      <text class="stat-label">平均恢复</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">{{totalLessons}}</text>
+      <text class="stat-label">完成课程</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">本周情绪分布</text>
+    <view class="emotion-bars">
+      <view class="bar-row" wx:for="{{emotionDistribution}}" wx:key="type">
+        <text class="bar-label">{{item.label}}</text>
+        <view class="bar-track">
+          <view class="bar-fill" style="width: {{item.percent}}%; background: {{item.color}}"></view>
+        </view>
+        <text class="bar-count">{{item.count}}次</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">AI 洞察</text>
+    <view class="insight-card">
+      <text class="insight-text">{{insight}}</text>
+    </view>
+  </view>
+</view>

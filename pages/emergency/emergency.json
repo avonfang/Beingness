@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "mood-picker": "/components/mood-picker/mood-picker",
+    "guide-step": "/components/guide-step/guide-step"
+  }
+}
