@@ -99,5 +99,50 @@ Page({
     if (current > previous) trend = 'up'
     else if (current < previous) trend = 'down'
     return { current, previous, trend }
+  },
+
+  exportData() {
+    const entries = wx.getStorageSync('pendingEntries') || []
+    const dialogues = wx.getStorageSync('dialogueHistory') || []
+
+    let text = '=== 此刻 · 我的觉醒日志 ===\n'
+    text += `导出时间：${new Date().toLocaleString('zh-CN')}\n`
+    text += `连续练习：${this.data.streakDays} 天\n`
+    text += `急救次数：${entries.length} 次\n`
+    text += `对话次数：${dialogues.length} 次\n`
+    text += `完成课程：${this.data.totalLessons} 课\n`
+    text += `觉醒币：${this.data.awakeningCoins}\n\n`
+
+    if (entries.length > 0) {
+      text += '--- 情绪急救记录 ---\n'
+      entries.forEach((e, i) => {
+        const label = util.EMOTION_MAP[e.emotionType]?.label || e.emotionType
+        const date = e.createdAt ? new Date(e.createdAt).toLocaleString('zh-CN') : '未知时间'
+        text += `${i + 1}. [${date}] ${label}`
+        if (e.recoveryMinutes) text += ` · 恢复 ${e.recoveryMinutes} 分钟`
+        if (e.rating) text += ` · ${'★'.repeat(e.rating)}`
+        if (e.note) text += `\n   笔记：${e.note}`
+        text += '\n'
+      })
+      text += '\n'
+    }
+
+    if (dialogues.length > 0) {
+      text += '--- 深度对话记录 ---\n'
+      dialogues.forEach((d, i) => {
+        const date = d.createdAt ? new Date(d.createdAt).toLocaleString('zh-CN') : '未知时间'
+        text += `${i + 1}. [${date}] ${d.messageCount} 条消息`
+        if (d.preview) text += ` · 「${d.preview}」`
+        text += '\n'
+      })
+    }
+
+    // Copy to clipboard as simple export
+    wx.setClipboardData({
+      data: text,
+      success: () => {
+        wx.showToast({ title: '已复制到剪贴板', icon: 'success' })
+      }
+    })
   }
 })

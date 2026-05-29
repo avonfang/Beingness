@@ -149,6 +149,9 @@ Page({
   },
 
   onShareAppMessage() {
-    return { title: '在「此刻」做完了一组呼吸练习，心很静', path: '/pages/breath/breath' }
+    // Share reward — incentivize growth
+    const coins = wx.getStorageSync('awakeningCoins') || 0
+    wx.setStorageSync('awakeningCoins', coins + 1)
+    return { title: '刚做完一组呼吸，心很静 🧘 推荐这个练习给你', path: '/pages/breath/breath' }
   }
 })

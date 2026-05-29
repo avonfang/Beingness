@@ -146,6 +146,7 @@ Page({
   },
 
   onShareAppMessage() {
-    return { title: '我在「此刻」完成了情绪急救，一起觉醒吧', path: '/pages/index/index' }
+    this.addCoin(1)
+    return { title: '刚完成了一次情绪急救 🌿 推荐「此刻」给你', path: '/pages/index/index' }
   }
 })

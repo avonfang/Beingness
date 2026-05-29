@@ -27,7 +27,22 @@
 .cta-title { font-size: var(--text-hero); font-weight: 600; color: #FFF; display: block; letter-spacing: 2rpx; }
 .cta-desc { font-size: var(--text-body); color: rgba(255,255,255,0.75); display: block; margin-top: var(--space-4); font-weight: 400; }
 
-/* Recommendation — no border, just subtle bg */
+/* Daily practice card */
+.daily-card {
+  background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16);
+  margin-bottom: var(--space-12); box-shadow: var(--shadow-sm);
+  border-left: 6rpx solid var(--gold);
+  transition: transform 0.12s;
+}
+.daily-card:active { transform: scale(0.97); }
+.daily-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
+.daily-label { font-size: var(--text-caption); color: var(--gold); font-weight: 600; letter-spacing: 2rpx; display: block; }
+.daily-path { font-size: var(--text-caption); color: var(--text-tertiary); display: block; }
+.daily-title { font-size: var(--text-body-large); font-weight: 600; color: var(--text); display: block; }
+.daily-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
+.daily-arrow { font-size: var(--text-caption); color: var(--gold); display: block; margin-top: var(--space-8); font-weight: 500; }
+
+/* Recommendation */
 .rec-strip {
   display: flex; align-items: center; gap: var(--space-8);
   background: var(--primary-light); border-radius: var(--radius-sm);
@@ -49,7 +64,6 @@
   box-sizing: border-box; transition: transform 0.12s;
 }
 .tool-btn:active { transform: scale(0.97); box-shadow: var(--shadow-md); }
-.tool-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-4); line-height: 1.2; }
 .tool-icon-wrap {
   width: 80rpx; height: 80rpx; border-radius: 50%; display: flex;
   align-items: center; justify-content: center; font-size: 40rpx;
@@ -61,7 +75,7 @@
 .tool-icon-wrap.peach { background: var(--accent-peach); }
 .tool-label { font-size: var(--text-body); color: var(--text-secondary); display: block; }
 
-/* Quote — 无边框，只有左边装饰条 */
+/* Quote */
 .quote-strip {
   background: var(--card); border-radius: var(--radius-sm);
   padding: var(--space-12) var(--space-16); margin-bottom: var(--space-24);
@@ -71,7 +85,7 @@
 .quote-mark { font-size: var(--text-headline); color: var(--gold); opacity: 0.3; line-height: 1; display: block; }
 .quote-body { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.9; display: block; font-style: italic; }
 
-/* Check-in banner — inline, non-blocking */
+/* Check-in banner -- inline, non-blocking */
 .checkin-banner {
   display: flex; align-items: center; gap: var(--space-12);
   background: var(--primary-light); border-radius: var(--radius-sm);

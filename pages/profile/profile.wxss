@@ -97,3 +97,6 @@
 /* Insight */
 .insight-card { border-left: 6rpx solid var(--gold-light); }
 .insight-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 2; display: block; white-space: pre-line; }
+
+/* Export */
+.export-area { text-align: center; padding: var(--space-24) 0 var(--space-40); }

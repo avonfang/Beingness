@@ -10,7 +10,7 @@
     </view>
   </view>
 
-  <!-- Daily check-in banner — inline, non-blocking -->
+  <!-- Daily check-in banner -- inline, non-blocking -->
   <view class="checkin-banner" wx:if="{{showCheckIn}}" bindtap="doCheckIn">
     <text class="checkin-banner-icon">🌅</text>
     <view class="checkin-banner-info">
@@ -21,14 +21,25 @@
     <text class="checkin-banner-arrow">→</text>
   </view>
 
-  <!-- Hero CTA — 此刻最重要的事 -->
+  <!-- Hero CTA -- 此刻最重要的事 -->
   <view class="hero-cta fade-in" bindtap="startEmergency">
     <text class="cta-icon">🌿</text>
     <text class="cta-title">心里有什么事吗？</text>
     <text class="cta-desc">和我说说，我陪你一起看看</text>
   </view>
 
-  <!-- Recommended lesson -->
+  <!-- Daily practice card -->
+  <view class="daily-card fade-in" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
+    <view class="daily-header">
+      <text class="daily-label">今日练习</text>
+      <text class="daily-path">{{dailyPractice.pathLabel}}</text>
+    </view>
+    <text class="daily-title">{{dailyPractice.title}}</text>
+    <text class="daily-subtitle">{{dailyPractice.subtitle}}</text>
+    <view class="daily-arrow">→ 开始练习</view>
+  </view>
+
+  <!-- Recommendation -->
   <view class="rec-strip" wx:if="{{recommendation}}" bindtap="goRecommendLesson">
     <text class="rec-strip-icon">💡</text>
     <view class="rec-strip-info">

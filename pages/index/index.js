@@ -1,3 +1,5 @@
+const { getDailyPractice } = require('../../data/dailies')
+
 const quotes = [
   '你不是你的情绪——你是观察者。',
   '当下是你唯一真正拥有的东西。',
@@ -49,7 +51,8 @@ Page({
     hasSeenOnboarding: false,
     showCheckIn: false,
     streakDays: 0,
-    recommendation: null
+    recommendation: null,
+    dailyPractice: null
   },
 
   onLoad() {
@@ -57,7 +60,8 @@ Page({
     const hasSeen = wx.getStorageSync('hasSeenOnboarding') || false
     this.setData({
       dailyQuote: quotes[today % quotes.length],
-      hasSeenOnboarding: hasSeen
+      hasSeenOnboarding: hasSeen,
+      dailyPractice: getDailyPractice()
     })
   },
 
@@ -177,5 +181,13 @@ Page({
 
   goBreath() {
     wx.navigateTo({ url: '/pages/breath/breath' })
+  },
+
+  goDailyPractice() {
+    const p = this.data.dailyPractice
+    if (!p) return
+    wx.navigateTo({
+      url: `/pages/learning/lesson/lesson?path=${p.pathKey}&lessonIndex=${p.lessonIndex}`
+    })
   }
 })
