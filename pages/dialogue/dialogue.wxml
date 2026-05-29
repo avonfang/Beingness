@@ -79,6 +79,6 @@
       bindconfirm="sendMessage"
       disabled="{{loading || coins < 3}}"
     />
-    <button class="send-btn" bindtap="sendMessage" disabled="{{!inputValue.trim() || loading || coins < 3}}">发送</button>
+    <button class="btn btn-primary btn-send" bindtap="sendMessage" disabled="{{!inputValue.trim() || loading || coins < 3}}">发送</button>
   </view>
 </view>

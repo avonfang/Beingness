@@ -9,7 +9,7 @@
   transition: transform 0.12s, border-color 0.2s;
 }
 .pattern-tag.active { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
-.pattern-tag:active { transform: scale(0.95); }
+.pattern-tag:active { transform: scale(0.97); }
 
 /* Breath circle */
 .breath-circle {
@@ -51,7 +51,7 @@
   transition: transform 0.12s, border-color 0.2s;
 }
 .round-opt.active { border-color: var(--gold); color: var(--gold); background: var(--gold-light); transform: scale(1.08); }
-.round-opt:active { transform: scale(0.92); }
+.round-opt:active { transform: scale(0.97); }
 
 /* Running */
 .running-area { width: 100%; display: flex; flex-direction: column; align-items: center; }

@@ -6,7 +6,7 @@
   margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.path-card:active { transform: scale(0.98); box-shadow: var(--shadow-md); }
+.path-card:active { transform: scale(0.97); box-shadow: var(--shadow-md); }
 .path-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6rpx; }
 .path-card.presence::before { background: var(--primary); }
 .path-card.surrender::before { background: var(--gold); }
