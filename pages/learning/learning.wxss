@@ -1,5 +1,5 @@
 /* Learning v4 */
-.container { min-height: 100vh; padding: 0 var(--space-16); }
+.container { min-height: 100vh; padding: 0 var(--space-16) calc(110rpx + env(safe-area-inset-bottom) + var(--space-16)); }
 
 .path-card {
   background: var(--card); border-radius: var(--radius-sm); padding: var(--space-20) var(--space-16);

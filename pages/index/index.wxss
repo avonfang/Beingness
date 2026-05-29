@@ -1,5 +1,5 @@
 /* Home page v5 — 极简情绪入口 */
-.container { min-height: 100vh; padding: 0 var(--space-16); display: flex; flex-direction: column; }
+.container { min-height: 100vh; padding: 0 var(--space-16) calc(110rpx + env(safe-area-inset-bottom) + var(--space-16)); display: flex; flex-direction: column; }
 
 /* Header */
 .header-bar { display: flex; align-items: center; justify-content: space-between; padding: var(--space-16) 0 var(--space-12); }
