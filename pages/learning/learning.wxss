@@ -1,12 +1,16 @@
-/* Learning paths */
+/* Learning v2 */
 .container { min-height: 100vh; padding: 0 36rpx; }
 .page-header { padding: 48rpx 0 36rpx; }
 .page-title { font-size: 44rpx; font-weight: 600; color: var(--text); display: block; }
-.page-subtitle { font-size: 28rpx; color: var(--text-secondary); display: block; margin-top: 8rpx; }
+.page-subtitle { font-size: 28rpx; color: var(--text-tertiary); display: block; margin-top: 8rpx; }
 
-.path-card { background: var(--card); border-radius: var(--radius-lg); padding: 44rpx 36rpx; margin-bottom: 32rpx; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
-.path-card:active { opacity: 0.95; }
-.path-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4rpx; }
+.path-card {
+  background: var(--card); border-radius: var(--radius-lg); padding: 44rpx 36rpx;
+  margin-bottom: 32rpx; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.path-card:active { transform: scale(0.98); box-shadow: var(--shadow-md); }
+.path-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6rpx; }
 .path-card.presence::before { background: var(--primary); }
 .path-card.surrender::before { background: var(--gold); }
 .path-card.openness::before { background: #B8A5C4; }
@@ -19,10 +23,10 @@
 
 .path-progress { display: flex; align-items: center; gap: 16rpx; margin-top: 32rpx; }
 .progress-bar { flex: 1; height: 10rpx; background: var(--border); border-radius: 5rpx; overflow: hidden; }
-.progress-fill { height: 100%; border-radius: 5rpx; transition: width 0.5s; }
+.progress-fill { height: 100%; border-radius: 5rpx; transition: width 0.6s ease; }
 .path-card.presence .progress-fill { background: var(--primary); }
 .path-card.surrender .progress-fill { background: var(--gold); }
 .path-card.openness .progress-fill { background: #B8A5C4; }
-.progress-text { font-size: 26rpx; color: var(--text-tertiary); min-width: 70rpx; text-align: right; }
+.progress-text { font-size: 26rpx; color: var(--text-tertiary); min-width: 70rpx; text-align: right; font-weight: 500; }
 
-.path-source { font-size: 26rpx; color: var(--text-tertiary); display: block; margin-top: 24rpx; padding-top: 24rpx; border-top: 2rpx solid var(--border); }
+.path-source { font-size: 26rpx; color: var(--text-tertiary); display: block; margin-top: 24rpx; padding-top: 24rpx; border-top: 2rpx solid var(--border-light); }
