@@ -1,0 +1,44 @@
+<view class="container">
+  <!-- Background decoration -->
+  <view class="bg-circle top-left"></view>
+  <view class="bg-circle bottom-right"></view>
+
+  <!-- Step counter -->
+  <view class="step-counter" wx:if="{{!isComplete}}">
+    <view class="step-dots">
+      <view class="dot {{idx <= currentIndex ? 'active' : ''}}" wx:for="{{steps}}" wx:key="*this" wx:for-index="idx"></view>
+    </view>
+    <text class="step-label">{{currentIndex + 1}} / {{totalSteps}}</text>
+  </view>
+
+  <!-- Immersive practice step -->
+  <view class="practice-area" wx:if="{{!isComplete}}">
+    <view class="practice-bubble">
+      <text class="practice-icon">🧘</text>
+      <text class="practice-text">{{currentStep}}</text>
+    </view>
+
+    <view class="action-area">
+      <view class="btn-next" bindtap="onNext">
+        <text wx:if="{{currentIndex < totalSteps - 1}}">继续</text>
+        <text wx:else>查看总结</text>
+        <text>→</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Completion view -->
+  <view class="complete-view" wx:if="{{isComplete}}">
+    <text class="complete-icon">🌿</text>
+    <text class="complete-title">练习完成</text>
+    <text class="complete-desc">你已经完成了这次练习</text>
+
+    <view class="complete-badges">
+      <text class="badge">+2 觉醒币</text>
+    </view>
+
+    <view class="btn-complete" bindtap="onComplete">
+      <text>返回课程</text>
+    </view>
+  </view>
+</view>

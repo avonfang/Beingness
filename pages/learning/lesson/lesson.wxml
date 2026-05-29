@@ -1,26 +1,35 @@
 <view class="container">
   <view class="lesson-header">
-    <text class="lesson-num">第 {{lessonIndex + 1}} 课</text>
+    <text class="lesson-num">第 {{lessonIndex + 1}} / {{total}} 课</text>
     <text class="lesson-title">{{lesson.title}}</text>
+    <text class="lesson-subtitle" wx:if="{{lesson.subtitle}}">{{lesson.subtitle}}</text>
   </view>
 
   <scroll-view scroll-y class="content-area">
     <view class="section">
-      <text class="section-label">💡 概念</text>
+      <view class="section-header">
+        <text class="section-icon">💡</text>
+        <text class="section-label">概念</text>
+      </view>
       <text class="section-text">{{lesson.concept}}</text>
     </view>
 
     <view class="section">
-      <text class="section-label">🧘 今日练习</text>
+      <view class="section-header">
+        <text class="section-icon">🧘</text>
+        <text class="section-label">今日练习</text>
+      </view>
       <text class="section-text">{{lesson.practice}}</text>
     </view>
 
-    <button class="complete-btn" bindtap="markComplete">
-      {{isCompleted ? '已完成 ✓' : '标记完成'}}
-    </button>
-
-    <button class="next-btn" wx:if="{{hasNext}}" bindtap="nextLesson">
-      下一课 →
-    </button>
+    <view class="lesson-actions">
+      <button class="practice-btn" bindtap="startPractice">开始练习 →</button>
+      <button class="complete-btn" bindtap="markComplete" disabled="{{isCompleted}}">
+        {{isCompleted ? '已完成 ✓' : '标记完成'}}
+      </button>
+      <button class="next-btn" wx:if="{{hasNext}}" bindtap="nextLesson">
+        下一课 →
+      </button>
+    </view>
   </scroll-view>
 </view>

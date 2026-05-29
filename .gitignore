@@ -3,3 +3,8 @@ node_modules/
 cloudfunctions/*/node_modules/
 *.log
 .DS_Store
+*.jpg
+*.png
+screenshots/
+project.private.config.json
+log/

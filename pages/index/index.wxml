@@ -1,15 +1,64 @@
+<onboarding-guide wx:if="{{!hasSeenOnboarding}}" bind:finish="onOnboardingFinish" />
+
+<!-- Daily check-in modal -->
+<view class="checkin-overlay" wx:if="{{showCheckIn}}">
+  <view class="checkin-card">
+    <text class="checkin-icon">🌅</text>
+    <text class="checkin-title">早安，觉醒者</text>
+    <text class="checkin-desc">新的一天，从觉察开始</text>
+    <view class="checkin-streak" wx:if="{{streakDays > 0}}">
+      <text class="streak-fire">🔥</text>
+      <text class="streak-text">连续 {{streakDays}} 天</text>
+    </view>
+    <view class="checkin-actions">
+      <view class="checkin-btn" bindtap="doCheckIn">今日签到</view>
+      <view class="checkin-skip" bindtap="skipCheckIn">跳过</view>
+    </view>
+  </view>
+</view>
+
 <view class="container">
-  <view class="logo-area">
-    <text class="logo">此刻</text>
-    <text class="subtitle">AI 觉醒导师</text>
+  <!-- Ambient header -->
+  <view class="ambient-section">
+    <text class="logo-chinese">此刻</text>
+    <text class="logo-sub">AI 觉醒导师</text>
+    <view class="divider"></view>
+    <view class="coins-bar">
+      <text class="coins-icon">✦</text>
+      <text class="coins-amount">{{awakeningCoins}}</text>
+      <text class="coins-label">觉醒币</text>
+      <text class="streak-divider">|</text>
+      <text class="streak-indicator">🔥 {{streakDays}}天</text>
+    </view>
   </view>
 
+  <!-- Main entry -->
   <view class="entry-card" bindtap="startEmergency">
+    <text class="entry-icon">🌿</text>
     <text class="entry-title">现在感觉怎么样？</text>
-    <text class="entry-desc">情绪内耗时，我在这里</text>
+    <text class="entry-desc">情绪内耗时，试着观察它</text>
+    <text class="entry-arrow">开始引导 →</text>
   </view>
 
+  <!-- Quick actions -->
+  <view class="quick-actions">
+    <view class="quick-btn" bindtap="goDialogue">
+      <text class="quick-btn-icon">💬</text>
+      <text class="quick-btn-label">深度对话</text>
+    </view>
+    <view class="quick-btn" bindtap="goLearning">
+      <text class="quick-btn-icon">📖</text>
+      <text class="quick-btn-label">学习课程</text>
+    </view>
+    <view class="quick-btn" bindtap="goProfile">
+      <text class="quick-btn-icon">📊</text>
+      <text class="quick-btn-label">我的报告</text>
+    </view>
+  </view>
+
+  <!-- Daily quote -->
   <view class="quote-card">
+    <text class="quote-mark">"</text>
     <text class="quote-text">{{dailyQuote}}</text>
     <text class="quote-source">—— 今日签</text>
   </view>

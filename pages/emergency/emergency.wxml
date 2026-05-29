@@ -1,8 +1,13 @@
 <view class="container">
-  <view class="step-indicator" wx:if="{{phase !== 'select'}}">
+  <!-- Ambient background decoration -->
+  <view class="ambient-circle"></view>
+
+  <!-- Step dots -->
+  <view class="step-indicator" wx:if="{{phase !== 'select' && phase !== 'done'}}">
     <view class="step-dot {{stepIndex >= i ? 'active' : ''}}" wx:for="{{totalSteps}}" wx:key="*this"></view>
   </view>
 
+  <!-- Emotion selection -->
   <mood-picker
     wx:if="{{phase === 'select'}}"
     title="现在感觉怎么样？"
@@ -10,6 +15,7 @@
     bind:select="onEmotionSelect"
   />
 
+  <!-- Guided steps -->
   <guide-step
     wx:elif="{{phase === 'guide'}}"
     text="{{currentStep.text}}"
@@ -19,20 +25,24 @@
     bind:next="onGuideNext"
   />
 
+  <!-- Complete + note -->
   <view wx:elif="{{phase === 'complete'}}" class="complete-view">
     <text class="complete-icon">🌿</text>
     <text class="complete-title">你在这里。一切都好。</text>
     <text class="complete-desc">想记录点什么吗？</text>
-    <textarea class="note-input" placeholder="此刻的感受..." bindinput="onNoteInput"></textarea>
+    <view class="note-section">
+      <textarea class="note-input" placeholder="写下此刻的感受..." bindinput="onNoteInput"></textarea>
+    </view>
     <view class="rating-area">
       <text class="rating-label">现在感觉好些了吗？</text>
       <view class="stars">
-        <text class="star {{rating >= i ? 'active' : ''}}" wx:for="{{[1,2,3,4,5]}}" wx:key="*this" bindtap="setRating" data-value="{{item}}">★</text>
+        <view class="star {{rating > idx ? 'active' : ''}}" wx:for="{{[1,2,3,4,5]}}" wx:for-index="idx" wx:key="idx" catchtap="setRating" data-idx="{{idx}}">★</view>
       </view>
     </view>
     <button class="save-btn" bindtap="saveAndExit">保存并完成</button>
   </view>
 
+  <!-- Done screen -->
   <view wx:elif="{{phase === 'done'}}" class="complete-view">
     <text class="complete-icon">🌿</text>
     <text class="complete-title">急救完成</text>

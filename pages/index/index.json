@@ -1,1 +1,6 @@
-{ "navigationBarTitleText": "此刻" }
+{
+  "navigationBarTitleText": "此刻",
+  "usingComponents": {
+    "onboarding-guide": "/components/onboarding-guide/onboarding-guide"
+  }
+}

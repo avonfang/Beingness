@@ -1,0 +1,76 @@
+<view class="overlay">
+  <view class="guide-card">
+    <view class="dots">
+      <view class="dot {{step === 0 ? 'active' : ''}}"></view>
+      <view class="dot {{step === 1 ? 'active' : ''}}"></view>
+      <view class="dot {{step === 2 ? 'active' : ''}}"></view>
+    </view>
+
+    <view wx:if="{{step === 0}}" class="guide-content">
+      <text class="guide-icon">🧘</text>
+      <text class="guide-title">欢迎来到「此刻」</text>
+      <text class="guide-desc">你的 AI 觉醒导师</text>
+      <text class="guide-body" style="margin-top:24rpx">融合《当下的力量》《臣服实验》《清醒地活》三本经典的方法论，帮助你在情绪波动时回到当下。</text>
+    </view>
+
+    <view wx:if="{{step === 1}}" class="guide-content">
+      <text class="guide-icon">🌿</text>
+      <text class="guide-title">三大核心功能</text>
+      <view class="feature-list">
+        <view class="feature-item">
+          <text class="feature-icon">🧭</text>
+          <view class="feature-info">
+            <text class="feature-name">情绪急救</text>
+            <text class="feature-desc">情绪波动时的即时引导练习</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">💬</text>
+          <view class="feature-info">
+            <text class="feature-name">深度对话</text>
+            <text class="feature-desc">与AI觉醒导师的引导式交流</text>
+          </view>
+        </view>
+        <view class="feature-item">
+          <text class="feature-icon">📖</text>
+          <view class="feature-info">
+            <text class="feature-name">学习课程</text>
+            <text class="feature-desc">系统性的觉醒之路，三条路径</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{step === 2}}" class="guide-content">
+      <text class="guide-icon">✦</text>
+      <text class="guide-title">觉醒币系统</text>
+      <view class="coin-list">
+        <view class="coin-item">
+          <text class="coin-icon">➕</text>
+          <text class="coin-desc">急救完成 +1 币</text>
+        </view>
+        <view class="coin-item">
+          <text class="coin-icon">➕</text>
+          <text class="coin-desc">课程完成 +2 币</text>
+        </view>
+        <view class="coin-item">
+          <text class="coin-icon">➖</text>
+          <text class="coin-desc">深度对话 -3 币</text>
+        </view>
+      </view>
+      <text class="guide-body" style="margin-top:28rpx">持续练习，解锁更多奖励✨</text>
+    </view>
+
+    <view class="guide-actions">
+      <view wx:if="{{step < 2}}" class="btn-next" bindtap="next">
+        <text>下一步 →</text>
+      </view>
+      <view wx:if="{{step === 2}}" class="btn-start" bindtap="finish">
+        <text>开始练习</text>
+      </view>
+      <view class="btn-skip" bindtap="finish">
+        {{step < 2 ? '跳过引导' : ''}}
+      </view>
+    </view>
+  </view>
+</view>

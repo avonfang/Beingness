@@ -1,29 +1,30 @@
-.container { padding: 40rpx; min-height: 100vh; background: #FAFAF8; }
-.step-indicator { display: flex; justify-content: center; gap: 12rpx; margin-bottom: 40rpx; }
-.step-dot { width: 16rpx; height: 16rpx; border-radius: 50%; background: #E0E0E0; }
-.step-dot.active { background: #4A7C6F; width: 32rpx; border-radius: 8rpx; }
-.complete-view { display: flex; flex-direction: column; align-items: center; padding-top: 80rpx; }
-.complete-icon { font-size: 80rpx; margin-bottom: 32rpx; }
-.complete-title { font-size: 36rpx; color: #4A7C6F; font-weight: 500; }
-.complete-desc { font-size: 28rpx; color: #999; margin-top: 16rpx; }
-.note-input {
-  width: 100%; height: 200rpx; background: #FFF; border-radius: 20rpx;
-  padding: 24rpx; margin-top: 40rpx; font-size: 28rpx; box-sizing: border-box;
-}
-.rating-area { margin-top: 40rpx; text-align: center; }
-.rating-label { font-size: 26rpx; color: #999; }
-.stars { margin-top: 16rpx; }
-.star { font-size: 56rpx; color: #E0E0E0; margin: 0 8rpx; }
-.star.active { color: #F5C842; }
-.save-btn {
-  margin-top: 60rpx; width: 80%; background: #4A7C6F; color: #FFF;
-  border-radius: 48rpx; padding: 24rpx 0; font-size: 30rpx;
-}
-.dialogue-btn {
-  margin-top: 40rpx; width: 80%; background: transparent; color: #4A7C6F;
-  border: 2rpx solid #4A7C6F; border-radius: 48rpx; padding: 24rpx 0; font-size: 30rpx;
-}
-.back-btn {
-  margin-top: 20rpx; width: 80%; background: transparent; color: #999;
-  border: none; padding: 24rpx 0; font-size: 26rpx;
-}
+/* Emergency */
+.container { min-height: 100vh; padding: 0 36rpx; display: flex; flex-direction: column; }
+.step-indicator { display: flex; justify-content: center; align-items: center; gap: 16rpx; padding: 160rpx 0 48rpx; }
+.step-dot { width: 12rpx; height: 12rpx; border-radius: 50%; background: var(--border); transition: all 0.3s; }
+.step-dot.active { width: 48rpx; height: 12rpx; border-radius: 12rpx; background: var(--primary); }
+
+.complete-view { display: flex; flex-direction: column; align-items: center; padding-top: 40rpx; flex: 1; justify-content: flex-start; }
+.complete-icon { font-size: 88rpx; display: block; margin-bottom: 36rpx; }
+.complete-title { font-size: 38rpx; color: var(--text); font-weight: 500; display: block; }
+.complete-desc { font-size: 28rpx; color: var(--text-secondary); display: block; margin-top: 12rpx; }
+
+.note-section { width: 100%; margin-top: 48rpx; }
+.note-input { width: 100%; height: 200rpx; background: var(--card); border-radius: var(--radius-md); padding: 32rpx; font-size: 30rpx; color: var(--text); box-sizing: border-box; border: 2rpx solid var(--border); line-height: 1.8; }
+.note-input:focus { border-color: var(--primary); }
+
+.rating-area { width: 100%; margin-top: 48rpx; text-align: center; }
+.rating-label { font-size: 28rpx; color: var(--text-secondary); display: block; margin-bottom: 20rpx; }
+.stars { display: flex; justify-content: center; gap: 16rpx; }
+.star { font-size: 64rpx; color: var(--border); line-height: 1; transition: color 0.2s; padding: 8rpx; }
+.star.active { color: var(--gold); }
+
+.save-btn { width: 80%; background: var(--primary); color: #FFF; border-radius: var(--radius-xl); padding: 32rpx 0; font-size: 32rpx; font-weight: 500; margin-top: 60rpx; border: none; }
+.save-btn:active { opacity: 0.85; }
+
+.dialogue-btn { width: 80%; background: transparent; color: var(--primary); border: 2rpx solid var(--primary); border-radius: var(--radius-xl); padding: 32rpx 0; font-size: 32rpx; margin-top: 48rpx; }
+.dialogue-btn:active { opacity: 0.7; }
+
+.back-btn { width: 80%; background: transparent; color: var(--text-tertiary); border: none; padding: 28rpx 0; font-size: 28rpx; margin-top: 20rpx; }
+
+.ambient-circle { width: 200rpx; height: 200rpx; background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%); border-radius: 50%; position: fixed; top: 10%; right: -60rpx; opacity: 0.5; z-index: 0; }

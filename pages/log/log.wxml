@@ -1,21 +1,44 @@
 <view class="container">
+  <view class="page-header">
+    <text class="page-title">情绪日志</text>
+    <text class="page-subtitle">回顾你的内在旅程</text>
+  </view>
+
   <view wx:if="{{list.length === 0}}" class="empty-state">
     <text class="empty-icon">🌱</text>
     <text class="empty-text">还没有记录</text>
-    <text class="empty-hint">当你感到情绪波动时，打开「此刻」</text>
+    <text class="empty-hint">完成一次急救或深度对话，这里就会出现记录</text>
   </view>
 
   <view wx:else class="timeline">
     <view class="day-group" wx:for="{{list}}" wx:key="date">
       <text class="day-label">{{item.date}}</text>
-      <view class="entry-card" wx:for="{{item.entries}}" wx:key="id">
+
+      <!-- Mood entry -->
+      <view class="entry-card mood-entry" wx:for="{{item.entries}}" wx:for-item="entry" wx:key="id" wx:if="{{entry.type !== 'dialogue'}}">
         <view class="entry-header">
-          <text class="entry-emoji">{{item.emotionIcon}}</text>
-          <text class="entry-type">{{item.emotionLabel}}</text>
-          <text class="entry-time">{{item.time}}</text>
+          <text class="entry-emoji">{{entry.emotionIcon}}</text>
+          <text class="entry-type">{{entry.emotionLabel}}</text>
+          <text class="entry-time">{{entry.time}}</text>
         </view>
-        <text class="entry-recovery" wx:if="{{item.recoveryMinutes}}">平复用时 {{item.recoveryMinutes}} 分钟</text>
-        <text class="entry-note" wx:if="{{item.note}}">{{item.note}}</text>
+        <view class="entry-details">
+          <text class="entry-badge" wx:if="{{entry.recoveryMinutes}}">平复 {{entry.recoveryMinutes}} 分钟</text>
+          <text class="entry-badge" wx:if="{{entry.rating}}">{{entry.stars}}</text>
+        </view>
+        <text class="entry-note" wx:if="{{entry.note}}">{{entry.note}}</text>
+      </view>
+
+      <!-- Dialogue entry -->
+      <view class="entry-card dialogue-entry" wx:for="{{item.entries}}" wx:for-item="entry" wx:key="id" wx:if="{{entry.type === 'dialogue'}}">
+        <view class="entry-header">
+          <text class="entry-emoji">💬</text>
+          <text class="entry-type">深度对话</text>
+          <text class="entry-time">{{entry.time}}</text>
+        </view>
+        <text class="entry-dialogue-preview">{{entry.preview}}</text>
+        <view class="entry-details">
+          <text class="entry-badge">{{entry.messageCount}} 条消息</text>
+        </view>
       </view>
     </view>
   </view>

@@ -6,17 +6,18 @@
     "pages/log/log",
     "pages/learning/learning",
     "pages/learning/lesson/lesson",
+    "pages/practice/practice",
     "pages/profile/profile"
   ],
   "window": {
     "navigationBarTitleText": "此刻",
     "navigationBarTextStyle": "black",
-    "navigationBarBackgroundColor": "#FAFAF8",
-    "backgroundColor": "#FAFAF8"
+    "navigationBarBackgroundColor": "#F7F7F7",
+    "backgroundColor": "#F7F7F7"
   },
   "tabBar": {
-    "color": "#999",
-    "selectedColor": "#4A7C6F",
+    "color": "#C4C0B8",
+    "selectedColor": "#C4A06A",
     "list": [
       { "pagePath": "pages/log/log", "text": "日志", "iconPath": "images/log.png", "selectedIconPath": "images/log-active.png" },
       { "pagePath": "pages/index/index", "text": "此刻", "iconPath": "images/moment.png", "selectedIconPath": "images/moment-active.png" },

@@ -1,4 +1,4 @@
-const courses = require('../../data/courses.json')
+const courses = require('../../data/courses')
 
 Page({
   data: { paths: [] },

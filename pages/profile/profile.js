@@ -7,49 +7,91 @@ Page({
     totalSessions: 0,
     avgRecovery: 0,
     totalLessons: 0,
+    totalDialogues: 0,
     awakeningCoins: 0,
     emotionDistribution: [],
-    insight: '加载中...'
+    insight: '加载中...',
+    milestone: null,
+    weekData: { current: 0, previous: 0, trend: 'same' },
+    nextMilestone: null
   },
 
   onShow() { this.loadReport() },
 
   loadReport() {
-    const db = wx.cloud.database()
-    db.collection('moodEntries').orderBy('createdAt', 'desc').limit(100).get().then(res => {
-      const entries = res.data
-      const totalSessions = entries.length
-      const avgRecovery = entries.length
-        ? Math.round(entries.reduce((s, e) => s + (e.recoveryMinutes || 0), 0) / entries.length)
-        : 0
+    const entries = wx.getStorageSync('pendingEntries') || []
+    const dialogues = wx.getStorageSync('dialogueHistory') || []
 
-      const counts = {}
-      entries.forEach(e => { counts[e.emotionType] = (counts[e.emotionType] || 0) + 1 })
-      const maxCount = Math.max(...Object.values(counts), 1)
-      const emotionDistribution = Object.entries(counts).map(([type, count]) => ({
-        type,
-        label: util.EMOTION_MAP[type]?.label || type,
-        color: util.EMOTION_MAP[type]?.color || '#999',
-        count,
-        percent: Math.round(count / maxCount * 100)
-      }))
+    const totalSessions = entries.length
+    const totalDialogues = dialogues.length
+    const avgRecovery = entries.length
+      ? Math.round(entries.reduce((s, e) => s + (e.recoveryMinutes || 0), 0) / entries.length)
+      : 0
 
-      let totalLessons = 0
-      ;['presence', 'surrender', 'openness'].forEach(p => {
-        totalLessons += wx.getStorageSync(`progress_${p}`) || 0
-      })
+    const counts = {}
+    entries.forEach(e => { counts[e.emotionType] = (counts[e.emotionType] || 0) + 1 })
+    const maxCount = Math.max(...Object.values(counts), 1)
+    const emotionDistribution = Object.entries(counts).map(([type, count]) => ({
+      type,
+      label: util.EMOTION_MAP[type]?.label || type,
+      color: util.EMOTION_MAP[type]?.color || '#999',
+      count,
+      percent: Math.round(count / maxCount * 100)
+    }))
 
-      this.setData({
-        totalSessions,
-        avgRecovery,
-        totalLessons,
-        awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
-        emotionDistribution,
-        insight: report.generateInsight(entries),
-        streakDays: wx.getStorageSync('streakDays') || 0
-      })
-    }).catch(() => {
-      this.setData({ insight: '暂时无法获取报告，请检查网络连接。' })
+    let totalLessons = 0;
+    ['presence', 'surrender', 'openness'].forEach(p => {
+      totalLessons += wx.getStorageSync(`progress_${p}`) || 0
     })
+
+    const streakDays = wx.getStorageSync('streakDays') || 0
+    const milestone = this.getMilestone(streakDays)
+    const nextMilestone = this.getNextMilestone(streakDays)
+    const weekData = this.getWeekTrend(entries)
+
+    this.setData({
+      totalSessions,
+      totalDialogues,
+      avgRecovery,
+      totalLessons,
+      awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
+      emotionDistribution,
+      insight: report.generateInsight(entries),
+      streakDays,
+      milestone,
+      nextMilestone,
+      weekData
+    })
+  },
+
+  getMilestone(days) {
+    if (days >= 30) return { emoji: '👑', label: '三十日觉者', desc: '坚持一个月，了不起的旅程' }
+    if (days >= 7) return { emoji: '🌟', label: '七日觉醒', desc: '连续七日，觉醒之光' }
+    if (days >= 3) return { emoji: '✨', label: '三日初醒', desc: '连续三日，初现觉知' }
+    return null
+  },
+
+  getNextMilestone(days) {
+    if (days < 3) return { days: 3, label: '三日初醒 ✨', remain: 3 - days }
+    if (days < 7) return { days: 7, label: '七日觉醒 🌟', remain: 7 - days }
+    if (days < 30) return { days: 30, label: '三十日觉者 👑', remain: 30 - days }
+    return null
+  },
+
+  getWeekTrend(entries) {
+    const now = Date.now()
+    const weekMs = 7 * 86400000
+    let current = 0, previous = 0
+
+    entries.forEach(e => {
+      const t = e.timestamp || e.createTime || (e.createdAt ? new Date(e.createdAt).getTime() : 0)
+      if (t > now - weekMs) current++
+      else if (t > now - 2 * weekMs) previous++
+    })
+
+    let trend = 'same'
+    if (current > previous) trend = 'up'
+    else if (current < previous) trend = 'down'
+    return { current, previous, trend }
   }
 })

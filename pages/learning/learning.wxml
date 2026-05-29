@@ -1,4 +1,9 @@
 <view class="container">
+  <view class="page-header">
+    <text class="page-title">学习课程</text>
+    <text class="page-subtitle">三条觉醒之路</text>
+  </view>
+
   <view class="path-card {{item.key}}" wx:for="{{paths}}" wx:key="key" bindtap="openPath" data-key="{{item.key}}">
     <view class="path-header">
       <text class="path-icon">{{item.icon}}</text>

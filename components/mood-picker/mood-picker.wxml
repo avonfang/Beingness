@@ -1,5 +1,6 @@
 <view class="picker-container">
   <text class="picker-title">{{title}}</text>
+  <text class="picker-hint">选择最接近你此刻的感受</text>
   <view class="options-grid">
     <view
       class="option-item {{selected === item.value ? 'active' : ''}}"
