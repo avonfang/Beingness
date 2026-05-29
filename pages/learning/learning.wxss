@@ -1,12 +1,9 @@
-/* Learning v2 */
-.container { min-height: 100vh; padding: 0 36rpx; }
-.page-header { padding: 48rpx 0 36rpx; }
-.page-title { font-size: 44rpx; font-weight: 600; color: var(--text); display: block; }
-.page-subtitle { font-size: 28rpx; color: var(--text-tertiary); display: block; margin-top: 8rpx; }
+/* Learning v4 */
+.container { min-height: 100vh; padding: 0 var(--space-16); }
 
 .path-card {
-  background: var(--card); border-radius: var(--radius-lg); padding: 44rpx 36rpx;
-  margin-bottom: 32rpx; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  background: var(--card); border-radius: var(--radius-sm); padding: var(--space-20) var(--space-16);
+  margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .path-card:active { transform: scale(0.98); box-shadow: var(--shadow-md); }
@@ -15,18 +12,18 @@
 .path-card.surrender::before { background: var(--gold); }
 .path-card.openness::before { background: #B8A5C4; }
 
-.path-header { display: flex; align-items: center; gap: 24rpx; }
-.path-icon { font-size: 52rpx; display: block; line-height: 1; }
+.path-header { display: flex; align-items: center; gap: var(--space-12); }
+.path-icon { font-size: var(--text-hero); display: block; line-height: 1; }
 .path-info { flex: 1; }
-.path-title { font-size: 38rpx; font-weight: 600; color: var(--text); display: block; }
-.path-subtitle { font-size: 28rpx; color: var(--text-secondary); display: block; margin-top: 8rpx; }
+.path-title { font-size: var(--text-headline); font-weight: 600; color: var(--text); display: block; }
+.path-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
 
-.path-progress { display: flex; align-items: center; gap: 16rpx; margin-top: 32rpx; }
+.path-progress { display: flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); }
 .progress-bar { flex: 1; height: 10rpx; background: var(--border); border-radius: 5rpx; overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 5rpx; transition: width 0.6s ease; }
 .path-card.presence .progress-fill { background: var(--primary); }
 .path-card.surrender .progress-fill { background: var(--gold); }
 .path-card.openness .progress-fill { background: #B8A5C4; }
-.progress-text { font-size: 26rpx; color: var(--text-tertiary); min-width: 70rpx; text-align: right; font-weight: 500; }
+.progress-text { font-size: var(--text-caption); color: var(--text-tertiary); min-width: 70rpx; text-align: right; font-weight: 500; }
 
-.path-source { font-size: 26rpx; color: var(--text-tertiary); display: block; margin-top: 24rpx; padding-top: 24rpx; border-top: 2rpx solid var(--border-light); }
+.path-source { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-12); padding-top: var(--space-12); border-top: 2rpx solid var(--border-light); }

@@ -7,4 +7,4 @@ cloudfunctions/*/node_modules/
 *.png
 screenshots/
 project.private.config.json
-log/
+/log/

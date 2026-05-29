@@ -1,143 +1,25 @@
-/* Practice page - immersive guided exercise */
-.container {
-  min-height: 100vh;
-  padding: 0 48rpx;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Background decoration */
-.bg-circle {
-  position: fixed;
-  width: 400rpx;
-  height: 400rpx;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
-  opacity: 0.4;
-  z-index: 0;
-}
+/* Practice v4 */
+.container { min-height: 100vh; padding: 0 var(--space-16); display: flex; flex-direction: column; overflow: hidden; }
+.bg-circle { position: fixed; width: 400rpx; height: 400rpx; border-radius: 50%; background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%); opacity: 0.4; z-index: 0; }
 .top-left { top: -100rpx; left: -100rpx; }
 .bottom-right { bottom: -100rpx; right: -100rpx; }
 
-/* Step counter */
-.step-counter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 80rpx 0 40rpx;
-  position: relative;
-  z-index: 1;
-}
+.step-counter { display: flex; flex-direction: column; align-items: center; padding: var(--space-40) 0 var(--space-20); z-index: 1; }
+.step-dots { display: flex; gap: var(--space-4); margin-bottom: var(--space-8); }
+.dot { width: 10rpx; height: 10rpx; border-radius: 50%; background: var(--border); transition: all 0.3s; }
+.dot.active { width: 32rpx; border-radius: 8rpx; background: var(--primary); }
+.step-label { font-size: var(--text-caption); color: var(--text-tertiary); }
 
-.step-dots {
-  display: flex;
-  gap: 12rpx;
-  margin-bottom: 16rpx;
-}
+.practice-area { flex: 1; display: flex; flex-direction: column; justify-content: center; z-index: 1; padding: var(--space-20) 0; }
+.practice-bubble { background: var(--card); border-radius: var(--radius-md); padding: var(--space-24) var(--space-20); box-shadow: var(--shadow-lg); text-align: center; }
+.practice-icon { font-size: 56rpx; display: block; margin-bottom: var(--space-16); }
+.practice-text { font-size: var(--text-subhead); color: var(--text); line-height: 2; display: block; white-space: pre-line; text-align: left; }
+.action-area { margin-top: var(--space-32); text-align: center; z-index: 1; }
 
-.dot {
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background: var(--border);
-  transition: all 0.3s;
-}
-
-.dot.active {
-  width: 32rpx;
-  border-radius: 8rpx;
-  background: var(--primary);
-}
-
-.step-label {
-  font-size: 24rpx;
-  color: var(--text-tertiary);
-}
-
-/* Practice content */
-.practice-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  padding: 40rpx 0;
-}
-
-.practice-bubble {
-  background: var(--card);
-  border-radius: var(--radius-lg);
-  padding: 56rpx 44rpx;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-  position: relative;
-}
-
-.practice-icon {
-  font-size: 56rpx;
-  display: block;
-  margin-bottom: 32rpx;
-}
-
-.practice-text {
-  font-size: 34rpx;
-  color: var(--text);
-  line-height: 2;
-  display: block;
-  white-space: pre-line;
-  text-align: left;
-}
-
-/* Action */
-.action-area {
-  margin-top: 60rpx;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.btn-next {
-  display: inline-flex;
-  align-items: center;
-  gap: 12rpx;
-  background: var(--primary);
-  color: #FFF;
-  font-size: 32rpx;
-  font-weight: 500;
-  padding: 28rpx 72rpx;
-  border-radius: var(--radius-xl);
-}
-
-.btn-next:active { opacity: 0.85; }
-
-/* Completion view */
-.complete-view {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-
-.complete-icon { font-size: 88rpx; display: block; margin-bottom: 32rpx; }
-.complete-title { font-size: 40rpx; color: var(--text); font-weight: 500; display: block; }
-.complete-desc { font-size: 28rpx; color: var(--text-secondary); display: block; margin-top: 12rpx; }
-
-.complete-badges { margin-top: 32rpx; }
-.badge { font-size: 28rpx; color: var(--gold); background: var(--gold-light); padding: 12rpx 36rpx; border-radius: 36rpx; display: inline-block; font-weight: 500; }
-
-.btn-complete {
-  margin-top: 80rpx;
-  background: var(--primary);
-  color: #FFF;
-  font-size: 32rpx;
-  font-weight: 500;
-  padding: 28rpx 72rpx;
-  border-radius: var(--radius-xl);
-}
-.btn-complete:active { opacity: 0.85; }
+.complete-view { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1; }
+.complete-icon { font-size: 88rpx; display: block; margin-bottom: var(--space-16); }
+.complete-title { font-size: var(--text-title); color: var(--text); font-weight: 500; display: block; }
+.complete-desc { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-4); }
+.complete-badges { margin-top: var(--space-16); }
+.badge { font-size: var(--text-body); color: var(--gold); background: var(--gold-light); padding: var(--space-4) var(--space-16); border-radius: var(--radius-lg); display: inline-block; font-weight: 500; }
+.complete-actions { margin-top: var(--space-40); }

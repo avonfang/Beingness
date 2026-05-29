@@ -1,9 +1,10 @@
 /* ====================================
-   此刻 · Design System v3
-   纯净 · 温暖 · 可读 · 有层
+   此刻 · Design System v4
+   Apple 8pt grid · 纯净 · 一致
    ==================================== */
 
 page {
+  /* Colors */
   --bg: #F7F7F7;
   --card: #FFFFFF;
   --primary: #C4A06A;
@@ -21,28 +22,50 @@ page {
   --border: #E0DDD8;
   --border-light: #EDEBE6;
 
+  /* Shadows — 只用阴影表达深度，不用边框 */
   --shadow-sm: 0 2rpx 12rpx rgba(0,0,0,0.06);
   --shadow-md: 0 8rpx 32rpx rgba(0,0,0,0.09);
   --shadow-lg: 0 16rpx 48rpx rgba(0,0,0,0.12);
-  --shadow-xl: 0 24rpx 64rpx rgba(0,0,0,0.15);
 
-  --radius-sm: 16rpx;
-  --radius-md: 24rpx;
-  --radius-lg: 32rpx;
-  --radius-xl: 48rpx;
+  /* 8pt spacing grid (1pt = 2rpx @ 750 design width) */
+  --space-2: 4rpx;    /* 2pt */
+  --space-4: 8rpx;    /* 4pt */
+  --space-8: 16rpx;   /* 8pt */
+  --space-12: 24rpx;  /* 12pt */
+  --space-16: 32rpx;  /* 16pt */
+  --space-20: 40rpx;  /* 20pt */
+  --space-24: 48rpx;  /* 24pt */
+  --space-32: 64rpx;  /* 32pt */
+  --space-40: 80rpx;  /* 40pt */
+
+  /* Radius — Apple 使用 3 种半径 */
+  --radius-sm: 16rpx;   /* 8pt - 卡片内元素 */
+  --radius-md: 24rpx;   /* 12pt - 标准卡片 */
+  --radius-lg: 40rpx;   /* 20pt - 按钮 / 弹窗 */
+
+  /* Type scale */
+  --text-caption: 24rpx;
+  --text-body: 28rpx;
+  --text-body-large: 30rpx;
+  --text-subhead: 32rpx;
+  --text-headline: 36rpx;
+  --text-title: 44rpx;
+  --text-hero: 52rpx;
 
   background: var(--bg);
   color: var(--text);
   font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
-  font-size: 30rpx;
+  font-size: var(--text-body-large);
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Card base with press effect */
+/* ====================================
+   Card — 纯阴影，无边框
+   ==================================== */
 .card {
   background: var(--card);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   transition: transform 0.15s, box-shadow 0.15s;
 }
@@ -51,68 +74,74 @@ page {
   box-shadow: var(--shadow-md);
 }
 
-/* Button presets */
+/* ====================================
+   Button system — 3 种变体
+   ==================================== */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-lg); border: none;
+  font-size: var(--text-body-large); font-weight: 500;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
+  box-sizing: border-box;
+}
+.btn:active { transform: scale(0.97); }
+
+/* Solid primary */
 .btn-primary {
-  background: var(--primary);
-  color: #FFF;
-  border-radius: var(--radius-xl);
-  padding: 28rpx 48rpx;
-  font-size: 32rpx;
-  font-weight: 500;
-  border: none;
-  transition: transform 0.12s, box-shadow 0.12s;
+  background: var(--primary); color: #FFF;
+  box-shadow: 0 4rpx 20rpx rgba(196,160,106,0.25);
 }
-.btn-primary:active {
-  transform: scale(0.97);
-  box-shadow: 0 4rpx 16rpx rgba(196, 160, 106, 0.35);
-}
+.btn-primary:active { box-shadow: 0 2rpx 12rpx rgba(196,160,106,0.2); }
 
+/* Outline */
 .btn-outline {
-  background: transparent;
-  color: var(--primary);
+  background: transparent; color: var(--primary);
   border: 2rpx solid var(--primary);
-  border-radius: var(--radius-xl);
-  padding: 28rpx 48rpx;
-  font-size: 32rpx;
-  transition: transform 0.12s;
 }
-.btn-outline:active {
-  transform: scale(0.97);
-  background: var(--primary-light);
-}
+.btn-outline:active { background: var(--primary-light); }
 
-/* Utility: fade-in animation */
+/* Ghost (最轻量) */
+.btn-ghost {
+  background: transparent; color: var(--text-tertiary);
+  border: 2rpx solid transparent;
+}
+.btn-ghost:active { color: var(--text-secondary); }
+
+/* Size variants */
+.btn-lg { padding: 32rpx 0; width: 100%; }
+.btn-md { padding: 24rpx 48rpx; }
+.btn-sm { padding: 16rpx 32rpx; font-size: var(--text-body); }
+
+/* ====================================
+   Utility animations
+   ==================================== */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24rpx); }
   to   { opacity: 1; transform: translateY(0); }
 }
-.fade-in {
-  animation: fadeInUp 0.35s ease-out both;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-.fade-in-quick {
-  animation: fadeIn 0.2s ease-out both;
-}
-
-/* Utility: bounce scale for micro-interactions */
 @keyframes bounceIn {
-  0%   { transform: scale(0.8); }
-  60%  { transform: scale(1.15); }
+  0%   { transform: scale(0.6); }
+  60%  { transform: scale(1.12); }
   100% { transform: scale(1); }
 }
+.fade-in { animation: fadeInUp 0.35s ease-out both; }
 
-/* Section title */
-.section { margin-bottom: 48rpx; }
+/* ====================================
+   Section layout
+   ==================================== */
+.page { min-height: 100vh; padding: 0 var(--space-16); }
+
+.page-header { padding: var(--space-24) 0 var(--space-16); }
+.page-title { font-size: var(--text-title); font-weight: 600; color: var(--text); display: block; }
+.page-subtitle { font-size: var(--text-body); color: var(--text-tertiary); display: block; margin-top: var(--space-2); }
+
+.section { margin-bottom: var(--space-24); }
 .section-title {
-  font-size: 26rpx;
-  color: var(--text-tertiary);
-  letter-spacing: 2rpx;
-  margin-bottom: 24rpx;
-  padding: 0 8rpx;
-  display: block;
-  font-weight: 500;
+  font-size: var(--text-caption); color: var(--text-tertiary);
+  letter-spacing: 2rpx; margin-bottom: var(--space-12);
+  display: block; font-weight: 600;
 }
