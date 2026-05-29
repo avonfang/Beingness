@@ -35,6 +35,7 @@ Page({
   },
 
   onNext() {
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
     const { currentIndex, steps } = this.data
     if (currentIndex < steps.length - 1) {
       this.setData({

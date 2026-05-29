@@ -51,6 +51,7 @@ Page({
   },
 
   sendQuickMsg(e) {
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
     const msg = e.currentTarget.dataset.msg
     this.setData({ inputValue: msg })
     this.sendMessage()

@@ -12,7 +12,6 @@
 .chat-back:active { opacity: 0.6; }
 .chat-header-icon { font-size: var(--text-body-large); }
 .chat-header-title { font-size: var(--text-body-large); font-weight: 500; color: var(--text); flex: 1; }
-.chat-header-coins { font-size: var(--text-caption); color: var(--gold); }
 
 .msg-list { flex: 1; padding: var(--space-12) var(--space-16); overflow-y: auto; }
 

@@ -6,7 +6,6 @@
     </view>
     <text class="chat-header-icon">🧘</text>
     <text class="chat-header-title">深度对话</text>
-    <text class="chat-header-coins">✦ {{coins}}</text>
   </view>
 
   <!-- Messages -->

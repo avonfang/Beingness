@@ -11,6 +11,7 @@ Page({
     phase: 'ready',
     currentPhaseIndex: 0,
     countdown: 0,
+    phaseDuration: 0,
     totalRounds: 0,
     currentRound: 1,
     targetRounds: 6,
@@ -52,6 +53,7 @@ Page({
       phase: 'ready',
       currentPhaseIndex: 0,
       countdown: 0,
+      phaseDuration: 0,
       currentRound: 1,
       totalRounds: 0,
       timerProgress: 0,
@@ -62,12 +64,14 @@ Page({
   start() {
     wx.vibrateShort({ type: 'medium' }).catch(() => {})
     const pattern = PATTERNS[this.data.selectedPattern]
+    const sec = pattern.phases[0].sec
     this.setData({
       phase: 'inhale',
       currentPhaseIndex: 0,
       currentRound: 1,
       totalRounds: 0,
-      countdown: pattern.phases[0].sec,
+      countdown: sec,
+      phaseDuration: sec,
       timerProgress: 100,
       phaseLabel: pattern.phases[0].label
     })
@@ -80,9 +84,11 @@ Page({
     const phase = pattern.phases[idx]
     const totalSec = phase.sec
     const startedAt = Date.now()
+    this.setData({ phaseDuration: totalSec })
 
     // Haptic at phase transitions
     if (phase.label === '吸气') wx.vibrateShort({ type: 'medium' }).catch(() => {})
+    else if (phase.label === '屏息') wx.vibrateShort({ type: 'light' }).catch(() => {})
     else if (phase.label === '呼气') wx.vibrateShort({ type: 'heavy' }).catch(() => {})
 
     const tick = () => {

@@ -26,9 +26,12 @@
 
   <!-- Running state -->
   <view class="running-area" wx:if="{{phase === 'inhale'}}">
-    <view class="breath-circle animating" style="animation-duration: {{countdown}}s">
-      <text class="breath-countdown">{{countdown}}</text>
-      <text class="breath-label">{{phaseLabel}}</text>
+    <view class="breath-ring-wrap">
+      <view class="breath-ring" style="animation-duration: {{phaseDuration * 2}}s"></view>
+      <view class="breath-circle animating" style="animation-duration: {{phaseDuration * 2}}s">
+        <text class="breath-countdown">{{countdown}}</text>
+        <text class="breath-label">{{phaseLabel}}</text>
+      </view>
     </view>
     <view class="progress-info">
       <text class="round-indicator">第 {{currentRound}} / {{targetRounds}} 轮</text>

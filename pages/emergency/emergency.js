@@ -64,6 +64,7 @@ Page({
   },
 
   onGuideSelect(e) {
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
     const value = e.detail.value
     const stepIndex = this.data.stepIndex
     const step = this.data.steps[stepIndex]
