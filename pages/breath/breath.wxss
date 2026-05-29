@@ -18,7 +18,7 @@
   margin: var(--space-40) auto; transition: all 0.3s;
 }
 .breath-circle.idle { background: var(--gold-light); box-shadow: 0 0 0 0 rgba(196,160,106,0); }
-.breath-circle.done { background: var(--gold-light); animation: bounceIn 0.5s ease-out both; }
+.breath-circle.done { background: var(--gold-light); animation: bounceIn 0.5s ease-out both; box-shadow: 0 0 32rpx 8rpx rgba(196,160,106,0.2); }
 .breath-circle.animating { background: linear-gradient(135deg, #FFF 0%, var(--gold-light) 100%); animation: breathe 4s ease-in-out infinite; }
 .breath-icon { font-size: 72rpx; display: block; }
 .breath-countdown { font-size: 96rpx; font-weight: 300; color: var(--primary); display: block; line-height: 1; }

@@ -48,7 +48,7 @@
   box-sizing: border-box; transition: transform 0.15s, box-shadow 0.15s;
 }
 .tool-btn:active { transform: scale(0.97); box-shadow: var(--shadow-md); }
-.tool-icon { font-size: var(--space-20); display: block; margin-bottom: var(--space-2); }
+.tool-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-4); line-height: 1.2; }
 .tool-label { font-size: var(--text-body); color: var(--text-secondary); display: block; }
 
 /* Quote — 无边框，只有左边装饰条 */

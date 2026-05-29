@@ -1,10 +1,16 @@
 /* Log v4 */
 .container { min-height: 100vh; padding: 0 var(--space-16); }
 
-.empty-state { display: flex; flex-direction: column; align-items: center; padding-top: 200rpx; }
-.empty-icon { font-size: 88rpx; display: block; opacity: 0.6; }
-.empty-text { font-size: var(--space-16); color: var(--text-secondary); margin-top: var(--space-12); display: block; }
-.empty-hint { font-size: var(--text-body); color: var(--text-tertiary); margin-top: var(--space-4); display: block; }
+.empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 240rpx; animation: fadeInUp 0.4s ease-out both;
+}
+.empty-icon {
+  font-size: 96rpx; display: block; opacity: 0.7; margin-bottom: var(--space-8);
+  animation: bounceIn 0.5s ease-out both;
+}
+.empty-text { font-size: var(--space-16); color: var(--text-secondary); display: block; }
+.empty-hint { font-size: var(--text-body); color: var(--text-tertiary); margin-top: var(--space-8); display: block; text-align: center; padding: 0 var(--space-16); }
 
 .timeline { padding-bottom: var(--space-24); }
 .day-group { margin-bottom: var(--space-24); }

@@ -35,10 +35,11 @@
 .msg-avatar.user { background: var(--accent-peach); }
 
 .msg-content {
-  max-width: 72%; background: var(--card); border-radius: var(--radius-md);
+  max-width: 72%; background: var(--bg); border-radius: var(--radius-md);
   padding: var(--space-16); box-shadow: var(--shadow-sm);
 }
 .msg-row.user .msg-content { background: var(--primary-light); }
+.msg-row.assistant .msg-content { background: #FBF9F5; }
 
 .msg-text {
   font-size: var(--text-body); color: var(--text); line-height: 1.9;

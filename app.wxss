@@ -21,6 +21,8 @@ page {
 
   --border: #E0DDD8;
   --border-light: #EDEBE6;
+  --accent-warm-bg: #FFF5F0;
+  --accent-warm-text: #C4715A;
 
   /* Shadows — 只用阴影表达深度，不用边框 */
   --shadow-sm: 0 2rpx 12rpx rgba(0,0,0,0.06);
