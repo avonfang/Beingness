@@ -111,6 +111,7 @@ page {
 .btn-lg { padding: 32rpx 0; width: 100%; }
 .btn-md { padding: 24rpx 48rpx; }
 .btn-sm { padding: 16rpx 32rpx; font-size: var(--text-body); }
+.btn-block { width: 80%; }
 
 /* ====================================
    Utility animations

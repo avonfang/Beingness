@@ -19,10 +19,9 @@
     </view>
 
     <view class="action-area">
-      <view class="btn-next" bindtap="onNext">
-        <text wx:if="{{currentIndex < totalSteps - 1}}">继续</text>
-        <text wx:else>查看总结</text>
-        <text>→</text>
+      <view class="btn btn-primary btn-lg" bindtap="onNext">
+        <text wx:if="{{currentIndex < totalSteps - 1}}">继续 →</text>
+        <text wx:else>查看总结 →</text>
       </view>
     </view>
   </view>
@@ -37,8 +36,6 @@
       <text class="badge">+2 觉醒币</text>
     </view>
 
-    <view class="btn-complete" bindtap="onComplete">
-      <text>返回课程</text>
-    </view>
+    <view class="btn btn-primary btn-lg" bindtap="onComplete">返回课程</view>
   </view>
 </view>

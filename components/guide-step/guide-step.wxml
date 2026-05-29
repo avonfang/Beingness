@@ -22,9 +22,6 @@
   </view>
 
   <view wx:if="{{showNext}}" class="next-btn-area">
-    <view class="next-hint" bindtap="onNext">
-      <text>继续</text>
-      <text>→</text>
-    </view>
+    <view class="btn btn-primary btn-lg" bindtap="onNext">继续 →</view>
   </view>
 </view>

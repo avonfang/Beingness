@@ -11,8 +11,8 @@
       <text class="streak-text">连续 {{streakDays}} 天</text>
     </view>
     <view class="checkin-actions">
-      <view class="checkin-btn" bindtap="doCheckIn">今日签到</view>
-      <view class="checkin-skip" bindtap="skipCheckIn">跳过</view>
+      <view class="btn btn-primary btn-lg" bindtap="doCheckIn">今日签到</view>
+      <view class="checkin-skip btn btn-ghost btn-sm" bindtap="skipCheckIn">跳过</view>
     </view>
   </view>
 </view>

@@ -56,7 +56,7 @@
       <text class="stat-label">对话次数</text>
     </view>
     <view class="stat-card">
-      <text class="stat-num">{{avgRecovery}}<text style="font-size:24rpx">min</text></text>
+      <text class="stat-num">{{avgRecovery}}<text class="stat-unit">min</text></text>
       <text class="stat-label">平均恢复</text>
     </view>
     <view class="stat-card">
