@@ -43,6 +43,7 @@
   font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
 }
 .letter-textarea::placeholder { color: var(--text-tertiary); }
+.letter-guide { font-size: var(--text-body); color: var(--text-tertiary); display: block; margin-bottom: var(--space-12); line-height: 1.8; font-style: italic; padding: var(--space-4) 0; }
 .letter-paper-footer { text-align: right; margin-top: var(--space-8); }
 .letter-paper-count { font-size: var(--text-caption); color: var(--text-tertiary); }
 

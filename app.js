@@ -1,5 +1,8 @@
+const _dialogue = require('./data/dialogue')
+
 App({
   globalData: {
+    dialogueModule: _dialogue,
     openid: '',
     userInfo: null,
     cloudReady: false

@@ -9,16 +9,16 @@ const ACHIEVEMENTS = [
   { id: 'all_presence', label: '临在行者', desc: '完成临在之路全部课程', icon: '🌿', check: (e, l, p) => p.presence === 6 },
   { id: 'all_surrender', label: '臣服者', desc: '完成臣服之路全部课程', icon: '🍂', check: (e, l, p) => p.surrender === 6 },
   { id: 'all_openness', label: '开放者', desc: '完成开放之路全部课程', icon: '💫', check: (e, l, p) => p.openness === 6 },
-  { id: 'streak3', label: '三日初醒', desc: '连续签到 3 天', icon: '✨', check: (e, l, p, s) => s >= 3 },
-  { id: 'streak7', label: '七日觉醒', desc: '连续签到 7 天', icon: '🌟', check: (e, l, p, s) => s >= 7 },
-  { id: 'streak30', label: '三十日觉者', desc: '连续签到 30 天', icon: '👑', check: (e, l, p, s) => s >= 30 },
+  { id: 'streak3', label: '坚持 3 天', desc: '连续练习 3 天', icon: '✨', check: (e, l, p, s) => s >= 3 },
+  { id: 'streak7', label: '坚持 7 天', desc: '连续练习 7 天', icon: '🌟', check: (e, l, p, s) => s >= 7 },
+  { id: 'streak30', label: '坚持 30 天', desc: '连续练习 30 天', icon: '👑', check: (e, l, p, s) => s >= 30 },
   { id: 'first_dialogue', label: '第一封信', desc: '给此刻写第一封信', icon: '💌', check: (e, l, p, s, d) => d >= 1 },
   { id: 'rich_emotions', label: '情绪光谱', desc: '体验过所有 4 种情绪急救', icon: '🌈', check: (e, l, p, s, d, types) => Object.keys(types).length >= 4 },
 ]
 
 function generateInsight(entries, streakDays, totalLessons, totalDialogues) {
   if (entries.length === 0 && streakDays === 0) {
-    return '欢迎觉醒者。每一次记录，都是觉醒的开始。'
+    return '欢迎。每一次记录，都是看清自己的开始。'
   }
 
   const parts = []

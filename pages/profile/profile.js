@@ -78,16 +78,16 @@ Page({
   },
 
   getMilestone(days) {
-    if (days >= 30) return { emoji: '👑', label: '三十日觉者', desc: '坚持一个月，了不起的旅程' }
-    if (days >= 7) return { emoji: '🌟', label: '七日觉醒', desc: '连续七日，觉醒之光' }
-    if (days >= 3) return { emoji: '✨', label: '三日初醒', desc: '连续三日，初现觉知' }
+    if (days >= 30) return { emoji: '👑', label: '连续练习 30 天', desc: '坚持一个月，了不起的旅程' }
+    if (days >= 7) return { emoji: '🌟', label: '连续练习 7 天', desc: '坚持一周了，继续走下去' }
+    if (days >= 3) return { emoji: '✨', label: '连续练习 3 天', desc: '好的开始，前三天是最难的' }
     return null
   },
 
   getNextMilestone(days) {
-    if (days < 3) return { days: 3, label: '三日初醒 ✨', remain: 3 - days }
-    if (days < 7) return { days: 7, label: '七日觉醒 🌟', remain: 7 - days }
-    if (days < 30) return { days: 30, label: '三十日觉者 👑', remain: 30 - days }
+    if (days < 3) return { days: 3, label: '连续练习 3 天 ✨', remain: 3 - days }
+    if (days < 7) return { days: 7, label: '连续练习 7 天 🌟', remain: 7 - days }
+    if (days < 30) return { days: 30, label: '连续练习 30 天 👑', remain: 30 - days }
     return null
   },
 
