@@ -41,19 +41,19 @@
   <!-- Quick tools -->
   <view class="tool-grid fade-in-d1">
     <view class="tool-btn" bindtap="goBreath">
-      <text class="tool-icon">🌬️</text>
+      <view class="tool-icon-wrap green">🌬️</view>
       <text class="tool-label">呼吸</text>
     </view>
     <view class="tool-btn" bindtap="goDialogue">
-      <text class="tool-icon">💬</text>
+      <view class="tool-icon-wrap gold">💬</view>
       <text class="tool-label">对话</text>
     </view>
     <view class="tool-btn" bindtap="goLearning">
-      <text class="tool-icon">📖</text>
+      <view class="tool-icon-wrap purple">📖</view>
       <text class="tool-label">学习</text>
     </view>
     <view class="tool-btn" bindtap="goProfile">
-      <text class="tool-icon">📊</text>
+      <view class="tool-icon-wrap peach">📊</view>
       <text class="tool-label">报告</text>
     </view>
   </view>
