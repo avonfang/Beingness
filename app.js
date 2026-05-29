@@ -2,18 +2,24 @@ App({
   globalData: {
     openid: '',
     userInfo: null,
-    // 设为 true 启用云开发（需先注册小程序并部署云函数）
     cloudReady: false
   },
 
   onLaunch() {
-    // 初始化觉醒币（本地存储）
-    if (!wx.getStorageSync('awakeningCoins')) {
+    // Init storage (with safe falsy checks)
+    const coins = wx.getStorageSync('awakeningCoins')
+    if (typeof coins !== 'number') {
       wx.setStorageSync('awakeningCoins', 10)
     }
-
-    // 云开发模式：取消注释以下代码
-    // this.initCloud()
+    if (!wx.getStorageSync('hasSeenOnboarding')) {
+      wx.setStorageSync('hasSeenOnboarding', false)
+    }
+    if (!wx.getStorageSync('streakDays')) {
+      wx.setStorageSync('streakDays', 0)
+    }
+    if (!wx.getStorageSync('lastCheckInDate')) {
+      wx.setStorageSync('lastCheckInDate', '')
+    }
   },
 
   // initCloud() {
