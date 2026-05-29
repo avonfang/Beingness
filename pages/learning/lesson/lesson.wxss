@@ -6,7 +6,8 @@
 .lesson-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
 .content-area { height: calc(100vh - 240rpx); padding-bottom: var(--space-24); }
 
-.section { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-20) var(--space-16); margin-bottom: var(--space-12); box-shadow: var(--shadow-sm); }
+.section { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-20) var(--space-16); margin-bottom: var(--space-12); box-shadow: var(--shadow-sm); animation: fadeInUp 0.35s ease-out both; }
+.section:last-of-type { animation: fadeInUp 0.35s ease-out 0.08s both; }
 .section-header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-8); }
 .section-icon { font-size: var(--text-headline); display: block; }
 .section-label { font-size: var(--text-body); color: var(--primary); font-weight: 600; letter-spacing: 2rpx; display: block; }

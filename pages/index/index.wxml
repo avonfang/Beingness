@@ -28,7 +28,7 @@
   </view>
 
   <!-- Hero CTA — the one thing to do -->
-  <view class="hero-cta" bindtap="startEmergency">
+  <view class="hero-cta fade-in" bindtap="startEmergency">
     <text class="cta-icon">🌿</text>
     <text class="cta-title">现在感觉怎么样？</text>
     <text class="cta-desc">情绪来的时候，试着观察它</text>
@@ -46,7 +46,7 @@
   </view>
 
   <!-- Quick tools -->
-  <view class="tool-grid">
+  <view class="tool-grid fade-in-d1">
     <view class="tool-btn" bindtap="goBreath">
       <text class="tool-icon">🌬️</text>
       <text class="tool-label">呼吸</text>
@@ -66,7 +66,7 @@
   </view>
 
   <!-- Daily quote (below fold) -->
-  <view class="quote-strip">
+  <view class="quote-strip fade-in-d2">
     <text class="quote-mark">"</text>
     <text class="quote-body">{{dailyQuote}}</text>
   </view>

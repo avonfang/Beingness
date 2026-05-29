@@ -5,6 +5,7 @@
   display: flex; align-items: center; gap: var(--space-4);
   padding: var(--space-12) var(--space-16); background: var(--card);
   border-bottom: 2rpx solid var(--border-light);
+  animation: fadeInUp 0.3s ease-out both;
 }
 .chat-back { width: 60rpx; height: 60rpx; display: flex; align-items: center; justify-content: center; margin-left: -12rpx; }
 .chat-back-icon { font-size: var(--space-16); color: var(--text-secondary); }
@@ -44,7 +45,8 @@
   display: block; white-space: pre-wrap;
 }
 .coins-low { color: #D4786A; }
-.thinking { color: var(--text-tertiary); }
+.thinking { color: var(--text-tertiary); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 .welcome-bubble { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.9; }
 
 /* Suggestions */
@@ -73,6 +75,7 @@
   padding: var(--space-12) var(--space-16);
   padding-bottom: calc(var(--space-12) + env(safe-area-inset-bottom));
   background: var(--card); border-top: 2rpx solid var(--border-light);
+  animation: fadeInUp 0.3s ease-out 0.1s both;
 }
 .msg-input {
   flex: 1; height: 80rpx; background: var(--bg);
