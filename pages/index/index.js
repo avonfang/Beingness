@@ -251,6 +251,21 @@ Page({
     wx.navigateTo({ url: '/pages/profile/profile' })
   },
 
+  openCoinMenu() {
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
+    wx.showActionSheet({
+      itemList: ['❤️ 心意商店', '📋 查看明细'],
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          wx.setStorageSync('openShopOnProfile', true)
+          wx.navigateTo({ url: '/pages/profile/profile' })
+        } else {
+          wx.navigateTo({ url: '/pages/profile/profile' })
+        }
+      }
+    })
+  },
+
   goBreath() {
     wx.navigateTo({ url: '/pages/breath/breath' })
   },

@@ -29,7 +29,7 @@
       <text class="coins-amount">{{awakeningCoins}}</text>
       <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 签到 + 里程碑奖励</text>
     </view>
-    <view class="btn btn-outline btn-sm" catchtap="openShop">商店</view>
+    <view class="btn btn-primary btn-sm" catchtap="openShop">❤️ 商店</view>
   </view>
 
   <!-- ❤️ Shop modal -->
