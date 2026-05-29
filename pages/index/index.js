@@ -41,7 +41,9 @@ Page({
     isPremium: false,
     themeClass: 'theme-default',
     showEmotionTags: true,
-    showTransitionGuide: false
+    showTransitionGuide: false,
+    shopVisible: false,
+    shopItems: {}
   },
 
   onLoad() {
@@ -251,19 +253,62 @@ Page({
     wx.navigateTo({ url: '/pages/profile/profile' })
   },
 
+  // Tap ❤️ badge → open shop right here
   openCoinMenu() {
-    wx.vibrateShort({ type: 'light' }).catch(() => {})
-    wx.showActionSheet({
-      itemList: ['❤️ 心意商店', '📋 查看明细'],
-      success: (res) => {
-        if (res.tapIndex === 0) {
-          wx.setStorageSync('openShopOnProfile', true)
-          wx.navigateTo({ url: '/pages/profile/profile' })
-        } else {
-          wx.navigateTo({ url: '/pages/profile/profile' })
-        }
+    const purchasedThemes = wx.getStorageSync('purchasedThemes') || []
+    const isPremium = wx.getStorageSync('isPremium') || false
+    this.setData({
+      shopVisible: true,
+      shopItems: {
+        ocean: { owned: purchasedThemes.includes('ocean') },
+        forest: { owned: purchasedThemes.includes('forest') },
+        trial: { owned: isPremium }
       }
     })
+  },
+
+  closeShop() {
+    this.setData({ shopVisible: false })
+  },
+
+  buyShopItem(e) {
+    const key = e.currentTarget.dataset.key
+    const prices = { ocean: 20, forest: 20, trial: 50 }
+    const price = prices[key]
+    const coins = this.data.awakeningCoins
+    if (coins < price) {
+      wx.showToast({ title: `还差 ${price - coins} ❤️`, icon: 'none' })
+      return
+    }
+
+    if (key === 'trial') {
+      wx.setStorageSync('isPremium', true)
+      const { addCoins } = require('../../utils/coins')
+      addCoins(-price, '购买7天陪伴体验')
+      this.setData({ isPremium: true, shopVisible: false })
+      wx.showToast({ title: '💌 7天陪伴已激活', icon: 'success' })
+      this.loadRecommendation()
+      return
+    }
+
+    // Theme purchase
+    const purchasedThemes = wx.getStorageSync('purchasedThemes') || []
+    if (purchasedThemes.includes(key)) {
+      wx.showToast({ title: '已拥有', icon: 'none' })
+      return
+    }
+    purchasedThemes.push(key)
+    wx.setStorageSync('purchasedThemes', purchasedThemes)
+    wx.setStorageSync('appTheme', key)
+    const { addCoins } = require('../../utils/coins')
+    addCoins(-price, `解锁${key === 'ocean' ? '海洋' : '森林'}主题`)
+
+    this.setData({
+      awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
+      themeClass: 'theme-' + key,
+      shopVisible: false
+    })
+    wx.showToast({ title: `✨ ${key === 'ocean' ? '🌊 海洋' : '🌿 森林'}主题已解锁`, icon: 'success' })
   },
 
   goBreath() {

@@ -30,12 +30,6 @@ Page({
     const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({ isPremium, themeClass: 'theme-' + theme })
     this.loadReport()
-
-    // Auto-open shop if navigated from homepage coin badge
-    if (wx.getStorageSync('openShopOnProfile')) {
-      wx.setStorageSync('openShopOnProfile', false)
-      setTimeout(() => this.openShop(), 300)
-    }
   },
 
   loadReport() {
