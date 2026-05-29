@@ -123,5 +123,37 @@
 .quote-source { font-size: var(--text-caption); color: var(--primary); font-weight: 500; }
 .quote-time { font-size: var(--text-caption); color: var(--text-tertiary); }
 
+/* Shop overlay */
+.shop-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(29, 26, 19, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(12rpx);
+  opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+}
+.shop-overlay.visible { opacity: 1; pointer-events: auto; }
+.shop-card {
+  background: var(--card); border-radius: var(--radius-md);
+  width: 600rpx; padding: var(--space-32) var(--space-24) var(--space-16);
+  box-shadow: var(--shadow-lg); text-align: center;
+}
+.shop-title { font-size: var(--text-headline); font-weight: 600; color: var(--text); display: block; }
+.shop-balance { font-size: var(--text-body); color: var(--text-secondary); display: block; margin: var(--space-4) 0 var(--space-20); }
+
+.shop-item {
+  display: flex; align-items: center; gap: var(--space-12);
+  padding: var(--space-12); border-radius: var(--radius-sm);
+  margin-bottom: var(--space-8); background: var(--bg);
+  transition: transform 0.12s;
+}
+.shop-item:active { transform: scale(0.97); }
+.shop-item.owned { opacity: 0.6; }
+.shop-item-icon { font-size: 40rpx; display: block; }
+.shop-item-info { flex: 1; text-align: left; }
+.shop-item-name { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
+.shop-item-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; }
+.shop-item-price { font-size: var(--text-body); color: var(--gold); font-weight: 600; }
+.shop-item-owned { font-size: var(--text-caption); color: var(--text-tertiary); }
+
 /* Export */
 .export-area { text-align: center; padding: var(--space-24) 0 var(--space-40); }

@@ -47,7 +47,6 @@ Page({
   onLoad() {
     const hasSeen = wx.getStorageSync('hasSeenOnboarding') || false
     const theme = wx.getStorageSync('appTheme') || 'default'
-    const tagUses = wx.getStorageSync('emotionTagUses') || 0
     const streakDays = wx.getStorageSync('streakDays') || 0
     const hasSeenV5Guide = wx.getStorageSync('hasSeenV5Guide') || false
 
@@ -55,7 +54,6 @@ Page({
       hasSeenOnboarding: hasSeen,
       dailyPractice: getDailyPractice(),
       themeClass: 'theme-' + theme,
-      showEmotionTags: tagUses < 3,
       showTransitionGuide: hasSeen && !hasSeenV5Guide,
       streakDays
     })
@@ -204,13 +202,6 @@ Page({
   onEmotionSelect(e) {
     const emotion = e.currentTarget.dataset.emotion
     wx.vibrateShort({ type: 'light' }).catch(() => {})
-
-    // Track usage count — hide tags after 3 uses
-    const tagUses = (wx.getStorageSync('emotionTagUses') || 0) + 1
-    wx.setStorageSync('emotionTagUses', tagUses)
-    if (tagUses >= 3) {
-      this.setData({ showEmotionTags: false })
-    }
 
     // Let user choose what to do with this emotion
     const self = this

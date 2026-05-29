@@ -19,7 +19,8 @@ Page({
     note: '',
     rating: 0,
     startTime: null,
-    themeClass: 'theme-default'
+    themeClass: 'theme-default',
+    recommendedLesson: null
   },
 
   onLoad(options) {
@@ -49,7 +50,9 @@ Page({
       steps: steps,
       totalSteps: steps.length,
       stepIndex: 0,
-      currentStep: this.resolveStep(steps[0], null)
+      currentStep: this.resolveStep(steps[0], null),
+      showCrisis,
+      recommendedLesson: this.findLessonForEmotion(emotion)
     })
   },
 
@@ -77,7 +80,8 @@ Page({
       totalSteps: steps.length,
       stepIndex: 0,
       currentStep: this.resolveStep(steps[0], null),
-      showCrisis
+      showCrisis,
+      recommendedLesson: this.findLessonForEmotion(emotion)
     })
   },
 
@@ -146,6 +150,31 @@ Page({
 
   addCoin(amount) {
     return addCoins(amount, '情绪急救')
+  },
+
+  // Find a relevant uncompleted lesson for the emotion
+  findLessonForEmotion(emotion) {
+    const courses = require('../../data/courses')
+    const recs = {
+      anxiety: { path: 'presence', lessonIndex: 1, lessonTitle: '回到身体' },
+      anger: { path: 'surrender', lessonIndex: 1, lessonTitle: '观察内在抗拒' },
+      low: { path: 'openness', lessonIndex: 1, lessonTitle: '感受的流动' },
+      tangled: { path: 'surrender', lessonIndex: 2, lessonTitle: '放手与信任' }
+    }
+    const rec = recs[emotion]
+    if (!rec) return null
+    const lesson = courses[rec.path]?.lessons[rec.lessonIndex]
+    if (!lesson) return null
+    if (wx.getStorageSync(`lesson_${rec.path}_${lesson.id}`)) return null
+    return { ...rec, path: rec.path }
+  },
+
+  goRecommendedLesson() {
+    const rec = this.data.recommendedLesson
+    if (!rec) return
+    wx.navigateTo({
+      url: `/pages/learning/lesson/lesson?path=${rec.path}&lessonIndex=${rec.lessonIndex}`
+    })
   },
 
   deepDialogue() {

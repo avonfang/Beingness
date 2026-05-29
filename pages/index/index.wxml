@@ -17,8 +17,8 @@
     <text class="mood-question">你现在感觉怎样？</text>
   </view>
 
-  <!-- Quick emotion tags (hide after 3 uses) -->
-  <view class="emotion-tags" wx:if="{{showEmotionTags}}">
+  <!-- Quick emotion tags — always visible -->
+  <view class="emotion-tags">
     <view class="emotion-tag" data-emotion="anxiety" bindtap="onEmotionSelect">
       <text class="emotion-tag-icon">😰</text>
       <text class="emotion-tag-label">焦虑</text>

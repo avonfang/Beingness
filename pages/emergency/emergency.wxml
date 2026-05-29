@@ -57,6 +57,7 @@
       <text class="crisis-text">💛 如果需要倾诉，可以拨打心理援助热线：400-161-9995</text>
     </view>
     <button class="btn btn-primary btn-lg btn-block" bindtap="deepDialogue">深入聊聊 →</button>
+    <button class="btn btn-outline btn-lg btn-block" wx:if="{{recommendedLesson}}" bindtap="goRecommendedLesson">📖 推荐学习：{{recommendedLesson.lessonTitle}} →</button>
     <button class="btn btn-outline btn-lg btn-block" open-type="share">分享此刻</button>
     <button class="btn btn-ghost btn-lg btn-block" bindtap="goBack">返回首页</button>
   </view>
