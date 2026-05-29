@@ -1,35 +1,44 @@
 <view class="container {{themeClass}}">
+  <!-- Header -->
   <view class="lesson-header">
     <text class="lesson-num">第 {{lessonIndex + 1}} / {{total}} 课</text>
     <text class="lesson-title">{{lesson.title}}</text>
     <text class="lesson-subtitle" wx:if="{{lesson.subtitle}}">{{lesson.subtitle}}</text>
   </view>
 
-  <scroll-view scroll-y class="content-area">
-    <view class="section">
-      <view class="section-header">
-        <text class="section-icon">💡</text>
-        <text class="section-label">概念</text>
+  <!-- Swipeable cards -->
+  <view class="card-area">
+    <!-- Concept / Practice cards -->
+    <view class="slide-card" wx:for="{{slides}}" wx:key="index">
+      <view class="slide-card-inner {{currentSlide === index ? 'active' : ''}}">
+        <view class="slide-icon">{{item.icon}}</view>
+        <view class="slide-type-label">{{item.type === 'concept' ? '理解' : '练习'}}</view>
+        <text class="slide-text">{{item.text}}</text>
+
+        <!-- Practice mode: show action buttons on last card -->
+        <view class="slide-actions" wx:if="{{item.type === 'practice' && currentSlide === index}}">
+          <view class="btn btn-primary btn-lg" bindtap="startPractice">开始练习 →</view>
+          <view class="btn btn-outline btn-lg" bindtap="markComplete" disabled="{{isCompleted}}">
+            {{isCompleted ? '已完成 ✓' : '标记完成'}}
+          </view>
+          <view class="btn btn-ghost btn-lg" wx:if="{{hasNext}}" bindtap="nextLesson">下一课 →</view>
+        </view>
       </view>
-      <text class="section-text">{{lesson.concept}}</text>
     </view>
 
-    <view class="section">
-      <view class="section-header">
-        <text class="section-icon">🧘</text>
-        <text class="section-label">今日练习</text>
-      </view>
-      <text class="section-text">{{lesson.practice}}</text>
+    <!-- Navigation dots -->
+    <view class="slide-dots">
+      <view class="slide-dot {{currentSlide === index ? 'active' : ''}}" wx:for="{{slides}}" wx:key="index" data-index="{{index}}" bindtap="goSlide"></view>
     </view>
+  </view>
 
-    <view class="lesson-actions">
-      <button class="btn btn-primary btn-lg" bindtap="startPractice">开始练习 →</button>
-      <button class="btn btn-outline btn-lg" bindtap="markComplete" disabled="{{isCompleted}}">
-        {{isCompleted ? '已完成 ✓' : '标记完成'}}
-      </button>
-      <button class="btn btn-ghost btn-lg" wx:if="{{hasNext}}" bindtap="nextLesson">
-        下一课 →
-      </button>
+  <!-- Tap zones for navigation -->
+  <view class="nav-zones">
+    <view class="nav-zone-left" bindtap="prevSlide" wx:if="{{currentSlide > 0}}">
+      <text class="nav-arrow">‹</text>
     </view>
-  </scroll-view>
+    <view class="nav-zone-right" bindtap="nextSlide" wx:if="{{currentSlide < totalSlides - 1}}">
+      <text class="nav-arrow">›</text>
+    </view>
+  </view>
 </view>

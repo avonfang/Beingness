@@ -178,7 +178,7 @@ Page({
     }
   },
 
-  // Emotion tag tapped → navigate to emergency with pre-selected emotion
+  // Emotion tag tapped → show 3 options
   onEmotionSelect(e) {
     const emotion = e.currentTarget.dataset.emotion
     wx.vibrateShort({ type: 'light' }).catch(() => {})
@@ -190,9 +190,19 @@ Page({
       this.setData({ showEmotionTags: false })
     }
 
-    // Navigate to emergency with emotion pre-selected
-    wx.navigateTo({
-      url: `/pages/emergency/emergency?emotion=${emotion}`
+    // Let user choose what to do with this emotion
+    const self = this
+    wx.showActionSheet({
+      itemList: ['🧘 做一次情绪急救', '💌 写一封信给自己', '🌬️ 先做一组呼吸'],
+      success(res) {
+        if (res.tapIndex === 0) {
+          wx.navigateTo({ url: `/pages/emergency/emergency?emotion=${emotion}` })
+        } else if (res.tapIndex === 1) {
+          wx.navigateTo({ url: '/pages/dialogue/dialogue' })
+        } else {
+          wx.navigateTo({ url: '/pages/breath/breath' })
+        }
+      }
     })
   },
 
