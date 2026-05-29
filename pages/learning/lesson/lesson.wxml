@@ -13,7 +13,9 @@
       <view class="slide-card-inner {{currentSlide === index ? 'active' : ''}}">
         <view class="slide-icon">{{item.icon}}</view>
         <view class="slide-type-label">{{item.type === 'concept' ? '理解' : '练习'}}</view>
-        <text class="slide-text">{{item.text}}</text>
+        <view class="slide-text-wrap" bindlongpress="saveQuote" data-text="{{item.text}}">
+          <text class="slide-text">{{item.text}}</text>
+        </view>
 
         <!-- Practice mode: show action buttons on last card -->
         <view class="slide-actions" wx:if="{{item.type === 'practice' && currentSlide === index}}">

@@ -141,3 +141,31 @@
 .upgrade-info { flex: 1; }
 .upgrade-title { font-size: var(--text-body); font-weight: 600; color: var(--text); display: block; }
 .upgrade-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-2); line-height: 1.6; }
+
+/* Check-in achievement overlay */
+.checkin-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(29, 26, 19, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(12rpx);
+  opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+}
+.checkin-overlay.visible { opacity: 1; pointer-events: auto; }
+
+.checkin-card {
+  background: var(--card); border-radius: var(--radius-md);
+  width: 560rpx; padding: var(--space-40) var(--space-24) var(--space-24);
+  box-shadow: var(--shadow-lg); text-align: center;
+  animation: bounceIn 0.4s ease-out both;
+}
+.checkin-emoji { font-size: 96rpx; display: block; margin-bottom: var(--space-8); }
+.checkin-title { font-size: var(--text-headline); font-weight: 600; color: var(--text); display: block; }
+.checkin-streak { font-size: var(--text-title); font-weight: 700; color: var(--gold); display: block; margin: var(--space-4) 0 var(--space-24); }
+
+.checkin-stats { display: flex; gap: var(--space-16); justify-content: center; margin-bottom: var(--space-20); }
+.checkin-stat { text-align: center; }
+.checkin-stat-num { font-size: var(--text-headline); font-weight: 600; color: var(--text); display: block; }
+.checkin-stat-label { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
+
+.checkin-milestone { margin-bottom: var(--space-16); }
+.checkin-milestone-text { font-size: var(--text-body); color: var(--gold); font-weight: 500; }

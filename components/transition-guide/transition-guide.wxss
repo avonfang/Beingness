@@ -1,0 +1,33 @@
+.overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(29, 26, 19, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(12rpx);
+  opacity: 0; transition: opacity 0.4s ease;
+}
+.overlay.show { opacity: 1; }
+
+.guide-card {
+  background: var(--card); border-radius: var(--radius-md);
+  width: 560rpx; padding: var(--space-32) var(--space-24) var(--space-24);
+  box-shadow: var(--shadow-lg); text-align: center;
+}
+
+.title {
+  font-size: var(--text-title); font-weight: 600; color: var(--text);
+  display: block; margin-bottom: var(--space-24);
+}
+
+.change-list { display: flex; gap: var(--space-8); margin-bottom: var(--space-24); }
+.change-item {
+  flex: 1; background: var(--bg); border-radius: var(--radius-sm);
+  padding: var(--space-12) var(--space-4); text-align: center;
+}
+.change-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-4); }
+.change-label { font-size: var(--text-caption); font-weight: 600; color: var(--text); display: block; }
+.change-desc { font-size: 20rpx; color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
+
+.streak-line { margin-bottom: var(--space-20); }
+.streak-text { font-size: var(--text-body); color: var(--gold); font-weight: 500; }
+
+.btn-disabled { opacity: 0.5; }

@@ -106,5 +106,29 @@ Page({
   nextLesson() {
     const { path, lessonIndex } = this.data
     this.loadLesson(path, lessonIndex + 1)
+  },
+
+  // Long-press on slide text → save as bookmark
+  saveQuote(e) {
+    const text = e.currentTarget.dataset.text
+    if (!text) return
+    wx.vibrateShort({ type: 'light' }).catch(() => {})
+
+    const quotes = wx.getStorageSync('savedQuotes') || []
+    // Don't save duplicates
+    if (quotes.some(q => q.text === text)) {
+      wx.showToast({ title: '已收藏过', icon: 'none' })
+      return
+    }
+
+    const { lesson, path } = this.data
+    quotes.unshift({
+      text: text.slice(0, 200),
+      lesson: lesson.title,
+      path,
+      time: new Date().toISOString()
+    })
+    wx.setStorageSync('savedQuotes', quotes.slice(0, 100))
+    wx.showToast({ title: '✨ 已收藏', icon: 'none' })
   }
 })

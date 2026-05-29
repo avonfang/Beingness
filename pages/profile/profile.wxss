@@ -113,5 +113,15 @@
 .insight-card { border-left: 6rpx solid var(--gold-light); }
 .insight-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 2; display: block; white-space: pre-line; }
 
+/* Quotes */
+.quotes-card { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); }
+.quote-list { max-height: 500rpx; overflow-y: auto; }
+.quote-item { padding: var(--space-12) 0; border-bottom: 2rpx solid var(--border-light); }
+.quote-item:last-child { border-bottom: none; }
+.quote-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.8; display: block; font-style: italic; }
+.quote-footer { display: flex; justify-content: space-between; margin-top: var(--space-4); }
+.quote-source { font-size: var(--text-caption); color: var(--primary); font-weight: 500; }
+.quote-time { font-size: var(--text-caption); color: var(--text-tertiary); }
+
 /* Export */
 .export-area { text-align: center; padding: var(--space-24) 0 var(--space-40); }

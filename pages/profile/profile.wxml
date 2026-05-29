@@ -139,6 +139,20 @@
     </view>
   </view>
 
+  <!-- Saved quotes -->
+  <view class="quotes-card" wx:if="{{savedQuotes.length > 0}}">
+    <text class="card-title">📖 我的收藏</text>
+    <view class="quote-list">
+      <view class="quote-item" wx:for="{{savedQuotes}}" wx:key="time">
+        <text class="quote-text">「{{item.text}}」</text>
+        <view class="quote-footer">
+          <text class="quote-source">{{item.lesson}}</text>
+          <text class="quote-time">{{formatTime(item.time)}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
   <!-- Insight -->
   <view class="insight-card">
     <text class="card-title">数据洞察</text>

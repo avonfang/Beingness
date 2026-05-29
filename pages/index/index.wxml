@@ -1,4 +1,5 @@
 <onboarding-guide wx:if="{{!hasSeenOnboarding}}" bind:finish="onOnboardingFinish" />
+<transition-guide wx:elif="{{showTransitionGuide}}" streakDays="{{streakDays}}" bind:finish="onTransitionFinish" />
 
 <view class="container {{themeClass}}">
   <!-- Minimal header -->

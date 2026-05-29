@@ -8,6 +8,12 @@ Component({
       }
     },
 
+    startFirstAid() {
+      wx.setStorageSync('hasSeenOnboarding', true)
+      this.triggerEvent('finish')
+      wx.navigateTo({ url: '/pages/emergency/emergency' })
+    },
+
     finish() {
       wx.setStorageSync('hasSeenOnboarding', true)
       this.triggerEvent('finish')

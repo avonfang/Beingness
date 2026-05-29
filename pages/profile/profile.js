@@ -19,7 +19,8 @@ Page({
     weekReport: null,
     isPremium: false,
     themeClass: 'theme-default',
-    coinLedger: []
+    coinLedger: [],
+    savedQuotes: []
   },
 
   onShow() {
@@ -63,6 +64,7 @@ Page({
     const weekReport = report.getWeekReport(entries)
 
     const coinLedger = getLedger()
+    const savedQuotes = wx.getStorageSync('savedQuotes') || []
 
     this.setData({
       totalSessions,
@@ -78,7 +80,8 @@ Page({
       weekData,
       achievements,
       weekReport,
-      coinLedger: coinLedger.slice(0, 20)
+      coinLedger: coinLedger.slice(0, 20),
+      savedQuotes: savedQuotes.slice(0, 20)
     })
   },
 

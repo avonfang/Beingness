@@ -24,6 +24,7 @@
   font-size: var(--text-caption); color: var(--primary); font-weight: 600;
   letter-spacing: 2rpx; display: block; margin-bottom: var(--space-12);
 }
+.slide-text-wrap { flex: 1; display: flex; flex-direction: column; }
 .slide-text {
   font-size: var(--text-body); color: var(--text-secondary); line-height: 2;
   display: block; white-space: pre-line; flex: 1;

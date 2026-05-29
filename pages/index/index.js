@@ -8,35 +8,28 @@ const EMOTION_TAGS = [
 ]
 
 const RECOMMENDATIONS = {
-  anxiety: {
-    title: '今日推荐：缓解焦虑',
-    desc: '你最近的急救以焦虑为主，推荐学习「临在之路」第2课',
-    action: '回到身体',
-    path: 'presence',
-    lessonIndex: 1
-  },
-  anger: {
-    title: '今日推荐：化解愤怒',
-    desc: '愤怒往往来自抗拒。推荐学习「臣服之路」第2课',
-    action: '观察内在抗拒',
-    path: 'surrender',
-    lessonIndex: 1
-  },
-  low: {
-    title: '今日推荐：释放低落',
-    desc: '低落的能量需要流动。推荐学习「开放之路」第2课',
-    action: '感受的流动',
-    path: 'openness',
-    lessonIndex: 1
-  },
-  tangled: {
-    title: '今日推荐：放下纠结',
-    desc: '纠结时试试臣服。推荐学习「臣服之路」第3课',
-    action: '放手与信任',
-    path: 'surrender',
-    lessonIndex: 2
-  }
+  anxiety: [
+    { title: '缓解焦虑 · 回到身体', desc: '焦虑时最需要的是从思维回到身体', path: 'presence', lessonIndex: 1 },
+    { title: '缓解焦虑 · 你≠你的思维', desc: '看清焦虑的来源——你与思维不是一回事', path: 'presence', lessonIndex: 0 }
+  ],
+  anger: [
+    { title: '化解愤怒 · 观察内在抗拒', desc: '愤怒往往来自抗拒，看到它就能放下它', path: 'surrender', lessonIndex: 1 },
+    { title: '化解愤怒 · 什么是臣服', desc: '真正的臣服不是认输，是放下内心战争', path: 'surrender', lessonIndex: 0 }
+  ],
+  low: [
+    { title: '释放低落 · 感受的流动', desc: '低落的能量需要流动，允许它经过你', path: 'openness', lessonIndex: 1 },
+    { title: '释放低落 · 回到身体', desc: '身体永远在当下，低落时回到身体感受', path: 'presence', lessonIndex: 1 }
+  ],
+  tangled: [
+    { title: '放下纠结 · 放手与信任', desc: '纠结的解药是松开紧握的拳头', path: 'surrender', lessonIndex: 2 },
+    { title: '放下纠结 · 在当下找到力量', desc: '问题只存在于时间里，回到当下', path: 'presence', lessonIndex: 4 }
+  ]
 }
+
+const FALLBACK_RECS = [
+  { title: '开始觉醒 · 你≠你的思维', desc: '一切觉醒的起点——认出你不是头脑里的声音', path: 'presence', lessonIndex: 0 },
+  { title: '开始觉醒 · 回到身体', desc: '最快速的回到当下的方法', path: 'presence', lessonIndex: 1 }
+]
 
 Page({
   data: {
@@ -47,18 +40,24 @@ Page({
     dailyPractice: null,
     isPremium: false,
     themeClass: 'theme-default',
-    showEmotionTags: true
+    showEmotionTags: true,
+    showTransitionGuide: false
   },
 
   onLoad() {
     const hasSeen = wx.getStorageSync('hasSeenOnboarding') || false
     const theme = wx.getStorageSync('appTheme') || 'default'
     const tagUses = wx.getStorageSync('emotionTagUses') || 0
+    const streakDays = wx.getStorageSync('streakDays') || 0
+    const hasSeenV5Guide = wx.getStorageSync('hasSeenV5Guide') || false
+
     this.setData({
       hasSeenOnboarding: hasSeen,
       dailyPractice: getDailyPractice(),
       themeClass: 'theme-' + theme,
-      showEmotionTags: tagUses < 3
+      showEmotionTags: tagUses < 3,
+      showTransitionGuide: hasSeen && !hasSeenV5Guide,
+      streakDays
     })
   },
 
@@ -110,29 +109,52 @@ Page({
   },
 
   loadRecommendation() {
+    const course = require('../../data/courses')
+
+    // Gather all emotion signals
+    const emotionScores = {}
+
+    // Score from emergency entries (weight: 2 per entry)
     const entries = wx.getStorageSync('pendingEntries') || []
-    if (entries.length === 0) return
+    entries.slice(-10).forEach(e => {
+      if (e.emotionType) emotionScores[e.emotionType] = (emotionScores[e.emotionType] || 0) + 2
+    })
 
-    const recent = entries.slice(-5)
-    const counts = {}
-    recent.forEach(e => { counts[e.emotionType] = (counts[e.emotionType] || 0) + 1 })
+    // Score from dialogues (weight: 1 per dialogue)
+    const dialogues = wx.getStorageSync('dialogueHistory') || []
+    dialogues.slice(0, 10).forEach(d => {
+      if (d.emotion) emotionScores[d.emotion] = (emotionScores[d.emotion] || 0) + 1
+    })
 
-    let maxEmotion = null, maxCount = 0
-    for (const [type, count] of Object.entries(counts)) {
-      if (count > maxCount) { maxCount = count; maxEmotion = type }
+    // Find dominant emotion
+    let maxEmotion = null, maxScore = 0
+    for (const [emotion, score] of Object.entries(emotionScores)) {
+      if (score > maxScore) { maxScore = score; maxEmotion = emotion }
     }
 
-    const recommendation = RECOMMENDATIONS[maxEmotion]
-    if (!recommendation) return
+    // Build completed set
+    const completedLessons = {}
+    ;['presence', 'surrender', 'openness'].forEach(p => {
+      const c = course[p]
+      if (!c) return
+      c.lessons.forEach(l => {
+        if (wx.getStorageSync(`lesson_${p}_${l.id}`)) completedLessons[l.id] = true
+      })
+    })
 
-    const course = require('../../data/courses')
-    const lesson = course[recommendation.path]?.lessons[recommendation.lessonIndex]
-    if (!lesson) return
+    // Pick first uncompleted recommendation
+    const candidates = (maxEmotion ? RECOMMENDATIONS[maxEmotion] : null) || FALLBACK_RECS
+    for (const rec of candidates) {
+      const lesson = course[rec.path]?.lessons[rec.lessonIndex]
+      if (!lesson) continue
+      if (!completedLessons[lesson.id]) {
+        this.setData({ recommendation: rec })
+        return
+      }
+    }
 
-    const completed = wx.getStorageSync(`lesson_${recommendation.path}_${lesson.id}`) || false
-    if (completed) return
-
-    this.setData({ recommendation })
+    // All recommended lessons completed — clear recommendation
+    this.setData({ recommendation: null })
   },
 
   // Auto check-in silently when user opens app on a new day
@@ -216,6 +238,10 @@ Page({
 
   onOnboardingFinish() {
     this.setData({ hasSeenOnboarding: true })
+  },
+
+  onTransitionFinish() {
+    this.setData({ showTransitionGuide: false })
   },
 
   startEmergency() {

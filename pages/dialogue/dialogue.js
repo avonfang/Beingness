@@ -15,7 +15,11 @@ Page({
     isPremium: false,
     showUpgrade: false,
     themeClass: 'theme-default',
-    showGuideText: true
+    showGuideText: true,
+    checkinPhase: '',
+    checkinStreak: 0,
+    checkinStats: { totalSessions: 0, totalDialogues: 0, streakDays: 0 },
+    checkinBonus: 0
   },
 
   _practiceStats: null, // In-memory buffer for practice stats
@@ -218,7 +222,6 @@ Page({
         const moodMap = { 0: 'better', 1: 'same', 2: 'worse' }
         const mood = moodMap[res.tapIndex]
 
-        // Record mood change data
         const records = wx.getStorageSync('moodAfterLetter') || []
         records.push({
           emotion: this.data.detectedEmotion,
@@ -227,14 +230,62 @@ Page({
         })
         wx.setStorageSync('moodAfterLetter', records.slice(-50))
 
-        if (mood === 'better') {
-          wx.showToast({ title: '很高兴能陪你 🤍', icon: 'none', duration: 1500 })
-        }
-        setTimeout(() => wx.navigateBack(), 500)
+        this.showCheckinAchievement(mood)
       },
-      fail: () => {
-        wx.navigateBack()
+      fail: () => this.showCheckinAchievement()
+    })
+  },
+
+  showCheckinAchievement(mood) {
+    const streakInfo = this.doCheckIn()
+
+    const entries = wx.getStorageSync('pendingEntries') || []
+    const dialogues = wx.getStorageSync('dialogueHistory') || []
+
+    this.setData({
+      checkinPhase: 'show',
+      checkinStreak: streakInfo.streakDays,
+      checkinBonus: streakInfo.bonus,
+      checkinStats: {
+        totalSessions: entries.length,
+        totalDialogues: dialogues.length,
+        streakDays: streakInfo.streakDays
       }
     })
+  },
+
+  closeCheckin() {
+    this.setData({ checkinPhase: '' })
+    wx.navigateBack()
+  },
+
+  // Silent check-in, returns { streakDays, bonus }
+  doCheckIn() {
+    const lastDate = wx.getStorageSync('lastCheckInDate') || ''
+    const today = new Date().toLocaleDateString('zh-CN')
+    if (lastDate === today) {
+      const streakDays = wx.getStorageSync('streakDays') || 0
+      return { streakDays, bonus: 0 }
+    }
+
+    const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('zh-CN')
+    const prevStreak = wx.getStorageSync('streakDays') || 0
+    const streakDays = lastDate === yesterday ? prevStreak + 1 : 1
+
+    wx.setStorageSync('lastCheckInDate', today)
+    wx.setStorageSync('streakDays', streakDays)
+
+    // Check milestone bonus
+    let bonus = 0
+    if (streakDays === 3) bonus = 5
+    else if (streakDays === 7) bonus = 10
+    else if (streakDays === 30) bonus = 30
+
+    if (bonus > 0) {
+      const { addCoins } = require('../../utils/coins')
+      addCoins(bonus, `连续 ${streakDays} 天里程碑`)
+    }
+
+    return { streakDays, bonus }
   }
 })

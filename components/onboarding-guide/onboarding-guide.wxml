@@ -42,7 +42,8 @@
 
     <view class="guide-actions">
       <view wx:if="{{step < 1}}" class="btn btn-primary btn-lg" bindtap="next">开始了解</view>
-      <view wx:if="{{step === 1}}" class="btn btn-primary btn-lg" bindtap="finish">开始体验</view>
+      <view wx:if="{{step === 1}}" class="btn btn-primary btn-lg" bindtap="startFirstAid">🧘 做第一次急救</view>
+      <view wx:if="{{step === 1}}" class="btn btn-ghost btn-sm" bindtap="finish">先随便看看</view>
       <view class="btn btn-ghost btn-sm" bindtap="finish" wx:if="{{step < 1}}">跳过</view>
     </view>
   </view>

@@ -1,0 +1,32 @@
+<view class="overlay {{phase}}" catchtap="dismiss">
+  <view class="guide-card">
+    <text class="title">更新了什么</text>
+
+    <view class="change-list">
+      <view class="change-item">
+        <text class="change-icon">🌿</text>
+        <text class="change-label">首页极简</text>
+        <text class="change-desc">打开即选情绪</text>
+      </view>
+      <view class="change-item">
+        <text class="change-icon">💌</text>
+        <text class="change-label">此刻信箱</text>
+        <text class="change-desc">给自己写信</text>
+      </view>
+      <view class="change-item">
+        <text class="change-icon">🔥</text>
+        <text class="change-label">签到奖励</text>
+        <text class="change-desc">完成后自动签到</text>
+      </view>
+    </view>
+
+    <view class="streak-line" wx:if="{{streakDays > 0}}">
+      <text class="streak-text">🔥 你已连续 {{streakDays}} 天</text>
+    </view>
+
+    <view class="btn btn-primary btn-lg {{canDismiss ? '' : 'btn-disabled'}}" catchtap="dismiss">
+      <text wx:if="{{!canDismiss}}">请稍候…</text>
+      <text wx:if="{{canDismiss}}">继续</text>
+    </view>
+  </view>
+</view>
