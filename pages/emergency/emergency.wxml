@@ -2,11 +2,6 @@
   <!-- Ambient background decoration -->
   <view class="ambient-circle"></view>
 
-  <!-- Step dots -->
-  <view class="step-indicator" wx:if="{{phase !== 'select' && phase !== 'done'}}">
-    <view class="step-dot {{stepIndex >= i ? 'active' : ''}}" wx:for="{{totalSteps}}" wx:key="*this"></view>
-  </view>
-
   <!-- Emotion selection -->
   <mood-picker
     wx:if="{{phase === 'select'}}"
@@ -21,6 +16,8 @@
     text="{{currentStep.text}}"
     options="{{currentStep.options}}"
     showNext="{{currentStep.showNext}}"
+    stepIndex="{{stepIndex}}"
+    totalSteps="{{totalSteps}}"
     bind:select="onGuideSelect"
     bind:next="onGuideNext"
   />

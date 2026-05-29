@@ -3,7 +3,6 @@
     <view class="dots">
       <view class="dot {{step === 0 ? 'active' : ''}}"></view>
       <view class="dot {{step === 1 ? 'active' : ''}}"></view>
-      <view class="dot {{step === 2 ? 'active' : ''}}"></view>
     </view>
 
     <view wx:if="{{step === 0}}" class="guide-content">
@@ -14,62 +13,33 @@
     </view>
 
     <view wx:if="{{step === 1}}" class="guide-content">
-      <text class="guide-icon">🌿</text>
-      <text class="guide-title">三大核心功能</text>
-      <view class="feature-list">
-        <view class="feature-item">
-          <text class="feature-icon">🧭</text>
-          <view class="feature-info">
-            <text class="feature-name">情绪急救</text>
-            <text class="feature-desc">情绪波动时的即时引导练习</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <text class="feature-icon">💬</text>
-          <view class="feature-info">
-            <text class="feature-name">深度对话</text>
-            <text class="feature-desc">与AI觉醒导师的引导式交流</text>
-          </view>
-        </view>
-        <view class="feature-item">
-          <text class="feature-icon">📖</text>
-          <view class="feature-info">
-            <text class="feature-name">学习课程</text>
-            <text class="feature-desc">系统性的觉醒之路，三条路径</text>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <view wx:if="{{step === 2}}" class="guide-content">
       <text class="guide-icon">✦</text>
-      <text class="guide-title">觉醒币系统</text>
-      <view class="coin-list">
-        <view class="coin-item">
-          <text class="coin-icon">➕</text>
-          <text class="coin-desc">急救完成 +1 币</text>
+      <text class="guide-title">从这里开始</text>
+      <view class="step-list">
+        <view class="step-item">
+          <text class="step-num">1</text>
+          <text class="step-info">感觉不好时 → 点「现在感觉怎么样」开始急救</text>
         </view>
-        <view class="coin-item">
-          <text class="coin-icon">➕</text>
-          <text class="coin-desc">课程完成 +2 币</text>
+        <view class="step-item">
+          <text class="step-num">2</text>
+          <text class="step-info">完成急救获得觉醒币，累积你的连续天数</text>
         </view>
-        <view class="coin-item">
-          <text class="coin-icon">➖</text>
-          <text class="coin-desc">深度对话 -3 币</text>
+        <view class="step-item">
+          <text class="step-num">3</text>
+          <text class="step-info">用币深度对话，或学习课程深化觉醒</text>
         </view>
       </view>
-      <text class="guide-body" style="margin-top:28rpx">持续练习，解锁更多奖励✨</text>
     </view>
 
     <view class="guide-actions">
-      <view wx:if="{{step < 2}}" class="btn-next" bindtap="next">
-        <text>下一步 →</text>
+      <view wx:if="{{step < 1}}" class="btn-next" bindtap="next">
+        <text>下一步</text>
       </view>
-      <view wx:if="{{step === 2}}" class="btn-start" bindtap="finish">
-        <text>开始练习</text>
+      <view wx:if="{{step === 1}}" class="btn-start" bindtap="finish">
+        <text>开始体验</text>
       </view>
       <view class="btn-skip" bindtap="finish">
-        {{step < 2 ? '跳过引导' : ''}}
+        {{step < 1 ? '跳过' : ''}}
       </view>
     </view>
   </view>

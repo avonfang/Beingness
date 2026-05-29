@@ -13,6 +13,14 @@
 .coins-amount { font-size: 52rpx; font-weight: 700; color: var(--gold); display: block; line-height: 1; }
 .coins-rule { font-size: 24rpx; color: var(--text-tertiary); display: block; margin-top: 8rpx; }
 
+/* Shop card */
+.shop-card { background: var(--card); border-radius: var(--radius-md); padding: 32rpx 36rpx; margin-bottom: 36rpx; box-shadow: var(--shadow-sm); }
+.shop-row { display: flex; align-items: center; gap: 16rpx; padding: 16rpx 0; border-bottom: 2rpx solid var(--border); }
+.shop-icon { font-size: 32rpx; width: 40rpx; text-align: center; }
+.shop-desc { flex: 1; font-size: 28rpx; color: var(--text); }
+.shop-cost { font-size: 26rpx; color: var(--gold); font-weight: 500; }
+.shop-note { font-size: 24rpx; color: var(--text-tertiary); display: block; margin-top: 16rpx; text-align: center; }
+
 .stats-grid { display: flex; gap: 20rpx; margin-bottom: 36rpx; }
 .stat-card { flex: 1; background: var(--card); border-radius: var(--radius-md); padding: 32rpx 20rpx; text-align: center; box-shadow: var(--shadow-sm); }
 .stat-num { font-size: 44rpx; font-weight: 600; color: var(--text); display: block; }

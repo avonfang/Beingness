@@ -18,62 +18,56 @@
 </view>
 
 <view class="container">
-  <!-- Ambient header -->
-  <view class="ambient-section">
-    <text class="logo-chinese">此刻</text>
-    <text class="logo-sub">AI 觉醒导师</text>
-    <view class="divider"></view>
-    <view class="coins-bar">
-      <text class="coins-icon">✦</text>
-      <text class="coins-amount">{{awakeningCoins}}</text>
-      <text class="coins-label">觉醒币</text>
-      <text class="streak-divider">|</text>
-      <text class="streak-indicator">🔥 {{streakDays}}天</text>
+  <!-- Minimal header -->
+  <view class="header-bar">
+    <text class="logo-word">此刻</text>
+    <view class="header-right">
+      <text class="streak-badge">🔥 {{streakDays}}天</text>
+      <text class="coin-badge">✦ {{awakeningCoins}}</text>
     </view>
   </view>
 
-  <!-- Main entry -->
-  <view class="entry-card" bindtap="startEmergency">
-    <text class="entry-icon">🌿</text>
-    <text class="entry-title">现在感觉怎么样？</text>
-    <text class="entry-desc">情绪内耗时，试着观察它</text>
-    <text class="entry-arrow">开始引导 →</text>
+  <!-- Hero CTA — the one thing to do -->
+  <view class="hero-cta" bindtap="startEmergency">
+    <text class="cta-icon">🌿</text>
+    <text class="cta-title">现在感觉怎么样？</text>
+    <text class="cta-desc">情绪来的时候，试着观察它</text>
+    <text class="cta-arrow">开始引导 →</text>
   </view>
 
-  <!-- Personalized recommendation -->
-  <view class="rec-card" wx:if="{{recommendation}}" bindtap="goRecommendLesson">
-    <text class="rec-icon">💡</text>
-    <view class="rec-info">
-      <text class="rec-title">{{recommendation.title}}</text>
-      <text class="rec-desc">{{recommendation.desc}}</text>
-      <text class="rec-action">{{recommendation.action}} →</text>
+  <!-- Recommended lesson -->
+  <view class="rec-strip" wx:if="{{recommendation}}" bindtap="goRecommendLesson">
+    <text class="rec-strip-icon">💡</text>
+    <view class="rec-strip-info">
+      <text class="rec-strip-title">{{recommendation.title}}</text>
+      <text class="rec-strip-desc">{{recommendation.desc}}</text>
+    </view>
+    <text class="rec-strip-go">→</text>
+  </view>
+
+  <!-- Quick tools -->
+  <view class="tool-grid">
+    <view class="tool-btn" bindtap="goBreath">
+      <text class="tool-icon">🌬️</text>
+      <text class="tool-label">呼吸</text>
+    </view>
+    <view class="tool-btn" bindtap="goDialogue">
+      <text class="tool-icon">💬</text>
+      <text class="tool-label">对话</text>
+    </view>
+    <view class="tool-btn" bindtap="goLearning">
+      <text class="tool-icon">📖</text>
+      <text class="tool-label">学习</text>
+    </view>
+    <view class="tool-btn" bindtap="goProfile">
+      <text class="tool-icon">📊</text>
+      <text class="tool-label">报告</text>
     </view>
   </view>
 
-  <!-- Quick actions -->
-  <view class="quick-actions">
-    <view class="quick-btn" bindtap="goBreath">
-      <text class="quick-btn-icon">🌬️</text>
-      <text class="quick-btn-label">呼吸练习</text>
-    </view>
-    <view class="quick-btn" bindtap="goDialogue">
-      <text class="quick-btn-icon">💬</text>
-      <text class="quick-btn-label">深度对话</text>
-    </view>
-    <view class="quick-btn" bindtap="goLearning">
-      <text class="quick-btn-icon">📖</text>
-      <text class="quick-btn-label">学习课程</text>
-    </view>
-    <view class="quick-btn" bindtap="goProfile">
-      <text class="quick-btn-icon">📊</text>
-      <text class="quick-btn-label">我的报告</text>
-    </view>
-  </view>
-
-  <!-- Daily quote -->
-  <view class="quote-card">
+  <!-- Daily quote (below fold) -->
+  <view class="quote-strip">
     <text class="quote-mark">"</text>
-    <text class="quote-text">{{dailyQuote}}</text>
-    <text class="quote-source">—— 今日签</text>
+    <text class="quote-body">{{dailyQuote}}</text>
   </view>
 </view>

@@ -22,18 +22,11 @@
 .guide-desc { font-size: 28rpx; color: #8A8478; display: block; margin-top: 8rpx; }
 .guide-body { font-size: 28rpx; color: #8A8478; line-height: 1.8; display: block; text-align: left; }
 
-.feature-list { margin-top: 32rpx; display: flex; flex-direction: column; gap: 24rpx; }
-.feature-item { display: flex; align-items: center; gap: 24rpx; text-align: left; }
-.feature-icon { font-size: 40rpx; width: 60rpx; display: block; }
-.feature-info { flex: 1; }
-.feature-name { font-size: 30rpx; font-weight: 500; color: #1D1A13; display: block; }
-.feature-desc { font-size: 26rpx; color: #8A8478; display: block; margin-top: 4rpx; }
-
-.coin-list { margin-top: 32rpx; text-align: left; }
-.coin-item { display: flex; align-items: center; gap: 16rpx; padding: 20rpx 0; border-bottom: 2rpx solid #F0EEEA; }
-.coin-item:last-child { border-bottom: none; }
-.coin-icon { font-size: 28rpx; color: #C4A06A; width: 40rpx; display: block; text-align: center; }
-.coin-desc { font-size: 28rpx; color: #1D1A13; }
+.step-list { margin-top: 32rpx; text-align: left; }
+.step-item { display: flex; gap: 20rpx; align-items: flex-start; padding: 24rpx 0; border-bottom: 2rpx solid #F0EEEA; }
+.step-item:last-child { border-bottom: none; }
+.step-num { width: 44rpx; height: 44rpx; border-radius: 50%; background: #C4A06A; color: #FFF; font-size: 24rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4rpx; }
+.step-info { font-size: 28rpx; color: #1D1A13; line-height: 1.6; flex: 1; }
 
 .guide-actions { margin-top: 48rpx; display: flex; flex-direction: column; align-items: center; gap: 20rpx; }
 .btn-next {

@@ -1,44 +1,45 @@
-/* Home page */
-.container { min-height: 100vh; padding: 0 36rpx; display: flex; flex-direction: column; }
+/* Home page — simplified */
+.container { min-height: 100vh; padding: 0 32rpx; display: flex; flex-direction: column; }
 
-.ambient-section { padding: 100rpx 0 48rpx; text-align: center; }
-.logo-chinese { font-size: 72rpx; font-weight: 300; color: var(--text); letter-spacing: 24rpx; display: block; }
-.logo-sub { font-size: 28rpx; color: var(--text-tertiary); letter-spacing: 8rpx; display: block; margin-top: 20rpx; }
-.divider { width: 48rpx; height: 2rpx; background: var(--gold); opacity: 0.4; margin: 28rpx auto 0; border-radius: 2rpx; }
+/* Header bar */
+.header-bar { display: flex; align-items: center; justify-content: space-between; padding: 32rpx 0 24rpx; }
+.logo-word { font-size: 36rpx; font-weight: 600; color: var(--text); letter-spacing: 4rpx; }
+.header-right { display: flex; align-items: center; gap: 20rpx; }
+.streak-badge { font-size: 26rpx; color: var(--text-tertiary); }
+.coin-badge { font-size: 26rpx; color: var(--gold); font-weight: 500; }
 
-.coins-bar { display: flex; justify-content: center; align-items: center; gap: 8rpx; margin-top: 36rpx; }
-.coins-icon { font-size: 26rpx; color: var(--gold); }
-.coins-amount { font-size: 30rpx; color: var(--gold); font-weight: 600; }
-.coins-label { font-size: 26rpx; color: var(--text-tertiary); }
-.streak-divider { font-size: 26rpx; color: var(--border); margin: 0 8rpx; }
-.streak-indicator { font-size: 26rpx; color: var(--text-tertiary); }
+/* Hero CTA */
+.hero-cta {
+  background: linear-gradient(135deg, #C4A06A 0%, #D4B88A 100%);
+  border-radius: 28rpx; padding: 56rpx 40rpx; text-align: center;
+  margin: 20rpx 0 24rpx; box-shadow: 0 8rpx 32rpx rgba(196, 160, 106, 0.25);
+}
+.hero-cta:active { opacity: 0.92; }
+.cta-icon { font-size: 64rpx; display: block; margin-bottom: 16rpx; }
+.cta-title { font-size: 40rpx; font-weight: 600; color: #FFF; display: block; }
+.cta-desc { font-size: 28rpx; color: rgba(255,255,255,0.8); display: block; margin-top: 8rpx; }
+.cta-arrow { display: inline-block; margin-top: 24rpx; font-size: 28rpx; color: #FFF; font-weight: 500; background: rgba(255,255,255,0.2); padding: 8rpx 32rpx; border-radius: 32rpx; }
 
-.entry-card { background: var(--card); border-radius: var(--radius-lg); padding: 56rpx 40rpx; text-align: center; box-shadow: var(--shadow-md); margin-bottom: 28rpx; }
-.entry-icon { font-size: 60rpx; display: block; margin-bottom: 24rpx; }
-.entry-title { font-size: 40rpx; font-weight: 500; color: var(--text); display: block; }
-.entry-desc { font-size: 28rpx; color: var(--text-secondary); display: block; margin-top: 12rpx; }
-.entry-arrow { display: inline-block; margin-top: 28rpx; font-size: 30rpx; color: var(--primary); font-weight: 500; }
-.entry-card:active { opacity: 0.95; }
+/* Recommendation strip */
+.rec-strip { display: flex; align-items: center; gap: 16rpx; background: var(--card); border-radius: 20rpx; padding: 24rpx 28rpx; margin-bottom: 24rpx; box-shadow: var(--shadow-sm); border: 2rpx solid var(--gold-light); }
+.rec-strip:active { opacity: 0.9; }
+.rec-strip-icon { font-size: 32rpx; }
+.rec-strip-info { flex: 1; }
+.rec-strip-title { font-size: 26rpx; font-weight: 500; color: var(--text); display: block; }
+.rec-strip-desc { font-size: 24rpx; color: var(--text-secondary); display: block; margin-top: 4rpx; }
+.rec-strip-go { font-size: 32rpx; color: var(--gold); }
 
-/* Recommendation */
-.rec-card { background: linear-gradient(135deg, #F5EEDC 0%, #FFF 100%); border-radius: var(--radius-md); padding: 32rpx 36rpx; margin-bottom: 28rpx; display: flex; align-items: center; gap: 24rpx; border: 2rpx solid var(--gold-light); }
-.rec-card:active { opacity: 0.9; }
-.rec-icon { font-size: 40rpx; width: 56rpx; display: block; }
-.rec-info { flex: 1; }
-.rec-title { font-size: 28rpx; font-weight: 500; color: var(--text); display: block; }
-.rec-desc { font-size: 26rpx; color: var(--text-secondary); display: block; margin-top: 4rpx; }
-.rec-action { font-size: 26rpx; color: var(--gold); display: block; margin-top: 8rpx; font-weight: 500; }
+/* Tool grid — 2x2 */
+.tool-grid { display: flex; flex-wrap: wrap; gap: 16rpx; margin-bottom: 32rpx; }
+.tool-btn { width: calc(50% - 8rpx); background: var(--card); border-radius: 20rpx; padding: 32rpx 20rpx; text-align: center; box-shadow: var(--shadow-sm); box-sizing: border-box; }
+.tool-btn:active { opacity: 0.85; }
+.tool-icon { font-size: 40rpx; display: block; margin-bottom: 8rpx; }
+.tool-label { font-size: 26rpx; color: var(--text-secondary); display: block; }
 
-.quick-actions { display: flex; flex-wrap: wrap; gap: 20rpx; margin-bottom: 28rpx; }
-.quick-btn { width: calc(50% - 10rpx); background: var(--card); border-radius: var(--radius-md); padding: 36rpx 16rpx; text-align: center; box-shadow: var(--shadow-sm); box-sizing: border-box; }
-.quick-btn:active { opacity: 0.9; }
-.quick-btn-icon { font-size: 44rpx; display: block; }
-.quick-btn-label { font-size: 26rpx; color: var(--text-secondary); display: block; margin-top: 12rpx; }
-
-.quote-card { background: var(--card); border-radius: var(--radius-lg); padding: 40rpx 36rpx; box-shadow: var(--shadow-sm); border-left: 6rpx solid var(--primary-light); }
-.quote-mark { font-size: 40rpx; color: var(--gold); opacity: 0.3; line-height: 1; display: block; }
-.quote-text { font-size: 30rpx; color: var(--text-secondary); line-height: 2; display: block; margin-top: 8rpx; font-style: italic; }
-.quote-source { font-size: 26rpx; color: var(--text-tertiary); display: block; margin-top: 16rpx; text-align: right; }
+/* Quote */
+.quote-strip { background: var(--card); border-radius: 20rpx; padding: 28rpx 32rpx; margin-bottom: 48rpx; border-left: 6rpx solid var(--gold-light); display: flex; gap: 12rpx; align-items: flex-start; }
+.quote-mark { font-size: 36rpx; color: var(--gold); opacity: 0.3; line-height: 1; display: block; }
+.quote-body { font-size: 28rpx; color: var(--text-secondary); line-height: 1.9; display: block; font-style: italic; }
 
 /* Check-in modal */
 .checkin-overlay { position: fixed; inset: 0; z-index: 998; background: rgba(29,26,19,0.6); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8rpx); }

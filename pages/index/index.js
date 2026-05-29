@@ -144,9 +144,11 @@ Page({
       awakeningCoins: wx.getStorageSync('awakeningCoins') || 0
     })
 
+    const nextMilestone = streakDays < 3 ? 3 - streakDays : streakDays < 7 ? 7 - streakDays : streakDays < 30 ? 30 - streakDays : 0
     let msg = `签到成功 · 连续 ${streakDays} 天`
     if (bonus > 0) msg += `\n里程碑奖励 +${bonus} 觉醒币 ✦`
-    wx.showToast({ title: msg, icon: 'none', duration: 2000 })
+    if (nextMilestone > 0) msg += `\n再签到 ${nextMilestone} 天到达下个里程碑`
+    wx.showToast({ title: msg, icon: 'none', duration: 2500 })
   },
 
   skipCheckIn() {

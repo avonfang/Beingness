@@ -3,7 +3,7 @@ Component({
 
   methods: {
     next() {
-      if (this.data.step < 2) {
+      if (this.data.step < 1) {
         this.setData({ step: this.data.step + 1 })
       }
     },

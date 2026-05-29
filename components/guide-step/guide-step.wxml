@@ -1,4 +1,10 @@
 <view class="guide-container">
+  <view class="guide-progress" wx:if="{{totalSteps > 0}}">
+    <text class="guide-step-label">{{stepIndex + 1}} / {{totalSteps}}</text>
+    <view class="guide-track">
+      <view class="guide-fill" style="width: {{(stepIndex + 1) / totalSteps * 100}}%"></view>
+    </view>
+  </view>
   <view class="guide-bubble">
     <text class="guide-text">{{text}}</text>
   </view>

@@ -22,13 +22,27 @@
     </view>
   </view>
 
-  <!-- Coins -->
+  <!-- Coins + shop -->
   <view class="coins-section">
     <view class="coins-icon-bg">✦</view>
     <view class="coins-info">
       <text class="coins-amount">{{awakeningCoins}}</text>
-      <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 对话 -3</text>
+      <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 签到 + 里程碑奖励</text>
     </view>
+  </view>
+  <view class="shop-card">
+    <text class="card-title">觉醒币用途</text>
+    <view class="shop-row">
+      <text class="shop-icon">💬</text>
+      <text class="shop-desc">深度对话</text>
+      <text class="shop-cost">-3 / 条</text>
+    </view>
+    <view class="shop-row">
+      <text class="shop-icon">🏆</text>
+      <text class="shop-desc">签到里程碑</text>
+      <text class="shop-cost">+5 ~ +30</text>
+    </view>
+    <view class="shop-note">持续练习积累觉醒币，更多用途即将开放</view>
   </view>
 
   <!-- Stats -->

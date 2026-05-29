@@ -59,6 +59,7 @@ Page({
   },
 
   start() {
+    wx.vibrateShort({ type: 'medium' }).catch(() => {})
     const pattern = PATTERNS[this.data.selectedPattern]
     this.setData({
       phase: 'inhale',
@@ -77,6 +78,10 @@ Page({
     const idx = this.data.currentPhaseIndex
     const phase = pattern.phases[idx]
     let sec = phase.sec
+
+    // Haptic feedback at start of each phase
+    if (phase.label === '吸气') wx.vibrateShort({ type: 'medium' }).catch(() => {})
+    else if (phase.label === '呼气') wx.vibrateShort({ type: 'heavy' }).catch(() => {})
 
     this.setData({ countdown: sec, timerProgress: 100 })
 

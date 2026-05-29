@@ -3,6 +3,11 @@
 
 .guide-bubble { background: var(--card); border-radius: var(--radius-lg); padding: 52rpx 44rpx; box-shadow: var(--shadow-md); position: relative; }
 .guide-bubble::after { content: '🧘'; position: absolute; top: -24rpx; left: 44rpx; font-size: 44rpx; background: var(--card); padding: 0 12rpx; }
+
+.guide-progress { display: flex; align-items: center; gap: 16rpx; margin-bottom: 24rpx; }
+.guide-step-label { font-size: 24rpx; color: var(--text-tertiary); width: 72rpx; }
+.guide-track { flex: 1; height: 6rpx; background: var(--border); border-radius: 3rpx; overflow: hidden; }
+.guide-fill { height: 100%; background: var(--gold); border-radius: 3rpx; transition: width 0.3s; }
 .guide-text { font-size: 34rpx; color: var(--text); line-height: 2; display: block; white-space: pre-line; }
 
 .guide-options { margin-top: 48rpx; display: flex; flex-direction: column; gap: 24rpx; }
