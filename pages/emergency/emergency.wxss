@@ -19,3 +19,11 @@
   margin-top: 60rpx; width: 80%; background: #4A7C6F; color: #FFF;
   border-radius: 48rpx; padding: 24rpx 0; font-size: 30rpx;
 }
+.dialogue-btn {
+  margin-top: 40rpx; width: 80%; background: transparent; color: #4A7C6F;
+  border: 2rpx solid #4A7C6F; border-radius: 48rpx; padding: 24rpx 0; font-size: 30rpx;
+}
+.back-btn {
+  margin-top: 20rpx; width: 80%; background: transparent; color: #999;
+  border: none; padding: 24rpx 0; font-size: 26rpx;
+}

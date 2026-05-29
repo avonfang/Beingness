@@ -78,6 +78,28 @@ Page({
 
   setRating(e) { this.setData({ rating: e.currentTarget.dataset.value }) },
 
+  addCoin(amount) {
+    const coins = wx.getStorageSync('awakeningCoins') || 0
+    const newTotal = coins + amount
+    wx.setStorageSync('awakeningCoins', newTotal)
+    // 同步到云端
+    const db = wx.cloud.database()
+    if (getApp().globalData.openid) {
+      db.collection('users').where({ _openid: getApp().globalData.openid }).get().then(res => {
+        if (res.data.length) {
+          db.collection('users').doc(res.data[0]._id).update({
+            data: { awakeningCoins: db.command.inc(amount) }
+          })
+        }
+      }).catch(() => {})
+    }
+    return newTotal
+  },
+
+  deepDialogue() {
+    wx.navigateTo({ url: '/pages/dialogue/dialogue' })
+  },
+
   saveAndExit() {
     const db = wx.cloud.database()
     const recoveryMinutes = Math.round((Date.now() - this.data.startTime) / 60000)
@@ -93,10 +115,10 @@ Page({
         createdAt: db.serverDate()
       }
     }).then(() => {
-      wx.showToast({ title: '已记录', icon: 'success' })
-      setTimeout(() => wx.navigateBack(), 1500)
+      this.addCoin(1)
+      wx.showToast({ title: '+1 觉醒币', icon: 'success' })
+      this.setData({ phase: 'done' })
     }).catch(() => {
-      // 离线模式：存本地缓存
       const local = wx.getStorageSync('pendingEntries') || []
       local.push({
         emotionType: this.data.selectedEmotion,
@@ -106,8 +128,13 @@ Page({
         createdAt: new Date().toISOString()
       })
       wx.setStorageSync('pendingEntries', local)
-      wx.showToast({ title: '已记录', icon: 'success' })
-      setTimeout(() => wx.navigateBack(), 1500)
+      this.addCoin(1)
+      wx.showToast({ title: '+1 觉醒币', icon: 'success' })
+      this.setData({ phase: 'done' })
     })
+  },
+
+  goBack() {
+    wx.switchTab({ url: '/pages/index/index' })
   }
 })

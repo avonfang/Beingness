@@ -3,6 +3,10 @@
 .avatar { font-size: 80rpx; }
 .nickname { font-size: 36rpx; font-weight: 500; color: #3D3D3D; display: block; margin-top: 16rpx; }
 .streak { font-size: 26rpx; color: #4A7C6F; display: block; margin-top: 8rpx; }
+.coins-badge { text-align: center; padding: 20rpx 0; }
+.coins-num { font-size: 64rpx; font-weight: 700; color: #C4A56C; display: block; }
+.coins-label { font-size: 26rpx; color: #C4A56C; display: block; margin-top: 4rpx; }
+.coins-hint { font-size: 22rpx; color: #CCC; display: block; margin-top: 8rpx; }
 .stats-row { display: flex; justify-content: space-around; margin: 30rpx 0; }
 .stat-item { text-align: center; }
 .stat-num { font-size: 44rpx; font-weight: 600; color: #3D3D3D; display: block; }

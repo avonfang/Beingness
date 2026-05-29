@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/emergency/emergency",
+    "pages/dialogue/dialogue",
     "pages/log/log",
     "pages/learning/learning",
     "pages/learning/lesson/lesson",

@@ -32,4 +32,12 @@
     </view>
     <button class="save-btn" bindtap="saveAndExit">保存并完成</button>
   </view>
+
+  <view wx:elif="{{phase === 'done'}}" class="complete-view">
+    <text class="complete-icon">🌿</text>
+    <text class="complete-title">急救完成</text>
+    <text class="complete-desc">+1 觉醒币</text>
+    <button class="dialogue-btn" bindtap="deepDialogue">深入聊聊 →</button>
+    <button class="back-btn" bindtap="goBack">返回首页</button>
+  </view>
 </view>

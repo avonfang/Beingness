@@ -5,6 +5,12 @@
     <text class="streak">连续练习 {{streakDays}} 天</text>
   </view>
 
+  <view class="coins-badge">
+    <text class="coins-num">{{awakeningCoins}}</text>
+    <text class="coins-label">觉醒币</text>
+    <text class="coins-hint">完成急救 +1 · 完成课程 +2 · 深度对话 -3</text>
+  </view>
+
   <view class="stats-row">
     <view class="stat-item">
       <text class="stat-num">{{totalSessions}}</text>

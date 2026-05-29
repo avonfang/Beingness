@@ -32,8 +32,15 @@ Page({
   markComplete() {
     const { path, lesson } = this.data
     const key = `lesson_${path}_${lesson.id}`
+    if (wx.getStorageSync(key)) return // 已经完成过了，不再奖励
+
     wx.setStorageSync(key, true)
     this.setData({ isCompleted: true })
+
+    // 奖励觉醒币
+    const coins = wx.getStorageSync('awakeningCoins') || 0
+    wx.setStorageSync('awakeningCoins', coins + 2)
+    wx.showToast({ title: '+2 觉醒币', icon: 'success' })
 
     const course = courses[path]
     let completed = 0

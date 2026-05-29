@@ -7,6 +7,7 @@ Page({
     totalSessions: 0,
     avgRecovery: 0,
     totalLessons: 0,
+    awakeningCoins: 0,
     emotionDistribution: [],
     insight: '加载中...'
   },
@@ -42,6 +43,7 @@ Page({
         totalSessions,
         avgRecovery,
         totalLessons,
+        awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
         emotionDistribution,
         insight: report.generateInsight(entries),
         streakDays: wx.getStorageSync('streakDays') || 0

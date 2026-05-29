@@ -1,0 +1,54 @@
+<view class="container">
+  <!-- 对话列表 -->
+  <scroll-view class="msg-list" scroll-y scroll-into-view="{{scrollTarget}}" scroll-with-animation>
+    <!-- 觉醒币提示 -->
+    <view class="coin-notice">
+      <text class="coin-notice-text">每次深度对话消耗 3 觉醒币</text>
+    </view>
+
+    <!-- 系统欢迎消息 -->
+    <view class="msg-row assistant" id="msg-0">
+      <view class="msg-avatar">🧘</view>
+      <view class="msg-content">
+        <text class="msg-text">你好。我在这里——不是给你答案，而是陪你一起看清。</text>
+        <text class="msg-text" wx:if="{{coins >= 3}}">今天想聊聊什么？</text>
+        <text class="msg-text coins-low" wx:if="{{coins < 3}}">你的觉醒币不足，完成急救或课程可以获得更多。</text>
+      </view>
+    </view>
+
+    <!-- 对话历史 -->
+    <view wx:for="{{messages}}" wx:key="index">
+      <view class="msg-row {{item.role === 'user' ? 'user' : 'assistant'}}">
+        <view class="msg-avatar" wx:if="{{item.role === 'assistant'}}">🧘</view>
+        <view class="msg-content">
+          <text class="msg-text">{{item.content}}</text>
+        </view>
+        <view class="msg-avatar user-avatar" wx:if="{{item.role === 'user'}}">🙂</view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="msg-row assistant" wx:if="{{loading}}">
+      <view class="msg-avatar">🧘</view>
+      <view class="msg-content">
+        <text class="msg-text thinking">...</text>
+      </view>
+    </view>
+
+    <view id="scroll-bottom"></view>
+  </scroll-view>
+
+  <!-- 输入区 -->
+  <view class="input-area">
+    <input
+      class="msg-input"
+      type="text"
+      placeholder="说说你的感受..."
+      value="{{inputValue}}"
+      bindinput="onInput"
+      bindconfirm="sendMessage"
+      disabled="{{loading || coins < 3}}"
+    />
+    <button class="send-btn" bindtap="sendMessage" disabled="{{!inputValue.trim() || loading || coins < 3}}">发送</button>
+  </view>
+</view>
