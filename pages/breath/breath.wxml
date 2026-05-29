@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- Pattern selector -->
+  <view class="pattern-selector" wx:if="{{phase === 'ready'}}">
+    <view class="pattern-tag {{selectedPattern === key ? 'active' : ''}}" wx:for="{{patterns}}" wx:key="key" data-key="{{key}}" bindtap="selectPattern">
+      <text>{{item.icon}} {{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- Ready state -->
+  <view class="ready-area" wx:if="{{phase === 'ready'}}">
+    <view class="breath-circle idle">
+      <text class="breath-icon">{{phaseIcon}}</text>
+    </view>
+    <view class="round-selector">
+      <text class="round-label">练习轮数</text>
+      <view class="round-options">
+        <view class="round-opt {{targetRounds === 3 ? 'active' : ''}}" data-n="3" bindtap="setTarget">3</view>
+        <view class="round-opt {{targetRounds === 6 ? 'active' : ''}}" data-n="6" bindtap="setTarget">6</view>
+        <view class="round-opt {{targetRounds === 10 ? 'active' : ''}}" data-n="10" bindtap="setTarget">10</view>
+      </view>
+    </view>
+    <view class="start-btn-area">
+      <view class="start-btn" bindtap="start">开始练习</view>
+    </view>
+  </view>
+
+  <!-- Running state -->
+  <view class="running-area" wx:if="{{phase === 'inhale'}}">
+    <view class="breath-circle animating" style="animation-duration: {{countdown}}s">
+      <text class="breath-countdown">{{countdown}}</text>
+      <text class="breath-label">{{phaseLabel}}</text>
+    </view>
+    <view class="progress-info">
+      <text class="round-indicator">第 {{currentRound}} / {{targetRounds}} 轮</text>
+      <view class="progress-dots">
+        <view class="progress-dot {{i < currentRound ? 'done' : ''}}" wx:for="{{targetRounds}}" wx:key="index"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Done state -->
+  <view class="done-area" wx:if="{{phase === 'done'}}">
+    <view class="breath-circle done">
+      <text class="breath-icon">✨</text>
+    </view>
+    <text class="done-title">练习完成</text>
+    <text class="done-desc">你完成了 {{totalRounds}} 轮呼吸</text>
+    <text class="done-coin">+1 觉醒币</text>
+    <view class="done-actions">
+      <view class="done-btn outline" bindtap="restart">再来一次</view>
+      <view class="done-btn primary" bindtap="finish">完成</view>
+    </view>
+    <button class="share-btn" open-type="share">分享此刻</button>
+  </view>
+</view>

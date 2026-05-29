@@ -27,7 +27,7 @@
     <view class="coins-icon-bg">✦</view>
     <view class="coins-info">
       <text class="coins-amount">{{awakeningCoins}}</text>
-      <text class="coins-rule">急救 +1 · 课程 +2 · 对话 -3</text>
+      <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 对话 -3</text>
     </view>
   </view>
 
@@ -83,6 +83,36 @@
         <text wx:if="{{weekData.trend === 'up'}}">📈</text>
         <text wx:elif="{{weekData.trend === 'down'}}">📉</text>
         <text wx:else>➡️</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Weekly report -->
+  <view class="week-report-card" wx:if="{{weekReport}}">
+    <text class="card-title">本周简报</text>
+    <view class="report-row">
+      <text class="report-label">急救次数</text>
+      <text class="report-value">{{weekReport.thisTotal}} 次</text>
+    </view>
+    <view class="report-row" wx:if="{{weekReport.topEmotion}}">
+      <text class="report-label">主要情绪</text>
+      <text class="report-value">{{weekReport.topEmotionIcon}} {{weekReport.topEmotion}}</text>
+    </view>
+    <view class="report-row">
+      <text class="report-label">较上周</text>
+      <text class="report-value {{weekReport.change > 0 ? 'up' : 'down'}}">
+        {{weekReport.change > 0 ? '+' : ''}}{{weekReport.change}} 次
+      </text>
+    </view>
+  </view>
+
+  <!-- Achievements -->
+  <view class="achievements-card" wx:if="{{achievements.length > 0}}">
+    <text class="card-title">成就</text>
+    <view class="achievement-grid">
+      <view class="achievement-item" wx:for="{{achievements}}" wx:key="id">
+        <text class="achieve-icon">{{item.icon}}</text>
+        <text class="achieve-label">{{item.label}}</text>
       </view>
     </view>
   </view>

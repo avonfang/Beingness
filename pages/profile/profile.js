@@ -13,7 +13,9 @@ Page({
     insight: '加载中...',
     milestone: null,
     weekData: { current: 0, previous: 0, trend: 'same' },
-    nextMilestone: null
+    nextMilestone: null,
+    achievements: [],
+    weekReport: null
   },
 
   onShow() { this.loadReport() },
@@ -48,6 +50,8 @@ Page({
     const milestone = this.getMilestone(streakDays)
     const nextMilestone = this.getNextMilestone(streakDays)
     const weekData = this.getWeekTrend(entries)
+    const achievements = report.getAchievements(entries, streakDays)
+    const weekReport = report.getWeekReport(entries)
 
     this.setData({
       totalSessions,
@@ -56,11 +60,13 @@ Page({
       totalLessons,
       awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
       emotionDistribution,
-      insight: report.generateInsight(entries),
+      insight: report.generateInsight(entries, streakDays, totalLessons, totalDialogues),
       streakDays,
       milestone,
       nextMilestone,
-      weekData
+      weekData,
+      achievements,
+      weekReport
     })
   },
 

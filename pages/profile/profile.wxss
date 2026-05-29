@@ -46,3 +46,19 @@
 .trend-num { font-size: 28rpx; color: #FFF; font-weight: 600; }
 .trend-label { font-size: 26rpx; color: var(--text-tertiary); }
 .trend-arrow { font-size: 48rpx; padding-bottom: 20rpx; }
+
+/* Week report */
+.week-report-card { background: var(--card); border-radius: var(--radius-md); padding: 36rpx; margin-bottom: 36rpx; box-shadow: var(--shadow-sm); }
+.report-row { display: flex; justify-content: space-between; align-items: center; padding: 16rpx 0; border-bottom: 2rpx solid var(--border); }
+.report-row:last-child { border-bottom: none; }
+.report-label { font-size: 28rpx; color: var(--text-secondary); }
+.report-value { font-size: 28rpx; color: var(--text); font-weight: 500; }
+.report-value.up { color: #D4786A; }
+.report-value.down { color: var(--gold); }
+
+/* Achievements */
+.achievements-card { background: var(--card); border-radius: var(--radius-md); padding: 36rpx; margin-bottom: 36rpx; box-shadow: var(--shadow-sm); }
+.achievement-grid { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.achievement-item { display: flex; align-items: center; gap: 8rpx; background: var(--bg); border-radius: 32rpx; padding: 12rpx 24rpx; }
+.achieve-icon { font-size: 28rpx; }
+.achieve-label { font-size: 24rpx; color: var(--text); }

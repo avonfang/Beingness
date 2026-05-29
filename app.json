@@ -7,6 +7,7 @@
     "pages/learning/learning",
     "pages/learning/lesson/lesson",
     "pages/practice/practice",
+    "pages/breath/breath",
     "pages/profile/profile"
   ],
   "window": {

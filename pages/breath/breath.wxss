@@ -1,0 +1,61 @@
+.container { min-height: 100vh; padding: 0 36rpx; display: flex; flex-direction: column; align-items: center; }
+
+/* Pattern selector */
+.pattern-selector { display: flex; gap: 16rpx; flex-wrap: wrap; justify-content: center; margin-top: 40rpx; }
+.pattern-tag { padding: 16rpx 28rpx; border-radius: 32rpx; font-size: 26rpx; background: var(--card); border: 2rpx solid var(--border); color: var(--text-secondary); }
+.pattern-tag.active { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
+.pattern-tag:active { opacity: 0.8; }
+
+/* Breath circle */
+.breath-circle {
+  width: 360rpx; height: 360rpx; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin: 80rpx auto; transition: all 0.3s;
+}
+.breath-circle.idle { background: var(--gold-light); border: 4rpx solid var(--border); }
+.breath-circle.done { background: var(--gold-light); border: 4rpx solid var(--gold); }
+.breath-circle.animating {
+  background: linear-gradient(135deg, var(--gold-light) 0%, #FFF 100%);
+  border: 4rpx solid var(--gold);
+  animation: breathe 4s ease-in-out infinite;
+}
+.breath-icon { font-size: 72rpx; display: block; }
+.breath-countdown { font-size: 96rpx; font-weight: 300; color: var(--gold); display: block; line-height: 1; }
+.breath-label { font-size: 32rpx; color: var(--text); display: block; margin-top: 8rpx; }
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(196, 160, 106, 0.1); }
+  50% { transform: scale(1.12); box-shadow: 0 0 0 40rpx rgba(196, 160, 106, 0.05); }
+}
+
+/* Round selector */
+.round-selector { text-align: center; margin-bottom: 40rpx; }
+.round-label { font-size: 26rpx; color: var(--text-tertiary); display: block; margin-bottom: 16rpx; }
+.round-options { display: flex; gap: 20rpx; justify-content: center; }
+.round-opt { width: 80rpx; height: 80rpx; border-radius: 50%; border: 2rpx solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 30rpx; color: var(--text-secondary); background: var(--card); }
+.round-opt.active { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
+.round-opt:active { opacity: 0.8; }
+
+/* Start button */
+.start-btn-area { width: 100%; margin-top: 20rpx; }
+.start-btn { background: var(--gold); color: #FFF; border-radius: 48rpx; padding: 28rpx 0; text-align: center; font-size: 34rpx; font-weight: 500; }
+.start-btn:active { opacity: 0.85; }
+
+/* Running */
+.running-area { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.progress-info { text-align: center; }
+.round-indicator { font-size: 28rpx; color: var(--text-secondary); display: block; margin-bottom: 16rpx; }
+.progress-dots { display: flex; gap: 12rpx; justify-content: center; }
+.progress-dot { width: 16rpx; height: 16rpx; border-radius: 50%; background: var(--border); }
+.progress-dot.done { background: var(--gold); }
+
+/* Done */
+.done-area { text-align: center; padding-top: 80rpx; }
+.done-title { font-size: 44rpx; font-weight: 600; color: var(--text); display: block; margin-top: 20rpx; }
+.done-desc { font-size: 28rpx; color: var(--text-secondary); display: block; margin-top: 12rpx; }
+.done-coin { font-size: 32rpx; color: var(--gold); font-weight: 500; display: block; margin-top: 24rpx; }
+.done-actions { display: flex; gap: 24rpx; margin-top: 48rpx; justify-content: center; }
+.done-btn { padding: 24rpx 48rpx; border-radius: 48rpx; font-size: 30rpx; font-weight: 500; }
+.done-btn.primary { background: var(--gold); color: #FFF; }
+.done-btn.outline { border: 2rpx solid var(--gold); color: var(--gold); background: transparent; }
+.done-btn:active { opacity: 0.85; }

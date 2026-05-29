@@ -27,13 +27,23 @@ Page({
   onEmotionSelect(e) {
     const emotion = e.detail.value
     const steps = guides[emotion].steps
+    const showCrisis = emotion === 'low'
+    if (showCrisis) {
+      wx.showModal({
+        title: '💛 我在这里',
+        content: '你选择面对此刻的感受，这已经很有勇气。\n\n如果你感到非常痛苦，请不要一个人承受。可以拨打心理援助热线：\n\n📞 全国心理援助热线：400-161-9995\n📞 北京心理危机研究与干预中心：010-82951332',
+        showCancel: false,
+        confirmText: '好的，继续'
+      })
+    }
     this.setData({
       selectedEmotion: emotion,
       phase: 'guide',
       steps: steps,
       totalSteps: steps.length,
       stepIndex: 0,
-      currentStep: this.resolveStep(steps[0], null)
+      currentStep: this.resolveStep(steps[0], null),
+      showCrisis
     })
   },
 
@@ -119,5 +129,9 @@ Page({
 
   goBack() {
     wx.switchTab({ url: '/pages/index/index' })
+  },
+
+  onShareAppMessage() {
+    return { title: '我在「此刻」完成了情绪急救，一起觉醒吧', path: '/pages/index/index' }
   }
 })

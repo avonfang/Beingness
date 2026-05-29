@@ -20,8 +20,17 @@
 .entry-arrow { display: inline-block; margin-top: 28rpx; font-size: 30rpx; color: var(--primary); font-weight: 500; }
 .entry-card:active { opacity: 0.95; }
 
-.quick-actions { display: flex; gap: 20rpx; margin-bottom: 28rpx; }
-.quick-btn { flex: 1; background: var(--card); border-radius: var(--radius-md); padding: 36rpx 16rpx; text-align: center; box-shadow: var(--shadow-sm); }
+/* Recommendation */
+.rec-card { background: linear-gradient(135deg, #F5EEDC 0%, #FFF 100%); border-radius: var(--radius-md); padding: 32rpx 36rpx; margin-bottom: 28rpx; display: flex; align-items: center; gap: 24rpx; border: 2rpx solid var(--gold-light); }
+.rec-card:active { opacity: 0.9; }
+.rec-icon { font-size: 40rpx; width: 56rpx; display: block; }
+.rec-info { flex: 1; }
+.rec-title { font-size: 28rpx; font-weight: 500; color: var(--text); display: block; }
+.rec-desc { font-size: 26rpx; color: var(--text-secondary); display: block; margin-top: 4rpx; }
+.rec-action { font-size: 26rpx; color: var(--gold); display: block; margin-top: 8rpx; font-weight: 500; }
+
+.quick-actions { display: flex; flex-wrap: wrap; gap: 20rpx; margin-bottom: 28rpx; }
+.quick-btn { width: calc(50% - 10rpx); background: var(--card); border-radius: var(--radius-md); padding: 36rpx 16rpx; text-align: center; box-shadow: var(--shadow-sm); box-sizing: border-box; }
 .quick-btn:active { opacity: 0.9; }
 .quick-btn-icon { font-size: 44rpx; display: block; }
 .quick-btn-label { font-size: 26rpx; color: var(--text-secondary); display: block; margin-top: 12rpx; }

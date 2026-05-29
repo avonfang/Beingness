@@ -12,7 +12,7 @@
   <!-- Messages -->
   <scroll-view class="msg-list" scroll-y scroll-into-view="{{scrollTarget}}" scroll-with-animation>
     <view class="coin-notice">
-      <text class="coin-notice-text">每次深度对话消耗 3 觉醒币</text>
+      <text class="coin-notice-text">每次对话消耗 3 觉醒币</text>
     </view>
 
     <!-- Welcome message -->
@@ -20,11 +20,34 @@
       <view class="msg-avatar assistant">🧘</view>
       <view class="msg-content">
         <view class="welcome-bubble">
-          <text class="msg-text">你好。我在这里——不是给你答案，而是陪你一起看清。</text>
-          <text class="msg-text" wx:if="{{coins >= 3}}">今天想聊聊什么？</text>
+          <text class="msg-text" wx:if="{{coins >= 3}}">你好。我在这里——不是给你答案，而是陪你一起看清。</text>
           <text class="msg-text coins-low" wx:if="{{coins < 3}}">你的觉醒币不足，完成急救或课程可以获得更多。</text>
         </view>
       </view>
+    </view>
+
+    <!-- Suggested topics (first visit only) -->
+    <view class="suggestions" wx:if="{{messages.length === 0 && coins >= 3}}">
+      <text class="suggestions-label">试着聊聊：</text>
+      <view class="suggestion-tags">
+        <view class="suggestion-tag" bindtap="sendQuickMsg" data-msg="最近压力很大，睡不好">
+          <text>😰 最近压力很大</text>
+        </view>
+        <view class="suggestion-tag" bindtap="sendQuickMsg" data-msg="我感觉很累，什么都不想做">
+          <text>😔 感觉很累</text>
+        </view>
+        <view class="suggestion-tag" bindtap="sendQuickMsg" data-msg="我在做一个重要的决定，很纠结">
+          <text>🤔 在做重要决定</text>
+        </view>
+        <view class="suggestion-tag" bindtap="sendQuickMsg" data-msg="有人让我很生气，我忍不了">
+          <text>😤 有人让我生气</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Emotion badge -->
+    <view class="emotion-badge" wx:if="{{detectedEmotion}}">
+      <text class="badge-text">检测到：{{detectedEmotion === 'anxiety' ? '焦虑' : detectedEmotion === 'anger' ? '愤怒' : detectedEmotion === 'low' ? '低落' : detectedEmotion === 'tangled' ? '纠结' : ''}}</text>
     </view>
 
     <!-- History -->

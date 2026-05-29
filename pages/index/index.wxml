@@ -40,8 +40,22 @@
     <text class="entry-arrow">开始引导 →</text>
   </view>
 
+  <!-- Personalized recommendation -->
+  <view class="rec-card" wx:if="{{recommendation}}" bindtap="goRecommendLesson">
+    <text class="rec-icon">💡</text>
+    <view class="rec-info">
+      <text class="rec-title">{{recommendation.title}}</text>
+      <text class="rec-desc">{{recommendation.desc}}</text>
+      <text class="rec-action">{{recommendation.action}} →</text>
+    </view>
+  </view>
+
   <!-- Quick actions -->
   <view class="quick-actions">
+    <view class="quick-btn" bindtap="goBreath">
+      <text class="quick-btn-icon">🌬️</text>
+      <text class="quick-btn-label">呼吸练习</text>
+    </view>
     <view class="quick-btn" bindtap="goDialogue">
       <text class="quick-btn-icon">💬</text>
       <text class="quick-btn-label">深度对话</text>
