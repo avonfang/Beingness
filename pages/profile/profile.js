@@ -1,5 +1,6 @@
 const util = require('../../utils/util')
 const report = require('../../utils/report')
+const { getLedger } = require('../../utils/coins')
 
 Page({
   data: {
@@ -17,7 +18,8 @@ Page({
     achievements: [],
     weekReport: null,
     isPremium: false,
-    themeClass: 'theme-default'
+    themeClass: 'theme-default',
+    coinLedger: []
   },
 
   onShow() {
@@ -60,6 +62,8 @@ Page({
     const achievements = report.getAchievements(entries, streakDays)
     const weekReport = report.getWeekReport(entries)
 
+    const coinLedger = getLedger()
+
     this.setData({
       totalSessions,
       totalDialogues,
@@ -73,7 +77,8 @@ Page({
       nextMilestone,
       weekData,
       achievements,
-      weekReport
+      weekReport,
+      coinLedger: coinLedger.slice(0, 20)
     })
   },
 
@@ -120,6 +125,16 @@ Page({
         }
       }
     })
+  },
+
+  formatTime(iso) {
+    if (!iso) return ''
+    const d = new Date(iso)
+    const now = new Date()
+    const diffDays = Math.floor((now - d) / 86400000)
+    if (diffDays === 0) return '今天'
+    if (diffDays === 1) return '昨天'
+    return util.formatDate(d)
   },
 
   exportData() {

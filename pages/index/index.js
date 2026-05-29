@@ -71,6 +71,42 @@ Page({
 
     this.loadRecommendation()
     this.tryAutoCheckIn()
+    this.checkLastMood()
+  },
+
+  // Mood continuity: if user felt worse after last letter, check in
+  checkLastMood() {
+    const records = wx.getStorageSync('moodAfterLetter') || []
+    if (records.length === 0) return
+
+    const last = records[0]
+    if (last.mood !== 'worse') return
+
+    const hoursSince = (Date.now() - last.timestamp) / 3600000
+    if (hoursSince > 48) return // Only prompt within 48h
+
+    // Don't show if already prompted today
+    const prompted = wx.getStorageSync('moodFollowUpDate') || ''
+    const today = new Date().toLocaleDateString('zh-CN')
+    if (prompted === today) return
+
+    setTimeout(() => {
+      wx.showModal({
+        title: '💛 上次你写信时，说感觉不太好',
+        content: '今天那件事想起来，感觉怎么样了？',
+        confirmText: '😊 好些了',
+        cancelText: '😔 还那样',
+        success: (res) => {
+          wx.setStorageSync('moodFollowUpDate', today)
+          const followUps = wx.getStorageSync('moodFollowUps') || []
+          followUps.push({
+            improved: res.confirm,
+            timestamp: Date.now()
+          })
+          wx.setStorageSync('moodFollowUps', followUps.slice(-50))
+        }
+      })
+    }, 1000)
   },
 
   loadRecommendation() {
@@ -123,8 +159,8 @@ Page({
     else if (streakDays === 7) bonus = 10
     else if (streakDays === 30) bonus = 30
     if (bonus > 0) {
-      const coins = wx.getStorageSync('awakeningCoins') || 0
-      wx.setStorageSync('awakeningCoins', coins + bonus)
+      const { addCoins } = require('../../utils/coins')
+      addCoins(bonus, `连续 ${streakDays} 天里程碑`)
     }
 
     this.setData({
@@ -132,7 +168,7 @@ Page({
       awakeningCoins: wx.getStorageSync('awakeningCoins') || 0
     })
 
-    // Quiet notification — no modal, just a subtle toast
+    // Quiet notification
     if (bonus > 0) {
       wx.showToast({
         title: `🔥 连续 ${streakDays} 天 · 奖励 ${bonus} 心意`,

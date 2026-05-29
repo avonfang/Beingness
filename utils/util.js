@@ -40,8 +40,8 @@ function completeLesson(path, lessonId, coinReward = 2) {
   if (wx.getStorageSync(key)) return false
   wx.setStorageSync(key, true)
 
-  const coins = wx.getStorageSync('awakeningCoins') || 0
-  wx.setStorageSync('awakeningCoins', coins + coinReward)
+  const { addCoins } = require('../utils/coins')
+  addCoins(coinReward, '完成课程')
 
   const progress = getCourseProgress(path)
   wx.setStorageSync(`progress_${path}`, progress)

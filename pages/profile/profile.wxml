@@ -145,6 +145,18 @@
     <text class="insight-text">{{insight}}</text>
   </view>
 
+  <!-- Coin ledger -->
+  <view class="ledger-card" wx:if="{{coinLedger.length > 0}}">
+    <text class="card-title">❤️ 心意明细</text>
+    <view class="ledger-list">
+      <view class="ledger-item" wx:for="{{coinLedger}}" wx:key="time">
+        <text class="ledger-source">{{item.source}}</text>
+        <text class="ledger-time">{{formatTime(item.time)}}</text>
+        <text class="ledger-amount">+{{item.amount}}</text>
+      </view>
+    </view>
+  </view>
+
   <!-- Export -->
   <view class="export-area">
     <view class="btn btn-outline btn-md" bindtap="exportData">导出日志数据</view>

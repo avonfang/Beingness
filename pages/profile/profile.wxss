@@ -100,6 +100,15 @@
 .achieve-icon { font-size: var(--space-12); }
 .achieve-label { font-size: var(--text-caption); color: var(--text); }
 
+/* Ledger */
+.ledger-card { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); max-height: 400rpx; overflow: hidden; }
+.ledger-list { max-height: 320rpx; overflow-y: auto; }
+.ledger-item { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-8) 0; border-bottom: 2rpx solid var(--border-light); }
+.ledger-item:last-child { border-bottom: none; }
+.ledger-source { flex: 1; font-size: var(--text-body); color: var(--text); }
+.ledger-time { font-size: var(--text-caption); color: var(--text-tertiary); width: 80rpx; text-align: right; }
+.ledger-amount { font-size: var(--text-body); color: var(--gold); font-weight: 600; width: 60rpx; text-align: right; }
+
 /* Insight */
 .insight-card { border-left: 6rpx solid var(--gold-light); }
 .insight-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 2; display: block; white-space: pre-line; }

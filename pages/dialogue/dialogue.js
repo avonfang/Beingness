@@ -18,10 +18,14 @@ Page({
     showGuideText: true
   },
 
+  _practiceStats: null, // In-memory buffer for practice stats
+
   onLoad() {
     const theme = wx.getStorageSync('appTheme') || 'default'
 
-    // Check if user has written letters before — hide guide text if yes
+    // Load practice stats into memory once
+    this._practiceStats = wx.getStorageSync('emotionPracticeStats') || {}
+
     const history = wx.getStorageSync('dialogueHistory') || []
     this.setData({
       themeClass: 'theme-' + theme,
@@ -33,6 +37,13 @@ Page({
   onShow() {
     const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({ themeClass: 'theme-' + theme })
+  },
+
+  onHide() {
+    // Flush practice stats buffer to storage
+    if (this._practiceStats) {
+      wx.setStorageSync('emotionPracticeStats', this._practiceStats)
+    }
   },
 
   onInput(e) {
@@ -99,7 +110,7 @@ Page({
 
   // Personalized practice recommendation based on user's history
   getSmartRecommendation(emotion) {
-    const stats = wx.getStorageSync('emotionPracticeStats') || {}
+    const stats = this._practiceStats || {}
     const emotionStats = stats[emotion]
 
     // Default recommendations
@@ -112,7 +123,6 @@ Page({
 
     if (!emotionStats) return defaultMap[emotion] || null
 
-    // Recommend what user does most frequently for this emotion
     const breathCount = emotionStats.breath || 0
     const practiceCount = emotionStats.practice || 0
 
@@ -171,14 +181,14 @@ Page({
     const practice = this.data.recommendedPractice
     if (!practice) return
 
-    // Track practice usage for personalized recommendation
+    // Track in-memory — flushed to storage in onHide
     const emotion = this.data.detectedEmotion
     if (emotion) {
-      const stats = wx.getStorageSync('emotionPracticeStats') || {}
-      if (!stats[emotion]) stats[emotion] = { breath: 0, practice: 0 }
-      if (practice.page === 'breath') stats[emotion].breath++
-      else stats[emotion].practice++
-      wx.setStorageSync('emotionPracticeStats', stats)
+      if (!this._practiceStats[emotion]) {
+        this._practiceStats[emotion] = { breath: 0, practice: 0 }
+      }
+      if (practice.page === 'breath') this._practiceStats[emotion].breath++
+      else this._practiceStats[emotion].practice++
     }
 
     if (practice.page === 'breath') {

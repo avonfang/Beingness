@@ -1,4 +1,5 @@
 const guides = require('../../data/guides')
+const { addCoins } = require('../../utils/coins')
 
 Page({
   data: {
@@ -144,10 +145,7 @@ Page({
   setRating(e) { this.setData({ rating: parseInt(e.currentTarget.dataset.idx) + 1 }) },
 
   addCoin(amount) {
-    const coins = wx.getStorageSync('awakeningCoins') || 0
-    const newTotal = coins + amount
-    wx.setStorageSync('awakeningCoins', newTotal)
-    return newTotal
+    return addCoins(amount, '情绪急救')
   },
 
   deepDialogue() {
