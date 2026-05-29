@@ -6,7 +6,7 @@
   <view class="header-bar">
     <text class="logo-word">此刻</text>
     <view class="header-right">
-      <text class="streak-badge">🔥 {{streakDays}}天</text>
+      <text class="streak-badge" bindtap="goProfile">🔥 {{streakDays}}天</text>
       <text class="coin-badge" bindtap="openCoinMenu">❤️ {{awakeningCoins}}</text>
     </view>
   </view>
