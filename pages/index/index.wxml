@@ -2,12 +2,20 @@
 <transition-guide wx:elif="{{showTransitionGuide}}" streakDays="{{streakDays}}" bind:finish="onTransitionFinish" />
 
 <view class="container {{themeClass}}">
-  <!-- Minimal header -->
+  <!-- Header with clear nav buttons -->
   <view class="header-bar">
     <text class="logo-word">此刻</text>
     <view class="header-right">
-      <text class="streak-badge" bindtap="goProfile">🔥 {{streakDays}}天</text>
-      <text class="coin-badge" bindtap="openCoinMenu">❤️ {{awakeningCoins}}</text>
+      <view class="nav-btn nav-btn-profile" bindtap="goProfile" hover-class="none">
+        <text class="nav-btn-icon">🔥</text>
+        <text class="nav-btn-label">{{streakDays}}天</text>
+        <text class="nav-btn-arrow">›</text>
+      </view>
+      <view class="nav-btn nav-btn-shop" bindtap="openCoinMenu" hover-class="none">
+        <text class="nav-btn-icon">❤️</text>
+        <text class="nav-btn-label">{{awakeningCoins}}</text>
+        <text class="nav-btn-arrow">›</text>
+      </view>
     </view>
   </view>
 

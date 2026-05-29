@@ -5,14 +5,17 @@
 .header-bar { display: flex; align-items: center; justify-content: space-between; padding: var(--space-16) 0 var(--space-12); }
 .logo-word { font-size: var(--text-headline); font-weight: 600; color: var(--text); letter-spacing: 4rpx; }
 .header-right { display: flex; align-items: center; gap: var(--space-8); }
-.streak-badge {
-  font-size: var(--text-caption); color: var(--text-secondary); background: var(--card);
-  padding: var(--space-2) var(--space-8); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+.nav-btn {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4) var(--space-12); border-radius: var(--radius-lg);
+  transition: transform 0.12s; position: relative;
 }
-.coin-badge {
-  font-size: var(--text-caption); color: var(--gold); font-weight: 600; background: var(--gold-light);
-  padding: var(--space-2) var(--space-8); border-radius: var(--radius-lg);
-}
+.nav-btn:active { transform: scale(0.94); }
+.nav-btn-icon { font-size: var(--text-body); }
+.nav-btn-label { font-size: var(--text-caption); font-weight: 500; }
+.nav-btn-arrow { font-size: 20rpx; color: var(--text-tertiary); margin-left: var(--space-1); }
+.nav-btn-profile { background: var(--card); box-shadow: var(--shadow-sm); color: var(--text-secondary); }
+.nav-btn-shop { background: var(--gold-light); color: var(--gold); font-weight: 600; }
 
 /* Mood hero — 取代旧的 hero-cta */
 .mood-hero { text-align: center; padding: var(--space-24) 0 var(--space-16); animation: fadeInUp 0.35s ease-out both; }
