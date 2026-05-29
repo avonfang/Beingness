@@ -11,10 +11,6 @@
 
   <!-- Messages -->
   <scroll-view class="msg-list" scroll-y scroll-into-view="{{scrollTarget}}" scroll-with-animation>
-    <view class="coin-notice">
-      <text class="coin-notice-text">每次对话消耗 3 觉醒币</text>
-    </view>
-
     <!-- Welcome message -->
     <view class="msg-row assistant" id="msg-0">
       <view class="msg-avatar assistant">🧘</view>

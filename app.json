@@ -20,9 +20,9 @@
     "color": "#C4C0B8",
     "selectedColor": "#C4A06A",
     "list": [
-      { "pagePath": "pages/log/log", "text": "日志", "iconPath": "images/log.png", "selectedIconPath": "images/log-active.png" },
       { "pagePath": "pages/index/index", "text": "此刻", "iconPath": "images/moment.png", "selectedIconPath": "images/moment-active.png" },
-      { "pagePath": "pages/learning/learning", "text": "学习", "iconPath": "images/learn.png", "selectedIconPath": "images/learn-active.png" }
+      { "pagePath": "pages/learning/learning", "text": "学习", "iconPath": "images/learn.png", "selectedIconPath": "images/learn-active.png" },
+      { "pagePath": "pages/log/log", "text": "日志", "iconPath": "images/log.png", "selectedIconPath": "images/log-active.png" }
     ]
   }
 }

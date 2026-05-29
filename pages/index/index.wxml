@@ -1,22 +1,5 @@
 <onboarding-guide wx:if="{{!hasSeenOnboarding}}" bind:finish="onOnboardingFinish" />
 
-<!-- Daily check-in modal -->
-<view class="checkin-overlay" wx:if="{{showCheckIn}}">
-  <view class="checkin-card">
-    <text class="checkin-icon">🌅</text>
-    <text class="checkin-title">早安，觉醒者</text>
-    <text class="checkin-desc">新的一天，从觉察开始</text>
-    <view class="checkin-streak" wx:if="{{streakDays > 0}}">
-      <text class="streak-fire">🔥</text>
-      <text class="streak-text">连续 {{streakDays}} 天</text>
-    </view>
-    <view class="checkin-actions">
-      <view class="btn btn-primary btn-lg" bindtap="doCheckIn">今日签到</view>
-      <view class="checkin-skip btn btn-ghost btn-sm" bindtap="skipCheckIn">跳过</view>
-    </view>
-  </view>
-</view>
-
 <view class="container">
   <!-- Minimal header -->
   <view class="header-bar">
@@ -27,12 +10,22 @@
     </view>
   </view>
 
-  <!-- Hero CTA — the one thing to do -->
+  <!-- Daily check-in banner — inline, non-blocking -->
+  <view class="checkin-banner" wx:if="{{showCheckIn}}" bindtap="doCheckIn">
+    <text class="checkin-banner-icon">🌅</text>
+    <view class="checkin-banner-info">
+      <text class="checkin-banner-title">签到</text>
+      <text class="checkin-banner-desc" wx:if="{{streakDays > 0}}">连续 {{streakDays}} 天</text>
+      <text class="checkin-banner-desc" wx:else>新的一天，从觉察开始</text>
+    </view>
+    <text class="checkin-banner-arrow">→</text>
+  </view>
+
+  <!-- Hero CTA — 此刻最重要的事 -->
   <view class="hero-cta fade-in" bindtap="startEmergency">
     <text class="cta-icon">🌿</text>
-    <text class="cta-title">现在感觉怎么样？</text>
-    <text class="cta-desc">情绪来的时候，试着观察它</text>
-    <text class="cta-arrow">开始引导 →</text>
+    <text class="cta-title">心里有什么事吗？</text>
+    <text class="cta-desc">和我说说，我陪你一起看看</text>
   </view>
 
   <!-- Recommended lesson -->

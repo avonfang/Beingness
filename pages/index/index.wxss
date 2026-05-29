@@ -11,20 +11,15 @@
 /* Hero CTA */
 .hero-cta {
   background: linear-gradient(135deg, #C4A06A 0%, #D4B88A 100%);
-  border-radius: var(--radius-md); padding: 56rpx var(--space-20);
+  border-radius: var(--radius-md); padding: 48rpx var(--space-20);
   text-align: center; margin: var(--space-4) 0 var(--space-12);
   box-shadow: 0 8rpx 32rpx rgba(196,160,106,0.25);
-  transition: transform 0.15s;
+  transition: transform 0.15s, box-shadow 0.2s;
 }
-.hero-cta:active { transform: scale(0.98); opacity: 0.95; }
-.cta-icon { font-size: 64rpx; display: block; margin-bottom: var(--space-8); }
-.cta-title { font-size: var(--text-title); font-weight: 600; color: #FFF; display: block; }
-.cta-desc { font-size: var(--text-body); color: rgba(255,255,255,0.8); display: block; margin-top: var(--space-2); }
-.cta-arrow {
-  display: inline-block; margin-top: var(--space-12); font-size: var(--text-body);
-  color: #FFF; font-weight: 500;
-  background: rgba(255,255,255,0.2); padding: var(--space-2) var(--space-16); border-radius: var(--radius-lg);
-}
+.hero-cta:active { transform: scale(0.97); box-shadow: 0 4rpx 16rpx rgba(196,160,106,0.15); }
+.cta-icon { font-size: 56rpx; display: block; margin-bottom: var(--space-8); }
+.cta-title { font-size: var(--text-hero); font-weight: 600; color: #FFF; display: block; letter-spacing: 2rpx; }
+.cta-desc { font-size: var(--text-body); color: rgba(255,255,255,0.75); display: block; margin-top: var(--space-4); font-weight: 400; }
 
 /* Recommendation — no border, just subtle bg */
 .rec-strip {
@@ -61,25 +56,17 @@
 .quote-mark { font-size: var(--text-headline); color: var(--gold); opacity: 0.3; line-height: 1; display: block; }
 .quote-body { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.9; display: block; font-style: italic; }
 
-/* Check-in modal */
-.checkin-overlay {
-  position: fixed; inset: 0; z-index: 998;
-  background: rgba(29,26,19,0.6);
-  display: flex; align-items: center; justify-content: center;
-  backdrop-filter: blur(12rpx);
+/* Check-in banner — inline, non-blocking */
+.checkin-banner {
+  display: flex; align-items: center; gap: var(--space-12);
+  background: var(--primary-light); border-radius: var(--radius-sm);
+  padding: var(--space-12) var(--space-16); margin: var(--space-4) 0 var(--space-12);
+  animation: fadeInUp 0.35s ease-out both;
+  transition: transform 0.15s;
 }
-.checkin-card {
-  background: var(--card); border-radius: var(--radius-md);
-  width: 560rpx; padding: var(--space-32) var(--space-24) var(--space-24);
-  text-align: center; box-shadow: 0 16rpx 64rpx rgba(0,0,0,0.15);
-  animation: bounceIn 0.4s ease-out both;
-}
-.checkin-icon { font-size: 72rpx; display: block; margin-bottom: var(--space-8); }
-.checkin-title { font-size: var(--text-title); font-weight: 600; color: var(--text); display: block; }
-.checkin-desc { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-4); }
-.checkin-streak { display: flex; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-12); }
-.streak-fire { font-size: var(--space-16); }
-.streak-text { font-size: var(--text-body); color: var(--gold); font-weight: 500; }
-.checkin-actions { margin-top: var(--space-20); display: flex; flex-direction: column; align-items: center; gap: var(--space-8); }
-.checkin-skip { font-size: var(--text-caption); color: var(--text-tertiary); padding: var(--space-4) 0; }
-.checkin-skip:active { opacity: 0.7; }
+.checkin-banner:active { transform: scale(0.98); }
+.checkin-banner-icon { font-size: var(--space-20); }
+.checkin-banner-info { flex: 1; }
+.checkin-banner-title { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
+.checkin-banner-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-1); }
+.checkin-banner-arrow { font-size: var(--space-16); color: var(--gold); }
