@@ -1,105 +1,140 @@
-/* Home page v5 — 极简情绪入口 */
-.container { min-height: 100vh; padding: 0 var(--space-16) calc(110rpx + env(safe-area-inset-bottom) + var(--space-16)); display: flex; flex-direction: column; }
+/* Home page v6 — Apple-grade */
+.container { min-height: 100vh; padding: 0 var(--space-20) calc(100rpx + env(safe-area-inset-bottom) + var(--space-20)); display: flex; flex-direction: column; }
 
 /* Header */
-.header-bar { display: flex; align-items: center; justify-content: space-between; padding: var(--space-16) 0 var(--space-12); }
-.logo-word { font-size: var(--text-headline); font-weight: 600; color: var(--text); letter-spacing: 4rpx; }
+.header-bar { display: flex; align-items: center; justify-content: space-between; padding: var(--space-16) 0 var(--space-8); }
+.logo-word { font-size: var(--text-headline); font-weight: 700; color: var(--text); letter-spacing: 2rpx; }
 .header-right { display: flex; align-items: center; gap: var(--space-8); }
 .nav-btn {
   display: flex; align-items: center; gap: var(--space-4);
   padding: var(--space-4) var(--space-12); border-radius: var(--radius-lg);
-  transition: transform 0.12s; position: relative;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
 }
-.nav-btn:active { transform: scale(0.94); }
+.nav-btn:active { transform: scale(0.92); }
 .nav-btn-icon { font-size: var(--text-body); }
 .nav-btn-label { font-size: var(--text-caption); font-weight: 500; }
-.nav-btn-arrow { font-size: 20rpx; color: var(--text-tertiary); margin-left: var(--space-1); }
+.nav-btn-arrow { font-size: 18rpx; color: var(--text-tertiary); opacity: 0.6; }
 .nav-btn-profile { background: var(--card); box-shadow: var(--shadow-sm); color: var(--text-secondary); }
-.nav-btn-shop { background: var(--gold-light); color: var(--gold); font-weight: 600; }
+.nav-btn-shop { background: var(--gold-subtle); color: var(--gold); font-weight: 600; }
 
-/* Mood hero — 取代旧的 hero-cta */
-.mood-hero { text-align: center; padding: var(--space-24) 0 var(--space-16); animation: fadeInUp 0.35s ease-out both; }
-.mood-icon { font-size: 72rpx; display: block; margin-bottom: var(--space-8); }
-.mood-question { font-size: var(--text-title); font-weight: 600; color: var(--text); display: block; letter-spacing: 2rpx; }
+/* Mood hero — centered, spacious */
+.mood-hero {
+  text-align: center;
+  padding: var(--space-32) 0 var(--space-24);
+  animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.mood-icon { font-size: 80rpx; display: block; margin-bottom: var(--space-12); }
+.mood-question { font-size: var(--text-title); font-weight: 700; color: var(--text); display: block; letter-spacing: 1rpx; }
 
-/* Emotion quick tags — 4 宫格 */
-.emotion-tags { display: flex; gap: var(--space-8); margin-bottom: var(--space-16); animation: fadeInUp 0.35s ease-out 0.05s both; }
+/* Emotion tags — pill style */
+.emotion-tags {
+  display: flex; gap: var(--space-8);
+  margin-bottom: var(--space-20);
+  padding: 0 var(--space-4);
+  animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.06s both;
+}
 .emotion-tag {
-  flex: 1; background: var(--card); border-radius: var(--radius-sm); padding: var(--space-12) var(--space-4);
-  text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.12s; box-sizing: border-box;
+  flex: 1;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16) var(--space-4);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
-.emotion-tag:active { transform: scale(0.95); }
-.emotion-tag-icon { font-size: 40rpx; display: block; margin-bottom: var(--space-4); }
-.emotion-tag-label { font-size: var(--text-caption); color: var(--text-secondary); display: block; font-weight: 500; }
+.emotion-tag:active { transform: scale(0.94); box-shadow: var(--shadow-md); }
+.emotion-tag-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-6); }
+.emotion-tag-label { font-size: var(--text-caption); color: var(--text-secondary); display: block; font-weight: 500; letter-spacing: 0.5rpx; }
 
-/* Quick actions — 呼吸 + 写信 */
-.quick-actions { display: flex; gap: var(--space-8); margin-bottom: var(--space-16); animation: fadeInUp 0.35s ease-out 0.1s both; }
-.quick-action {
-  flex: 1; background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16);
-  display: flex; align-items: center; gap: var(--space-8); justify-content: center;
-  box-shadow: var(--shadow-sm); transition: transform 0.12s;
+/* Quick actions */
+.quick-actions {
+  display: flex; gap: var(--space-8);
+  margin-bottom: var(--space-20);
+  padding: 0 var(--space-4);
+  animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
 }
-.quick-action:active { transform: scale(0.97); }
-.quick-action-icon { font-size: var(--space-16); }
+.quick-action {
+  flex: 1;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20) var(--space-16);
+  display: flex; align-items: center; gap: var(--space-8);
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+}
+.quick-action:active { transform: scale(0.96); box-shadow: var(--shadow-md); }
+.quick-action-icon { font-size: 36rpx; display: block; }
 .quick-action-label { font-size: var(--text-body); color: var(--text-secondary); font-weight: 500; }
 
-/* Daily practice card — compact */
+/* Daily practice card — Apple card style */
 .daily-card {
-  background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16);
-  margin-bottom: var(--space-12); box-shadow: var(--shadow-sm);
-  border-left: 6rpx solid var(--gold);
-  transition: transform 0.12s;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: var(--space-20);
+  margin-bottom: var(--space-12);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
 }
-.daily-card:active { transform: scale(0.97); }
-.daily-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
-.daily-label { font-size: var(--text-caption); color: var(--gold); font-weight: 600; letter-spacing: 2rpx; display: block; }
-.daily-path { font-size: var(--text-caption); color: var(--text-tertiary); display: block; }
+.daily-card:active { transform: scale(0.98); box-shadow: var(--shadow-md); }
+.daily-header { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-8); }
+.daily-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-subtle); padding: 2rpx 14rpx; border-radius: 20rpx; font-weight: 600; letter-spacing: 1rpx; }
+.daily-path { font-size: var(--text-caption); color: var(--text-tertiary); margin-left: auto; }
 .daily-title { font-size: var(--text-body-large); font-weight: 600; color: var(--text); display: block; }
-.daily-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
-.daily-card.locked { opacity: 0.7; }
-.daily-premium-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-light); padding: 2rpx 10rpx; border-radius: 8rpx; font-weight: 500; }
+.daily-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); line-height: 1.5; }
+.daily-card.locked { opacity: 0.65; }
+.daily-premium-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-light); padding: 2rpx 10rpx; border-radius: 12rpx; font-weight: 500; }
 
-/* Recommendation */
+/* Recommendation strip — subtle */
 .rec-strip {
   display: flex; align-items: center; gap: var(--space-8);
-  background: var(--primary-light); border-radius: var(--radius-sm);
-  padding: var(--space-8) var(--space-12); margin-bottom: var(--space-12);
-  transition: transform 0.12s;
+  background: var(--primary-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-12) var(--space-16);
+  margin-bottom: var(--space-12);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.rec-strip:active { transform: scale(0.97); }
-.rec-strip-icon { font-size: var(--space-16); }
+.rec-strip:active { transform: scale(0.98); }
+.rec-strip-icon { font-size: 32rpx; }
 .rec-strip-info { flex: 1; }
 .rec-strip-title { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
 .rec-strip-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-1); }
-.rec-strip-go { font-size: var(--space-16); color: var(--gold); }
+.rec-strip-arrow { font-size: var(--text-body); color: var(--gold); opacity: 0.6; }
 
-/* Shop overlay */
+/* Shop overlay — Apple sheet style */
 .shop-overlay {
   position: fixed; inset: 0; z-index: 999;
-  background: rgba(29, 26, 19, 0.7);
-  display: flex; align-items: center; justify-content: center;
-  backdrop-filter: blur(12rpx);
-  opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
+  backdrop-filter: blur(4rpx);
 }
 .shop-overlay.visible { opacity: 1; pointer-events: auto; }
 .shop-card {
-  background: var(--card); border-radius: var(--radius-md);
-  width: 600rpx; padding: var(--space-32) var(--space-24) var(--space-16);
-  box-shadow: var(--shadow-lg); text-align: center;
+  background: var(--card-elevated);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  width: 100%; max-width: 750rpx;
+  padding: var(--space-24) var(--space-20) calc(var(--space-16) + env(safe-area-inset-bottom));
+  box-shadow: var(--shadow-xl);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
-.shop-title { font-size: var(--text-headline); font-weight: 600; color: var(--text); display: block; }
-.shop-balance { font-size: var(--text-body); color: var(--text-secondary); display: block; margin: var(--space-4) 0 var(--space-20); }
+.shop-overlay.visible .shop-card { transform: translateY(0); }
+.shop-title { font-size: var(--text-headline); font-weight: 700; color: var(--text); display: block; text-align: center; }
+.shop-balance { font-size: var(--text-body); color: var(--text-secondary); display: block; text-align: center; margin: var(--space-4) 0 var(--space-20); }
 .shop-item {
   display: flex; align-items: center; gap: var(--space-12);
   padding: var(--space-12); border-radius: var(--radius-sm);
   margin-bottom: var(--space-8); background: var(--bg);
-  transition: transform 0.12s;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .shop-item:active { transform: scale(0.97); }
-.shop-item.owned { opacity: 0.6; }
-.shop-item-icon { font-size: 40rpx; display: block; }
-.shop-item-info { flex: 1; text-align: left; }
-.shop-item-name { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
-.shop-item-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; }
+.shop-item.owned { opacity: 0.55; }
+.shop-item-icon { font-size: 44rpx; display: block; }
+.shop-item-info { flex: 1; }
+.shop-item-name { font-size: var(--text-body); font-weight: 600; color: var(--text); display: block; }
+.shop-item-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
 .shop-item-price { font-size: var(--text-body); color: var(--gold); font-weight: 600; }
 .shop-item-owned { font-size: var(--text-caption); color: var(--text-tertiary); }

@@ -1,10 +1,10 @@
 <view class="container {{themeClass}}">
-  <view class="page-header fade-in">
+  <view class="page-header fade-up">
     <text class="page-title">学习课程</text>
     <text class="page-subtitle">三条觉醒之路</text>
   </view>
 
-  <view class="path-card {{item.key}} fade-in" wx:for="{{paths}}" wx:key="key" bindtap="openPath" data-key="{{item.key}}">
+  <view class="path-card {{item.key}} fade-up-d1" wx:for="{{paths}}" wx:key="key" bindtap="openPath" data-key="{{item.key}}">
     <view class="path-header">
       <text class="path-icon">{{item.icon}}</text>
       <view class="path-info">

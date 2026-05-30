@@ -1,37 +1,37 @@
-/* Profile v5 — clean, no shop */
-.container { min-height: 100vh; padding: 0 var(--space-16); }
+/* Profile v6 — Apple-grade */
+.container { min-height: 100vh; padding: 0 var(--space-20) calc(100rpx + env(safe-area-inset-bottom) + var(--space-20)); }
 
 /* Hero */
 .hero-card {
   background: linear-gradient(135deg, #1D1A13 0%, #3D3528 100%);
   border-radius: var(--radius-md); padding: var(--space-24) var(--space-20);
   margin: var(--space-20) 0 var(--space-16); color: #FFF; position: relative; overflow: hidden;
-  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.2);
-  animation: fadeInUp 0.35s ease-out both;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.15);
+  animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
-.hero-card::after { content: '🧘'; position: absolute; right: -10rpx; bottom: -20rpx; font-size: 160rpx; opacity: 0.08; }
+.hero-card::after { content: '🧘'; position: absolute; right: 0rpx; bottom: -10rpx; font-size: 180rpx; opacity: 0.06; }
 .hero-greeting { font-size: var(--text-body); opacity: 0.7; display: block; }
-.hero-name { font-size: var(--text-hero); font-weight: 600; display: block; margin-top: var(--space-2); }
+.hero-name { font-size: var(--text-display); font-weight: 700; display: block; margin-top: var(--space-2); letter-spacing: -1rpx; }
 .hero-streak { font-size: var(--text-body); opacity: 0.7; display: block; margin-top: var(--space-4); }
 
 /* Milestone */
 .milestone-card { display: flex; align-items: center; gap: var(--space-12); background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-8); box-shadow: var(--shadow-sm); }
 .milestone-card.next { background: var(--bg); border: 2rpx dashed var(--border); box-shadow: none; }
-.milestone-emoji { font-size: var(--space-24); display: block; }
+.milestone-emoji { font-size: 48rpx; display: block; }
 .milestone-label { font-size: var(--text-body-large); font-weight: 600; color: var(--text); display: block; }
-.milestone-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
+.milestone-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
 
-/* ❤️ 心意 */
+/* ❤️ */
 .coins-section { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); display: flex; align-items: center; gap: var(--space-12); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); }
-.coins-icon-bg { width: 80rpx; height: 80rpx; border-radius: 50%; background: var(--gold-light); display: flex; align-items: center; justify-content: center; font-size: var(--space-20); flex-shrink: 0; }
-.coins-amount { font-size: var(--text-hero); font-weight: 700; color: var(--gold); display: block; line-height: 1; }
+.coins-icon-bg { width: 80rpx; height: 80rpx; border-radius: 50%; background: var(--gold-subtle); display: flex; align-items: center; justify-content: center; font-size: var(--space-20); flex-shrink: 0; }
+.coins-amount { font-size: var(--text-display); font-weight: 700; color: var(--gold); display: block; line-height: 1; }
 .coins-rule { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-2); }
 
 /* Premium card */
 .premium-card {
-  background: linear-gradient(135deg, var(--gold-light) 0%, var(--card) 100%);
+  background: linear-gradient(135deg, var(--gold-subtle) 0%, var(--card) 100%);
   border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16);
-  box-shadow: var(--shadow-sm); border: 2rpx solid var(--gold-light);
+  box-shadow: var(--shadow-sm); border: 2rpx solid var(--border);
 }
 .premium-header { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-8); }
 .premium-icon { font-size: var(--space-16); }
@@ -47,34 +47,30 @@
   flex: 1; background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16) var(--space-8);
   text-align: center; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
 }
-.stat-card::before {
-  content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 4rpx;
-  background: var(--gold-light); border-radius: 0 0 4rpx 4rpx;
-}
-.stat-num { font-size: var(--text-title); font-weight: 600; color: var(--text); display: block; }
+.stat-num { font-size: var(--text-title); font-weight: 700; color: var(--text); display: block; }
 .stat-unit { font-size: var(--text-caption); color: var(--text); font-weight: 600; }
-.stat-label { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-2); }
+.stat-label { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-2); letter-spacing: 0.5rpx; }
 
-/* Cards */
-.emotion-card, .trend-card, .week-report-card, .achievements-card, .insight-card {
+/* Cards unified */
+.emotion-card, .trend-card, .week-report-card, .achievements-card, .insight-card, .quotes-card, .ledger-card {
   background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16);
   margin-bottom: var(--space-16); box-shadow: var(--shadow-sm);
 }
-.card-title { font-size: var(--text-caption); color: var(--text-tertiary); font-weight: 600; letter-spacing: 2rpx; display: block; margin-bottom: var(--space-12); }
+.card-title { font-size: var(--text-caption); color: var(--text-secondary); font-weight: 600; letter-spacing: 1rpx; display: block; margin-bottom: var(--space-12); }
 
 /* Section headers */
 .section-header {
-  font-size: var(--text-headline); font-weight: 600; color: var(--text);
+  font-size: var(--text-headline); font-weight: 700; color: var(--text);
   display: block; margin-top: var(--space-24); margin-bottom: var(--space-8);
-  padding: 0 var(--space-4);
+  letter-spacing: -0.5rpx;
 }
 .section-header:first-of-type { margin-top: var(--space-4); }
 
 /* Emotion bars */
 .bar-row { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-12); }
 .bar-label { width: 80rpx; font-size: var(--text-caption); color: var(--text); font-weight: 500; display: block; }
-.bar-track { flex: 1; height: 14rpx; background: var(--border); border-radius: 7rpx; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 7rpx; transition: width 0.5s ease; }
+.bar-track { flex: 1; height: 12rpx; background: var(--separator); border-radius: 6rpx; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 6rpx; transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 .bar-count { font-size: var(--text-caption); color: var(--text-tertiary); width: 60rpx; text-align: right; display: block; }
 
 /* Trend */
@@ -87,7 +83,7 @@
 .trend-arrow { font-size: var(--space-24); padding-bottom: var(--space-8); }
 
 /* Report */
-.report-row { display: flex; justify-content: space-between; align-items: center; padding: var(--space-8) 0; border-bottom: 2rpx solid var(--border-light); }
+.report-row { display: flex; justify-content: space-between; align-items: center; padding: var(--space-8) 0; border-bottom: 2rpx solid var(--separator); }
 .report-row:last-child { border-bottom: none; }
 .report-label { font-size: var(--text-body); color: var(--text-secondary); }
 .report-value { font-size: var(--text-body); color: var(--text); font-weight: 500; }
@@ -96,64 +92,30 @@
 
 /* Achievements */
 .achievement-grid { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-.achievement-item { display: flex; align-items: center; gap: var(--space-2); background: var(--bg); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-12); }
+.achievement-item { display: flex; align-items: center; gap: var(--space-4); background: var(--primary-subtle); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-12); }
 .achieve-icon { font-size: var(--space-12); }
 .achieve-label { font-size: var(--text-caption); color: var(--text); }
 
-/* Ledger */
-.ledger-card { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); max-height: 400rpx; overflow: hidden; }
-.ledger-list { max-height: 320rpx; overflow-y: auto; }
-.ledger-item { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-8) 0; border-bottom: 2rpx solid var(--border-light); }
-.ledger-item:last-child { border-bottom: none; }
-.ledger-source { flex: 1; font-size: var(--text-body); color: var(--text); }
-.ledger-time { font-size: var(--text-caption); color: var(--text-tertiary); width: 80rpx; text-align: right; }
-.ledger-amount { font-size: var(--text-body); color: var(--gold); font-weight: 600; width: 60rpx; text-align: right; }
-
-/* Insight */
-.insight-card { border-left: 6rpx solid var(--gold-light); }
-.insight-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 2; display: block; white-space: pre-line; }
-
 /* Quotes */
-.quotes-card { background: var(--card); border-radius: var(--radius-sm); padding: var(--space-16); margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); }
 .quote-list { max-height: 500rpx; overflow-y: auto; }
-.quote-item { padding: var(--space-12) 0; border-bottom: 2rpx solid var(--border-light); }
+.quote-item { padding: var(--space-12) 0; border-bottom: 2rpx solid var(--separator); }
 .quote-item:last-child { border-bottom: none; }
 .quote-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.8; display: block; font-style: italic; }
 .quote-footer { display: flex; justify-content: space-between; margin-top: var(--space-4); }
 .quote-source { font-size: var(--text-caption); color: var(--primary); font-weight: 500; }
 .quote-time { font-size: var(--text-caption); color: var(--text-tertiary); }
 
-/* Shop overlay */
-.shop-overlay {
-  position: fixed; inset: 0; z-index: 999;
-  background: rgba(29, 26, 19, 0.7);
-  display: flex; align-items: center; justify-content: center;
-  backdrop-filter: blur(12rpx);
-  opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
-}
-.shop-overlay.visible { opacity: 1; pointer-events: auto; }
-.shop-card {
-  background: var(--card); border-radius: var(--radius-md);
-  width: 600rpx; padding: var(--space-32) var(--space-24) var(--space-16);
-  box-shadow: var(--shadow-lg); text-align: center;
-}
-.shop-title { font-size: var(--text-headline); font-weight: 600; color: var(--text); display: block; }
-.shop-balance { font-size: var(--text-body); color: var(--text-secondary); display: block; margin: var(--space-4) 0 var(--space-20); }
+/* Ledger */
+.ledger-list { max-height: 320rpx; overflow-y: auto; }
+.ledger-item { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-8) 0; border-bottom: 2rpx solid var(--separator); }
+.ledger-item:last-child { border-bottom: none; }
+.ledger-source { flex: 1; font-size: var(--text-body); color: var(--text); }
+.ledger-time { font-size: var(--text-caption); color: var(--text-tertiary); width: 80rpx; text-align: right; }
+.ledger-amount { font-size: var(--text-body); color: var(--gold); font-weight: 600; width: 60rpx; text-align: right; }
 
-.shop-item {
-  display: flex; align-items: center; gap: var(--space-12);
-  padding: var(--space-12); border-radius: var(--radius-sm);
-  margin-bottom: var(--space-8); background: var(--bg);
-  transition: transform 0.12s;
-}
-.shop-item:active { transform: scale(0.97); }
-.shop-item.owned { opacity: 0.6; }
-.shop-item-icon { font-size: 40rpx; display: block; }
-.shop-item-info { flex: 1; text-align: left; }
-.shop-item-name { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
-.shop-item-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; }
-.shop-item-price { font-size: var(--text-body); color: var(--gold); font-weight: 600; }
-.shop-item-owned { font-size: var(--text-caption); color: var(--text-tertiary); }
+/* Insight */
+.insight-card { border-left: 6rpx solid var(--primary-subtle); }
+.insight-text { font-size: var(--text-body); color: var(--text-secondary); line-height: 2; display: block; white-space: pre-line; }
 
 /* Export */
 .export-area { text-align: center; padding: var(--space-24) 0 var(--space-40); }

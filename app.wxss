@@ -1,186 +1,217 @@
 /* ====================================
-   此刻 · Design System v4
-   Apple 8pt grid · 纯净 · 一致
+   此刻 · Design System v6
+   Apple-grade · 纯净 · 深度
    ==================================== */
 
 page {
-  /* Colors */
-  --bg: #F7F7F7;
+  /* Colors — refined palette */
+  --bg: #F5F5F0;
   --card: #FFFFFF;
+  --card-elevated: #FFFFFF;
   --primary: #C4A06A;
   --primary-dark: #A07D4A;
   --primary-light: #F5EEDC;
+  --primary-subtle: rgba(196, 160, 106, 0.08);
   --gold: #C4A06A;
   --gold-light: #F0E6D0;
+  --gold-subtle: rgba(196, 160, 106, 0.1);
   --accent-green: #EBF8F1;
   --accent-peach: #FFEDE0;
 
-  --text: #1D1A13;
-  --text-secondary: #6B665A;
-  --text-tertiary: #9A958A;
+  --text: #1C1C1E;
+  --text-secondary: #8E8E93;
+  --text-tertiary: #C7C7CC;
 
-  --border: #E0DDD8;
-  --border-light: #EDEBE6;
-  --accent-warm-bg: #FFF5F0;
-  --accent-warm-text: #C4715A;
+  --border: rgba(60, 60, 67, 0.08);
+  --border-light: rgba(60, 60, 67, 0.05);
+  --separator: rgba(60, 60, 67, 0.04);
 
-  /* Shadows — 只用阴影表达深度，不用边框 */
-  --shadow-sm: 0 2rpx 12rpx rgba(0,0,0,0.06);
-  --shadow-md: 0 8rpx 32rpx rgba(0,0,0,0.09);
-  --shadow-lg: 0 16rpx 48rpx rgba(0,0,0,0.12);
+  /* Apple shadows — softer, larger radius */
+  --shadow-sm: 0 1rpx 3rpx rgba(0,0,0,0.04), 0 1rpx 2rpx rgba(0,0,0,0.03);
+  --shadow-md: 0 4rpx 16rpx rgba(0,0,0,0.05), 0 2rpx 8rpx rgba(0,0,0,0.03);
+  --shadow-lg: 0 12rpx 40rpx rgba(0,0,0,0.07), 0 4rpx 16rpx rgba(0,0,0,0.04);
+  --shadow-xl: 0 24rpx 60rpx rgba(0,0,0,0.1);
 
-  /* 8pt spacing grid (1pt = 2rpx @ 750 design width) */
-  --space-2: 4rpx;    /* 2pt */
-  --space-4: 8rpx;    /* 4pt */
-  --space-8: 16rpx;   /* 8pt */
-  --space-12: 24rpx;  /* 12pt */
-  --space-16: 32rpx;  /* 16pt */
-  --space-20: 40rpx;  /* 20pt */
-  --space-24: 48rpx;  /* 24pt */
-  --space-32: 64rpx;  /* 32pt */
-  --space-40: 80rpx;  /* 40pt */
+  /* 8pt spacing grid */
+  --space-2: 4rpx;
+  --space-4: 8rpx;
+  --space-8: 16rpx;
+  --space-12: 24rpx;
+  --space-16: 32rpx;
+  --space-20: 40rpx;
+  --space-24: 48rpx;
+  --space-32: 64rpx;
+  --space-40: 80rpx;
 
-  /* Radius — Apple 使用 3 种半径 */
-  --radius-sm: 16rpx;   /* 8pt - 卡片内元素 */
-  --radius-md: 24rpx;   /* 12pt - 标准卡片 */
-  --radius-lg: 40rpx;   /* 20pt - 按钮 / 弹窗 */
+  /* Apple radius — more deliberate */
+  --radius-sm: 18rpx;
+  --radius-md: 26rpx;
+  --radius-lg: 40rpx;
+  --radius-xl: 60rpx;
 
-  /* Type scale */
+  /* Type scale — larger, more contrast */
   --text-caption: 24rpx;
   --text-body: 28rpx;
   --text-body-large: 30rpx;
   --text-subhead: 32rpx;
-  --text-headline: 36rpx;
-  --text-title: 44rpx;
-  --text-hero: 52rpx;
+  --text-headline: 38rpx;
+  --text-title: 48rpx;
+  --text-hero: 56rpx;
+  --text-display: 64rpx;
 
   background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
-  font-size: var(--text-body-large);
-  line-height: 1.8;
+  font-family: -apple-system, "PingFang SC", "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  caret-color: var(--primary);
 }
 
-/* Theme packs — accent color override */
-.theme-ocean { --primary: #5B8FB9; --primary-dark: #4A7A9E; --primary-light: #D4E8F4; --gold: #5B8FB9; --gold-light: #D4E8F4; }
-.theme-forest { --primary: #7A9E7E; --primary-dark: #5E8262; --primary-light: #D8E8DA; --gold: #7A9E7E; --gold-light: #D8E8DA; }
+/* Theme packs */
+.theme-ocean { --primary: #5B8FB9; --primary-dark: #4A7A9E; --primary-light: #D4E8F4; --gold: #5B8FB9; --gold-light: #D4E8F4; --primary-subtle: rgba(91, 143, 185, 0.08); --gold-subtle: rgba(91, 143, 185, 0.1); }
+.theme-forest { --primary: #7A9E7E; --primary-dark: #5E8262; --primary-light: #D8E8DA; --gold: #7A9E7E; --gold-light: #D8E8DA; --primary-subtle: rgba(122, 158, 126, 0.08); --gold-subtle: rgba(122, 158, 126, 0.1); }
 
-/* Dark mode — 柔和深色，降低视觉疲劳 */
+/* Dark mode — refined */
 @media (prefers-color-scheme: dark) {
   page {
-    --bg: #1A1A1A;
-    --card: #2A2A2A;
+    --bg: #1C1C1E;
+    --card: #2C2C2E;
+    --card-elevated: #3A3A3C;
     --primary: #C4A06A;
     --primary-dark: #B8945E;
     --primary-light: #2A241A;
+    --primary-subtle: rgba(196, 160, 106, 0.12);
     --gold: #C4A06A;
     --gold-light: #2A241A;
+    --gold-subtle: rgba(196, 160, 106, 0.15);
     --accent-green: #1A2A1E;
     --accent-peach: #2A1E1A;
 
-    --text: #EBE8E0;
-    --text-secondary: #9A958A;
-    --text-tertiary: #6B665A;
+    --text: #F2F2F7;
+    --text-secondary: #8E8E93;
+    --text-tertiary: #636366;
 
-    --border: #3A3A3A;
-    --border-light: #2E2E2E;
-    --accent-warm-bg: #2A1E1A;
-    --accent-warm-text: #D48870;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.05);
+    --separator: rgba(255, 255, 255, 0.04);
 
-    --shadow-sm: 0 2rpx 12rpx rgba(0,0,0,0.2);
-    --shadow-md: 0 8rpx 32rpx rgba(0,0,0,0.3);
-    --shadow-lg: 0 16rpx 48rpx rgba(0,0,0,0.4);
+    --shadow-sm: 0 1rpx 3rpx rgba(0,0,0,0.2), 0 1rpx 2rpx rgba(0,0,0,0.15);
+    --shadow-md: 0 4rpx 16rpx rgba(0,0,0,0.3), 0 2rpx 8rpx rgba(0,0,0,0.2);
+    --shadow-lg: 0 12rpx 40rpx rgba(0,0,0,0.4), 0 4rpx 16rpx rgba(0,0,0,0.25);
+    --shadow-xl: 0 24rpx 60rpx rgba(0,0,0,0.5);
   }
 }
 
 /* ====================================
-   Card — 纯阴影，无边框
+   Card — pure shadow, no border
    ==================================== */
 .card {
   background: var(--card);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
 }
 .card:active {
   transform: scale(0.98);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ====================================
-   Button system — 3 种变体
+   Button system — Apple style
    ==================================== */
 .btn {
   display: flex; align-items: center; justify-content: center;
-  border-radius: var(--radius-lg); border: none;
-  font-size: var(--text-body-large); font-weight: 500;
-  transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
-  box-sizing: border-box;
+  border-radius: var(--radius-xl); border: none;
+  font-size: var(--text-body); font-weight: 500;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.2s ease;
+  box-sizing: border-box; letter-spacing: 0.5rpx;
 }
-.btn:active { transform: scale(0.97); }
+.btn:active { transform: scale(0.96); }
 
-/* Solid primary */
 .btn-primary {
   background: var(--primary); color: #FFF;
-  box-shadow: 0 4rpx 20rpx rgba(196,160,106,0.25);
+  box-shadow: 0 2rpx 12rpx var(--primary-subtle);
 }
-.btn-primary:active { box-shadow: 0 2rpx 12rpx rgba(196,160,106,0.2); }
+.btn-primary:active { opacity: 0.85; }
 
-/* Outline */
 .btn-outline {
   background: transparent; color: var(--primary);
-  border: 2rpx solid var(--primary);
+  border: 2rpx solid var(--border); font-weight: 500;
 }
-.btn-outline:active { background: var(--primary-light); }
+.btn-outline:active { background: var(--primary-subtle); border-color: var(--primary); }
 
-/* Ghost (最轻量) */
 .btn-ghost {
   background: transparent; color: var(--text-tertiary);
   border: 2rpx solid transparent;
 }
-.btn-ghost:active { color: var(--text-secondary); }
+.btn-ghost:active { background: var(--separator); color: var(--text-secondary); }
 
-/* Size variants */
-.btn-lg { padding: 32rpx 0; width: 100%; }
-.btn-md { padding: 24rpx 48rpx; }
-.btn-sm { padding: 16rpx 32rpx; font-size: var(--text-body); }
+.btn-lg { padding: 28rpx 0; width: 100%; }
+.btn-md { padding: 22rpx 48rpx; }
+.btn-sm { padding: 14rpx 28rpx; font-size: var(--text-caption); }
 .btn-block { width: 80%; }
 
 /* ====================================
-   Utility animations
+   Sheet-like overlay (Apple style)
    ==================================== */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24rpx); }
+.sheet-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
+  backdrop-filter: blur(4rpx);
+}
+.sheet-overlay.visible { opacity: 1; pointer-events: auto; }
+
+.sheet-card {
+  background: var(--card-elevated);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  width: 100%; max-width: 750rpx;
+  padding: var(--space-24) var(--space-20) calc(var(--space-16) + env(safe-area-inset-bottom));
+  box-shadow: var(--shadow-xl);
+  transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.sheet-overlay.visible .sheet-card { transform: translateY(0); }
+
+/* ====================================
+   Apple-style animations
+   ==================================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20rpx); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-@keyframes bounceIn {
-  0%   { transform: scale(0.6); }
-  60%  { transform: scale(1.12); }
-  100% { transform: scale(1); }
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
 }
-.fade-in { animation: fadeInUp 0.35s ease-out both; }
-.fade-in-d1 { animation: fadeInUp 0.35s ease-out 0.08s both; }
-.fade-in-d2 { animation: fadeInUp 0.35s ease-out 0.14s both; }
-.fade-in-d3 { animation: fadeInUp 0.35s ease-out 0.2s both; }
-.bounce-in { animation: bounceIn 0.4s ease-out both; }
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.fade-up { animation: fadeUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.fade-up-d1 { animation: fadeUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.08s both; }
+.fade-up-d2 { animation: fadeUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.14s both; }
+.fade-up-d3 { animation: fadeUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both; }
+.scale-in { animation: scaleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
 
 /* ====================================
-   Section layout
+   Section layout — Apple spacing
    ==================================== */
-.page { min-height: 100vh; padding: 0 var(--space-16); }
+.page-wrap { min-height: 100vh; padding: 0 var(--space-20); }
 
-.page-header { padding: var(--space-24) 0 var(--space-16); }
-.page-title { font-size: var(--text-title); font-weight: 600; color: var(--text); display: block; }
-.page-subtitle { font-size: var(--text-body); color: var(--text-tertiary); display: block; margin-top: var(--space-2); }
+.page-header { padding: var(--space-20) 0 var(--space-16); }
+.page-title { font-size: var(--text-headline); font-weight: 700; color: var(--text); display: block; letter-spacing: -0.5rpx; }
+.page-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-4); }
 
-.section { margin-bottom: var(--space-24); }
-.section-title {
-  font-size: var(--text-caption); color: var(--text-tertiary);
-  letter-spacing: 2rpx; margin-bottom: var(--space-12);
-  display: block; font-weight: 600;
+.section { margin-bottom: var(--space-20); }
+.section-header {
+  font-size: var(--text-caption); color: var(--text-secondary);
+  letter-spacing: 1rpx; margin-bottom: var(--space-12);
+  display: block; font-weight: 600; text-transform: uppercase;
 }

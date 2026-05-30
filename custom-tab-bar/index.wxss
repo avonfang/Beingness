@@ -1,32 +1,38 @@
 .tab-bar {
   position: fixed; bottom: 0; left: 0; right: 0;
-  height: 110rpx; padding-bottom: env(safe-area-inset-bottom);
-  background: var(--card);
+  height: 100rpx; padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(40rpx);
+  -webkit-backdrop-filter: blur(40rpx);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.05);
   z-index: 100;
 }
 
 .tab-item {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: var(--space-2); height: 100%;
-  transition: transform 0.12s;
+  gap: var(--space-2); height: 100%; position: relative;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.tab-item:active { transform: scale(0.92); }
+.tab-item:active { transform: scale(0.88); }
 
-.tab-icon-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
-.tab-icon { font-size: 44rpx; display: block; transition: transform 0.2s; }
-.tab-item.active .tab-icon { transform: scale(1.15); }
+.tab-icon { font-size: 40rpx; display: block; transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.tab-item.active .tab-icon { transform: scale(1.1); }
 
 .tab-dot {
-  position: absolute; bottom: -4rpx; left: 50%; transform: translateX(-50%);
-  width: 10rpx; height: 10rpx; border-radius: 50%;
+  position: absolute; top: 4rpx; left: 50%; transform: translateX(-50%);
+  width: 8rpx; height: 8rpx; border-radius: 50%;
   background: var(--primary);
 }
 
 .tab-label {
-  font-size: 20rpx; color: var(--text-tertiary); display: block;
-  font-weight: 500; transition: color 0.2s;
+  font-size: 18rpx; color: var(--text-tertiary); display: block;
+  font-weight: 500; letter-spacing: 1rpx;
+  transition: color 0.2s ease;
 }
 .tab-item.active .tab-label { color: var(--primary); font-weight: 600; }
+
+/* Dark mode frosted glass */
+@media (prefers-color-scheme: dark) {
+  .tab-bar { background: rgba(44, 44, 46, 0.85); }
+}
