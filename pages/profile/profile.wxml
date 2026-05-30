@@ -27,48 +27,7 @@
     <view class="coins-icon-bg">❤️</view>
     <view class="coins-info">
       <text class="coins-amount">{{awakeningCoins}}</text>
-      <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1 · 签到 + 里程碑奖励</text>
-    </view>
-    <view class="btn btn-primary btn-sm" catchtap="openShop">❤️ 商店</view>
-  </view>
-
-  <!-- ❤️ Shop modal -->
-  <view class="shop-overlay {{shopVisible ? 'visible' : ''}}" wx:if="{{shopVisible}}" catchtap="closeShop">
-    <view class="shop-card" catchtap="">
-      <text class="shop-title">❤️ 心意商店</text>
-      <text class="shop-balance">余额：{{awakeningCoins}} ❤️</text>
-
-      <view class="shop-item {{shopItems.ocean.owned ? 'owned' : ''}}" catchtap="buyShopItem" data-key="ocean">
-        <text class="shop-item-icon">🌊</text>
-        <view class="shop-item-info">
-          <text class="shop-item-name">海洋主题</text>
-          <text class="shop-item-desc">静谧蓝色调，永久解锁</text>
-        </view>
-        <text class="shop-item-price" wx:if="{{!shopItems.ocean.owned}}">20 ❤️</text>
-        <text class="shop-item-owned" wx:if="{{shopItems.ocean.owned}}">已拥有</text>
-      </view>
-
-      <view class="shop-item {{shopItems.forest.owned ? 'owned' : ''}}" catchtap="buyShopItem" data-key="forest">
-        <text class="shop-item-icon">🌿</text>
-        <view class="shop-item-info">
-          <text class="shop-item-name">森林主题</text>
-          <text class="shop-item-desc">清新绿色调，永久解锁</text>
-        </view>
-        <text class="shop-item-price" wx:if="{{!shopItems.forest.owned}}">20 ❤️</text>
-        <text class="shop-item-owned" wx:if="{{shopItems.forest.owned}}">已拥有</text>
-      </view>
-
-      <view class="shop-item {{shopItems.trial.owned ? 'owned' : ''}}" catchtap="buyShopItem" data-key="trial">
-        <text class="shop-item-icon">💌</text>
-        <view class="shop-item-info">
-          <text class="shop-item-name">此刻·陪伴体验（7天）</text>
-          <text class="shop-item-desc">解锁全部高级功能</text>
-        </view>
-        <text class="shop-item-price" wx:if="{{!shopItems.trial.owned}}">50 ❤️</text>
-        <text class="shop-item-owned" wx:if="{{shopItems.trial.owned}}">已激活</text>
-      </view>
-
-      <view class="btn btn-ghost btn-md" catchtap="closeShop">关闭</view>
+      <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1</text>
     </view>
   </view>
 

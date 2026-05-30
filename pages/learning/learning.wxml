@@ -1,23 +1,26 @@
 <view class="container {{themeClass}}">
   <view class="page-header fade-up">
-    <text class="page-title">学习课程</text>
-    <text class="page-subtitle">三条觉醒之路</text>
+    <text class="page-title">练习</text>
+    <text class="page-subtitle">今天该看的东西</text>
   </view>
 
-  <view class="path-card {{item.key}} fade-up-d1" wx:for="{{paths}}" wx:key="key" bindtap="openPath" data-key="{{item.key}}">
-    <view class="path-header">
-      <text class="path-icon">{{item.icon}}</text>
-      <view class="path-info">
-        <text class="path-title">{{item.title}}</text>
-        <text class="path-subtitle">{{item.subtitle}}</text>
+  <view class="random-btn fade-up-d1" bindtap="randomLesson">
+    <text class="random-btn-icon">🎲</text>
+    <text class="random-btn-label">随便逛逛</text>
+    <text class="random-btn-arrow">→</text>
+  </view>
+
+  <view class="lesson-list">
+    <view class="lesson-card {{item.completed ? 'done' : ''}} fade-up-d2" wx:for="{{lessons}}" wx:key="id" bindtap="openLesson" data-key="{{item.key}}" data-lessonindex="{{item.lessonIndex}}">
+      <view class="lesson-card-header">
+        <text class="lesson-card-icon">{{item.icon}}</text>
+        <view class="lesson-card-info">
+          <text class="lesson-card-title">{{item.title}}</text>
+          <text class="lesson-card-subtitle">{{item.subtitle}}</text>
+        </view>
+        <text class="lesson-card-badge" wx:if="{{item.completed}}">✓</text>
       </view>
+      <text class="lesson-card-source">{{item.source}}</text>
     </view>
-    <view class="path-progress">
-      <view class="progress-bar">
-        <view class="progress-fill" style="width: {{item.progressPercent}}%"></view>
-      </view>
-      <text class="progress-text">{{item.progress}}/{{item.total}}</text>
-    </view>
-    <text class="path-source">{{item.source}}</text>
   </view>
 </view>

@@ -45,7 +45,7 @@
   box-sizing: border-box;
 }
 .emotion-tag:active { transform: scale(0.94); box-shadow: var(--shadow-md); }
-.emotion-tag-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-6); }
+.emotion-tag-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-4); }
 .emotion-tag-label { font-size: var(--text-caption); color: var(--text-secondary); display: block; font-weight: 500; letter-spacing: 0.5rpx; }
 
 /* Quick actions */
@@ -100,41 +100,5 @@
 .rec-strip-icon { font-size: 32rpx; }
 .rec-strip-info { flex: 1; }
 .rec-strip-title { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
-.rec-strip-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-1); }
+.rec-strip-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
 .rec-strip-arrow { font-size: var(--text-body); color: var(--gold); opacity: 0.6; }
-
-/* Shop overlay — Apple sheet style */
-.shop-overlay {
-  position: fixed; inset: 0; z-index: 999;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex; align-items: flex-end; justify-content: center;
-  opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
-  backdrop-filter: blur(4rpx);
-}
-.shop-overlay.visible { opacity: 1; pointer-events: auto; }
-.shop-card {
-  background: var(--card-elevated);
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  width: 100%; max-width: 750rpx;
-  padding: var(--space-24) var(--space-20) calc(var(--space-16) + env(safe-area-inset-bottom));
-  box-shadow: var(--shadow-xl);
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-}
-.shop-overlay.visible .shop-card { transform: translateY(0); }
-.shop-title { font-size: var(--text-headline); font-weight: 700; color: var(--text); display: block; text-align: center; }
-.shop-balance { font-size: var(--text-body); color: var(--text-secondary); display: block; text-align: center; margin: var(--space-4) 0 var(--space-20); }
-.shop-item {
-  display: flex; align-items: center; gap: var(--space-12);
-  padding: var(--space-12); border-radius: var(--radius-sm);
-  margin-bottom: var(--space-8); background: var(--bg);
-  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.shop-item:active { transform: scale(0.97); }
-.shop-item.owned { opacity: 0.55; }
-.shop-item-icon { font-size: 44rpx; display: block; }
-.shop-item-info { flex: 1; }
-.shop-item-name { font-size: var(--text-body); font-weight: 600; color: var(--text); display: block; }
-.shop-item-desc { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-1); }
-.shop-item-price { font-size: var(--text-body); color: var(--gold); font-weight: 600; }
-.shop-item-owned { font-size: var(--text-caption); color: var(--text-tertiary); }

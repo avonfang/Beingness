@@ -68,10 +68,6 @@ page {
   caret-color: var(--primary);
 }
 
-/* Theme packs */
-.theme-ocean { --primary: #5B8FB9; --primary-dark: #4A7A9E; --primary-light: #D4E8F4; --gold: #5B8FB9; --gold-light: #D4E8F4; --primary-subtle: rgba(91, 143, 185, 0.08); --gold-subtle: rgba(91, 143, 185, 0.1); }
-.theme-forest { --primary: #7A9E7E; --primary-dark: #5E8262; --primary-light: #D8E8DA; --gold: #7A9E7E; --gold-light: #D8E8DA; --primary-subtle: rgba(122, 158, 126, 0.08); --gold-subtle: rgba(122, 158, 126, 0.1); }
-
 /* Dark mode — refined */
 @media (prefers-color-scheme: dark) {
   page {

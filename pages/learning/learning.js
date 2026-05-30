@@ -1,30 +1,47 @@
 const courses = require('../../data/courses')
 
 Page({
-  data: { paths: [], themeClass: 'theme-default' },
+  data: { lessons: [], themeClass: 'theme-default' },
 
   onShow() {
     const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({ themeClass: 'theme-' + theme })
-    this.loadProgress()
+    this.loadLessons()
   },
 
-  loadProgress() {
-    const paths = Object.entries(courses).map(([key, course]) => {
-      const cache = wx.getStorageSync(`progress_${key}`) || 0
-      return {
-        key,
-        ...course,
-        total: course.lessons.length,
-        progress: cache,
-        progressPercent: Math.round((cache / course.lessons.length) * 100)
-      }
+  loadLessons() {
+    const lessons = []
+    const pathKeys = ['presence', 'surrender', 'openness']
+    pathKeys.forEach(pathKey => {
+      const course = courses[pathKey]
+      if (!course) return
+      course.lessons.forEach((lesson, idx) => {
+        const completed = !!wx.getStorageSync(`lesson_${pathKey}_${lesson.id}`)
+        lessons.push({
+          key: pathKey,
+          lessonIndex: idx,
+          id: lesson.id,
+          title: lesson.title,
+          subtitle: lesson.subtitle,
+          icon: course.icon,
+          source: course.source,
+          completed
+        })
+      })
     })
-    this.setData({ paths })
+    this.setData({ lessons })
   },
 
-  openPath(e) {
-    const key = e.currentTarget.dataset.key
-    wx.navigateTo({ url: `/pages/learning/lesson/lesson?path=${key}&lessonIndex=0` })
+  openLesson(e) {
+    const { key, lessonindex } = e.currentTarget.dataset
+    wx.navigateTo({ url: `/pages/learning/lesson/lesson?path=${key}&lessonIndex=${lessonindex}` })
+  },
+
+  randomLesson() {
+    const lessons = this.data.lessons
+    const uncompleted = lessons.filter(l => !l.completed)
+    const pool = uncompleted.length > 0 ? uncompleted : lessons
+    const pick = pool[Math.floor(Math.random() * pool.length)]
+    wx.navigateTo({ url: `/pages/learning/lesson/lesson?path=${pick.key}&lessonIndex=${pick.lessonIndex}` })
   }
 })
