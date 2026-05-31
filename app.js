@@ -9,11 +9,6 @@ App({
   },
 
   onLaunch() {
-    // Init storage (with safe falsy checks)
-    const coins = wx.getStorageSync('awakeningCoins')
-    if (typeof coins !== 'number') {
-      wx.setStorageSync('awakeningCoins', 10)
-    }
     if (!wx.getStorageSync('hasSeenOnboarding')) {
       wx.setStorageSync('hasSeenOnboarding', false)
     }

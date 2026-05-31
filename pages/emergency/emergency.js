@@ -1,15 +1,9 @@
 const guides = require('../../data/guides')
-const { addCoins } = require('../../utils/coins')
+const EMOTIONS = ['anxiety', 'anger', 'low', 'tangled']
 
 Page({
   data: {
-    phase: 'select',
-    emotionOptions: [
-      { value: 'anxiety', label: '焦虑/恐惧', icon: '😰' },
-      { value: 'anger', label: '愤怒/烦躁', icon: '😤' },
-      { value: 'low', label: '无力/低落', icon: '😔' },
-      { value: 'tangled', label: '纠结/内耗', icon: '😵‍💫' }
-    ],
+    phase: 'guide',
     selectedEmotion: '',
     stepIndex: 0,
     totalSteps: 0,
@@ -20,40 +14,17 @@ Page({
     rating: 0,
     startTime: null,
     themeClass: 'theme-default',
-    recommendedLesson: null
+    recommendedLesson: null,
+    showCrisis: false
   },
 
   onLoad(options) {
     const theme = wx.getStorageSync('appTheme') || 'default'
     this.setData({ themeClass: 'theme-' + theme, startTime: Date.now() })
 
-    // If pre-selected emotion from homepage tags, skip selection
-    if (options && options.emotion) {
-      this.startWithEmotion(options.emotion)
-    }
-  },
-
-  startWithEmotion(emotion) {
-    const steps = guides[emotion].steps
-    const showCrisis = emotion === 'low'
-    if (showCrisis) {
-      wx.showModal({
-        title: '💛 我在这里',
-        content: '你选择面对此刻的感受，这已经很有勇气。\n\n如果你感到非常痛苦，请不要一个人承受。可以拨打心理援助热线：\n\n📞 全国心理援助热线：400-161-9995\n📞 北京心理危机研究与干预中心：010-82951332',
-        showCancel: false,
-        confirmText: '好的，继续'
-      })
-    }
-    this.setData({
-      selectedEmotion: emotion,
-      phase: 'guide',
-      steps: steps,
-      totalSteps: steps.length,
-      stepIndex: 0,
-      currentStep: this.resolveStep(steps[0], null),
-      showCrisis,
-      recommendedLesson: this.findLessonForEmotion(emotion)
-    })
+    // If emotion passed from outside, use it; otherwise random
+    const emotion = (options && options.emotion) || EMOTIONS[Math.floor(Math.random() * EMOTIONS.length)]
+    this.startGuide(emotion)
   },
 
   onShow() {
@@ -61,8 +32,7 @@ Page({
     this.setData({ themeClass: 'theme-' + theme })
   },
 
-  onEmotionSelect(e) {
-    const emotion = e.detail.value
+  startGuide(emotion) {
     const steps = guides[emotion].steps
     const showCrisis = emotion === 'low'
     if (showCrisis) {
@@ -76,7 +46,7 @@ Page({
     this.setData({
       selectedEmotion: emotion,
       phase: 'guide',
-      steps: steps,
+      steps,
       totalSteps: steps.length,
       stepIndex: 0,
       currentStep: this.resolveStep(steps[0], null),
@@ -105,7 +75,6 @@ Page({
     wx.vibrateShort({ type: 'light' }).catch(() => {})
     const value = e.detail.value
     const stepIndex = this.data.stepIndex
-    const step = this.data.steps[stepIndex]
     const key = `${stepIndex}`
     const selectedOptions = { ...this.data.selectedOptions, [key]: value }
 
@@ -122,15 +91,12 @@ Page({
   },
 
   onGuideBack() {
-    wx.vibrateShort({ type: 'light' }).catch(() => {})
     const stepIndex = this.data.stepIndex
     if (stepIndex > 0) {
-      // Go back to previous step
       const prevStep = this.resolveStep(this.data.steps[stepIndex - 1], null)
       this.setData({ stepIndex: stepIndex - 1, currentStep: prevStep })
     } else {
-      // Go back to emotion selection
-      this.setData({ phase: 'select', stepIndex: 0, selectedEmotion: '', selectedOptions: {} })
+      wx.navigateBack()
     }
   },
 
@@ -148,11 +114,6 @@ Page({
 
   setRating(e) { this.setData({ rating: parseInt(e.currentTarget.dataset.idx) + 1 }) },
 
-  addCoin(amount) {
-    return addCoins(amount, '情绪急救')
-  },
-
-  // Find a relevant uncompleted lesson for the emotion
   findLessonForEmotion(emotion) {
     const courses = require('../../data/courses')
     const recs = {
@@ -188,7 +149,7 @@ Page({
       trigger: '',
       bodyPart: Object.values(this.data.selectedOptions).join(','),
       completedSteps: true,
-      recoveryMinutes: recoveryMinutes,
+      recoveryMinutes,
       note: this.data.note,
       rating: this.data.rating,
       createdAt: new Date().toISOString()
@@ -196,17 +157,15 @@ Page({
     const local = wx.getStorageSync('pendingEntries') || []
     local.push(entry)
     wx.setStorageSync('pendingEntries', local)
-    this.addCoin(1)
-    wx.showToast({ title: '+1 ❤️', icon: 'success' })
+    wx.showToast({ title: '已记录', icon: 'success' })
     this.setData({ phase: 'done' })
   },
 
   goBack() {
-    wx.switchTab({ url: '/pages/index/index' })
+    wx.navigateBack()
   },
 
   onShareAppMessage() {
-    this.addCoin(1)
-    return { title: '刚完成了一次情绪急救 🌿 推荐「此刻」给你', path: '/pages/index/index' }
+    return { title: '刚完成了一次情绪急救 🌿 推荐「此刻 · Being」给你', path: '/pages/index/index' }
   }
 })

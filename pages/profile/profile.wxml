@@ -2,7 +2,7 @@
   <!-- Hero card -->
   <view class="hero-card">
     <text class="hero-greeting">我的练习报告</text>
-    <text class="hero-name">此刻</text>
+    <text class="hero-name">此刻<text class="hero-name-sub"> · Being</text></text>
     <text class="hero-streak">🔥 连续练习 {{streakDays}} 天</text>
   </view>
 
@@ -19,28 +19,6 @@
     <view class="milestone-info">
       <text class="milestone-label">下一个里程碑：{{nextMilestone.label}}</text>
       <text class="milestone-desc">还需 {{nextMilestone.remain}} 天</text>
-    </view>
-  </view>
-
-  <!-- ❤️ 心意 display + 商店入口 -->
-  <view class="coins-section">
-    <view class="coins-icon-bg">❤️</view>
-    <view class="coins-info">
-      <text class="coins-amount">{{awakeningCoins}}</text>
-      <text class="coins-rule">急救 +1 · 课程 +2 · 呼吸 +1</text>
-    </view>
-  </view>
-
-  <!-- Premium upgrade card -->
-  <view class="premium-card" wx:if="{{!isPremium}}">
-    <view class="premium-header">
-      <text class="premium-icon">💌</text>
-      <text class="premium-title">此刻 · 陪伴</text>
-    </view>
-    <text class="premium-desc">无限使用此刻信箱 · 高级呼吸模式 · 每周专属练习 · 优先新内容</text>
-    <view class="premium-price-row">
-      <text class="premium-amount">¥9.9<text class="premium-unit">/月</text></text>
-      <view class="btn btn-primary btn-md" catchtap="buyPremium">订阅</view>
     </view>
   </view>
 
@@ -64,6 +42,26 @@
     <view class="stat-card">
       <text class="stat-num">{{totalLessons}}</text>
       <text class="stat-label">完成课程</text>
+    </view>
+  </view>
+
+  <!-- Section: 学习 -->
+  <view class="learning-section">
+    <view class="learning-header" bindtap="goLearning">
+      <text class="section-header" style="margin-top:0;">学习</text>
+      <text class="learning-arrow">→</text>
+    </view>
+    <view class="course-row" wx:for="{{courseStats}}" wx:key="key">
+      <text class="course-icon">{{item.icon}}</text>
+      <view class="course-info">
+        <text class="course-title">{{item.title}}</text>
+        <view class="course-progress">
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.percent}}%"></view>
+          </view>
+          <text class="progress-text">{{item.progress}}/{{item.total}}</text>
+        </view>
+      </view>
     </view>
   </view>
 
@@ -157,18 +155,6 @@
   <view class="insight-card">
     <text class="card-title">数据洞察</text>
     <text class="insight-text">{{insight}}</text>
-  </view>
-
-  <!-- Coin ledger -->
-  <view class="ledger-card" wx:if="{{coinLedger.length > 0}}">
-    <text class="card-title">❤️ 心意明细</text>
-    <view class="ledger-list">
-      <view class="ledger-item" wx:for="{{coinLedger}}" wx:key="time">
-        <text class="ledger-source">{{item.source}}</text>
-        <text class="ledger-time">{{formatTime(item.time)}}</text>
-        <text class="ledger-amount">+{{item.amount}}</text>
-      </view>
-    </view>
   </view>
 
   <!-- Export -->

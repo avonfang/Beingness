@@ -40,3 +40,18 @@
 .entry-badge { font-size: var(--text-caption); color: var(--primary); background: var(--primary-light); padding: var(--space-2) var(--space-12); border-radius: var(--radius-lg); display: inline-block; }
 .entry-note { font-size: var(--text-body); color: var(--text-secondary); line-height: 1.8; display: block; margin-top: var(--space-8); padding: var(--space-8) var(--space-12); background: var(--bg); border-radius: var(--radius-sm); }
 .entry-dialogue-preview { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-8); padding: var(--space-8) var(--space-12); background: #F0F7F0; border-radius: var(--radius-sm); }
+
+/* Premium upgrade card */
+.premium-card {
+  background: linear-gradient(135deg, var(--gold-subtle) 0%, var(--card) 100%);
+  border-radius: var(--radius-sm); padding: var(--space-16);
+  margin-top: var(--space-24); margin-bottom: var(--space-40);
+  box-shadow: var(--shadow-sm); border: 2rpx solid var(--border);
+}
+.premium-header { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-8); }
+.premium-icon { font-size: var(--space-16); }
+.premium-title { font-size: var(--text-body-large); font-weight: 600; color: var(--text); }
+.premium-desc { font-size: var(--text-body); color: var(--text-secondary); display: block; line-height: 1.8; margin-bottom: var(--space-12); }
+.premium-price-row { display: flex; align-items: center; justify-content: space-between; }
+.premium-amount { font-size: var(--text-title); font-weight: 700; color: var(--gold); }
+.premium-unit { font-size: var(--text-body); color: var(--text-tertiary); font-weight: 400; }

@@ -168,8 +168,6 @@ Page({
   },
 
   giveReward() {
-    const { addCoins } = require('../../utils/coins')
-    addCoins(1, '呼吸练习')
   },
 
   finish() {
@@ -181,8 +179,6 @@ Page({
   },
 
   onShareAppMessage() {
-    const { addCoins } = require('../../utils/coins')
-    addCoins(1, '分享呼吸')
     return { title: '刚做完一组呼吸，心很静 🧘 推荐这个练习给你', path: '/pages/breath/breath' }
   }
 })

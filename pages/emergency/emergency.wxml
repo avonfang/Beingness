@@ -1,21 +1,11 @@
 <view class="container {{themeClass}}">
-  <!-- Ambient background decoration -->
   <view class="ambient-circle"></view>
 
-  <!-- Emotion selection -->
-  <mood-picker
-    wx:if="{{phase === 'select'}}"
-    title="现在感觉怎么样？"
-    options="{{emotionOptions}}"
-    bind:select="onEmotionSelect"
-  />
-
-  <!-- Guided steps -->
-  <view wx:elif="{{phase === 'guide'}}" class="guide-header">
+  <!-- Guided steps (always shown on arrival) -->
+  <view class="guide-header" wx:if="{{phase === 'guide'}}">
     <view class="guide-back" bindtap="onGuideBack">
       <text class="guide-back-icon">←</text>
-      <text wx:if="{{stepIndex > 0}}" class="guide-back-label">上一步</text>
-      <text wx:else class="guide-back-label">返回</text>
+      <text class="guide-back-label">退出</text>
     </view>
     <guide-step
       text="{{currentStep.text}}"
@@ -45,14 +35,14 @@
     <button class="btn btn-primary btn-lg btn-block" bindtap="saveAndExit">保存并完成</button>
   </view>
 
-  <!-- Done screen — celebratory completion -->
+  <!-- Done screen -->
   <view wx:elif="{{phase === 'done'}}" class="complete-view">
     <view class="done-celebration">
       <view class="done-glow"></view>
       <text class="complete-icon">🌿</text>
     </view>
     <text class="complete-title">急救完成</text>
-    <text class="complete-desc">你照顾了此刻的自己。+1 ❤️</text>
+    <text class="complete-desc">你照顾了此刻的自己。</text>
     <view class="crisis-card" wx:if="{{showCrisis}}">
       <text class="crisis-text">💛 如果需要倾诉，可以拨打心理援助热线：400-161-9995</text>
     </view>

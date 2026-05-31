@@ -46,4 +46,17 @@
       </view>
     </view>
   </view>
+
+  <!-- Premium upgrade — 底部 -->
+  <view class="premium-card" wx:if="{{!isPremium}}">
+    <view class="premium-header">
+      <text class="premium-icon">💌</text>
+      <text class="premium-title">此刻 · 陪伴</text>
+    </view>
+    <text class="premium-desc">无限使用此刻信箱 · 高级呼吸模式 · 每周专属练习 · 优先新内容</text>
+    <view class="premium-price-row">
+      <text class="premium-amount">¥9.9<text class="premium-unit">/月</text></text>
+      <view class="btn btn-primary btn-md" catchtap="buyPremium">订阅</view>
+    </view>
+  </view>
 </view>

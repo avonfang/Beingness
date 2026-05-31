@@ -3,8 +3,8 @@ Component({
     active: 0,
     tabs: [
       { icon: '🧘', label: '此刻', pagePath: '/pages/index/index' },
-      { icon: '📖', label: '学习', pagePath: '/pages/learning/learning' },
-      { icon: '📝', label: '日志', pagePath: '/pages/log/log' }
+      { icon: '📋', label: '日志', pagePath: '/pages/log/log' },
+      { icon: '👤', label: '个人', pagePath: '/pages/profile/profile' }
     ]
   },
 
