@@ -110,4 +110,33 @@
     </view>
   </view>
 
+  <!-- Check-in achievement overlay -->
+  <view class="checkin-overlay {{checkinPhase === 'show' ? 'visible' : ''}}" wx:if="{{checkinPhase}}" catchtap="closeCheckin">
+    <view class="checkin-card" catchtap="">
+      <text class="checkin-emoji">🔥</text>
+      <text class="checkin-title">今日已签到</text>
+      <text class="checkin-streak">连续 {{checkinStreak}} 天</text>
+
+      <view class="checkin-stats">
+        <view class="checkin-stat">
+          <text class="checkin-stat-num">{{checkinStats.totalSessions}}</text>
+          <text class="checkin-stat-label">急救</text>
+        </view>
+        <view class="checkin-stat">
+          <text class="checkin-stat-num">{{checkinStats.totalDialogues}}</text>
+          <text class="checkin-stat-label">信件</text>
+        </view>
+        <view class="checkin-stat">
+          <text class="checkin-stat-num">{{checkinStats.streakDays}}</text>
+          <text class="checkin-stat-label">连续天数</text>
+        </view>
+      </view>
+
+      <view class="checkin-milestone" wx:if="{{checkinBonus > 0}}">
+        <text class="checkin-milestone-text">🎉 里程碑奖励 +{{checkinBonus}} ❤️</text>
+      </view>
+
+      <view class="btn btn-primary btn-md" bindtap="closeCheckin">继续</view>
+    </view>
+  </view>
 </view>

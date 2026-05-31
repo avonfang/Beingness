@@ -1,42 +1,29 @@
-/* Learning v7 — flat lesson list */
+/* Learning v6 — Apple-grade */
 .container { min-height: 100vh; padding: 0 var(--space-20) calc(100rpx + env(safe-area-inset-bottom) + var(--space-20)); }
 
-/* Random button */
-.random-btn {
-  display: flex; align-items: center; gap: var(--space-8);
-  background: var(--primary-subtle); border-radius: var(--radius-lg);
-  padding: var(--space-16) var(--space-20);
-  margin-bottom: var(--space-16); transition: transform 0.2s ease;
+.path-card {
+  background: var(--card); border-radius: var(--radius-md); padding: var(--space-24) var(--space-20);
+  margin-bottom: var(--space-16); box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
 }
-.random-btn:active { transform: scale(0.97); }
-.random-btn-icon { font-size: 36rpx; }
-.random-btn-label { flex: 1; font-size: var(--text-body); font-weight: 500; color: var(--text); }
-.random-btn-arrow { font-size: var(--text-body); color: var(--gold); opacity: 0.6; }
+.path-card:active { transform: scale(0.97); box-shadow: var(--shadow-md); }
+.path-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6rpx; }
+.path-card.presence::before { background: var(--primary); }
+.path-card.surrender::before { background: var(--gold); }
+.path-card.openness::before { background: #B8A5C4; }
 
-/* Lesson card */
-.lesson-card {
-  background: var(--card); border-radius: var(--radius-md);
-  padding: var(--space-16) var(--space-20);
-  margin-bottom: var(--space-12);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.lesson-card:active { transform: scale(0.97); box-shadow: var(--shadow-md); }
-.lesson-card.done { opacity: 0.6; }
+.path-header { display: flex; align-items: center; gap: var(--space-12); }
+.path-icon { font-size: var(--text-hero); display: block; line-height: 1; }
+.path-info { flex: 1; }
+.path-title { font-size: var(--text-headline); font-weight: 700; color: var(--text); display: block; letter-spacing: -0.5rpx; }
+.path-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
 
-.lesson-card-header { display: flex; align-items: center; gap: var(--space-12); }
-.lesson-card-icon { font-size: 44rpx; display: block; line-height: 1; }
-.lesson-card-info { flex: 1; }
-.lesson-card-title { font-size: var(--text-body); font-weight: 600; color: var(--text); display: block; }
-.lesson-card-subtitle { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
-.lesson-card-badge {
-  font-size: var(--text-body); color: var(--gold); font-weight: 700;
-  width: 48rpx; height: 48rpx; border-radius: 50%;
-  background: var(--gold-subtle); display: flex; align-items: center; justify-content: center;
-}
+.path-progress { display: flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); }
+.progress-bar { flex: 1; height: 8rpx; background: var(--separator); border-radius: 4rpx; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4rpx; transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.path-card.presence .progress-fill { background: var(--primary); }
+.path-card.surrender .progress-fill { background: var(--gold); }
+.path-card.openness .progress-fill { background: #B8A5C4; }
+.progress-text { font-size: var(--text-caption); color: var(--text-tertiary); min-width: 70rpx; text-align: right; font-weight: 500; }
 
-.lesson-card-source {
-  font-size: var(--text-caption); color: var(--text-tertiary);
-  display: block; margin-top: var(--space-8); padding-top: var(--space-8);
-  border-top: 2rpx solid var(--separator);
-}
+.path-source { font-size: var(--text-caption); color: var(--text-tertiary); display: block; margin-top: var(--space-12); padding-top: var(--space-12); border-top: 2rpx solid var(--separator); }

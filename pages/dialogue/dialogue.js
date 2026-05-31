@@ -16,6 +16,10 @@ Page({
     showUpgrade: false,
     themeClass: 'theme-default',
     showGuideText: true,
+    checkinPhase: '',
+    checkinStreak: 0,
+    checkinStats: { totalSessions: 0, totalDialogues: 0, streakDays: 0 },
+    checkinBonus: 0
   },
 
   _practiceStats: null, // In-memory buffer for practice stats
@@ -225,13 +229,34 @@ Page({
           timestamp: Date.now()
         })
         wx.setStorageSync('moodAfterLetter', records.slice(-50))
+
+        this.showCheckinAchievement(mood)
       },
-      complete: () => {
-        this.doCheckIn()
-        wx.showToast({ title: '📝 已记录', icon: 'none', duration: 1500 })
-        setTimeout(() => wx.navigateBack(), 1600)
+      fail: () => this.showCheckinAchievement()
+    })
+  },
+
+  showCheckinAchievement(mood) {
+    const streakInfo = this.doCheckIn()
+
+    const entries = wx.getStorageSync('pendingEntries') || []
+    const dialogues = wx.getStorageSync('dialogueHistory') || []
+
+    this.setData({
+      checkinPhase: 'show',
+      checkinStreak: streakInfo.streakDays,
+      checkinBonus: streakInfo.bonus,
+      checkinStats: {
+        totalSessions: entries.length,
+        totalDialogues: dialogues.length,
+        streakDays: streakInfo.streakDays
       }
     })
+  },
+
+  closeCheckin() {
+    this.setData({ checkinPhase: '' })
+    wx.navigateBack()
   },
 
   // Silent check-in, returns { streakDays, bonus }

@@ -20,7 +20,9 @@ Page({
     isPremium: false,
     themeClass: 'theme-default',
     coinLedger: [],
-    savedQuotes: []
+    savedQuotes: [],
+    shopVisible: false,
+    shopItems: {}
   },
 
   onShow() {
@@ -65,6 +67,7 @@ Page({
 
     const coinLedger = getLedger()
     const savedQuotes = wx.getStorageSync('savedQuotes') || []
+    const purchasedThemes = wx.getStorageSync('purchasedThemes') || []
     const isPremium = wx.getStorageSync('isPremium') || false
 
     this.setData({
@@ -82,7 +85,12 @@ Page({
       achievements,
       weekReport,
       coinLedger: coinLedger.slice(0, 20),
-      savedQuotes: savedQuotes.slice(0, 20)
+      savedQuotes: savedQuotes.slice(0, 20),
+      shopItems: {
+        ocean: { owned: purchasedThemes.includes('ocean') },
+        forest: { owned: purchasedThemes.includes('forest') },
+        trial: { owned: isPremium }
+      }
     })
   },
 
@@ -139,6 +147,63 @@ Page({
     if (diffDays === 0) return '今天'
     if (diffDays === 1) return '昨天'
     return util.formatDate(d)
+  },
+
+  openShop() {
+    const purchasedThemes = wx.getStorageSync('purchasedThemes') || []
+    const isPremium = wx.getStorageSync('isPremium') || false
+    this.setData({
+      shopVisible: true,
+      shopItems: {
+        ocean: { owned: purchasedThemes.includes('ocean') },
+        forest: { owned: purchasedThemes.includes('forest') },
+        trial: { owned: isPremium }
+      }
+    })
+  },
+
+  closeShop() {
+    this.setData({ shopVisible: false })
+  },
+
+  buyShopItem(e) {
+    const key = e.currentTarget.dataset.key
+    const prices = { ocean: 20, forest: 20, trial: 50 }
+    const price = prices[key]
+    const coins = this.data.awakeningCoins
+    if (coins < price) {
+      wx.showToast({ title: `还差 ${price - coins} ❤️`, icon: 'none' })
+      return
+    }
+
+    if (key === 'trial') {
+      wx.setStorageSync('isPremium', true)
+      const { addCoins } = require('../../utils/coins')
+      addCoins(-price, '购买7天陪伴体验')
+      this.setData({ isPremium: true, shopVisible: false })
+      wx.showToast({ title: '💌 7天陪伴已激活', icon: 'success' })
+      return
+    }
+
+    // Theme purchase
+    const purchasedThemes = wx.getStorageSync('purchasedThemes') || []
+    if (purchasedThemes.includes(key)) {
+      wx.showToast({ title: '已拥有', icon: 'none' })
+      return
+    }
+    purchasedThemes.push(key)
+    wx.setStorageSync('purchasedThemes', purchasedThemes)
+    // Auto-apply the theme
+    wx.setStorageSync('appTheme', key)
+    const { addCoins } = require('../../utils/coins')
+    addCoins(-price, `解锁${key === 'ocean' ? '海洋' : '森林'}主题`)
+
+    this.setData({
+      awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
+      themeClass: 'theme-' + key,
+      shopVisible: false
+    })
+    wx.showToast({ title: `✨ ${key === 'ocean' ? '🌊 海洋' : '🌿 森林'}主题已解锁`, icon: 'success' })
   },
 
   exportData() {
