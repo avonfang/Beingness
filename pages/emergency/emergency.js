@@ -10,8 +10,6 @@ Page({
     steps: [],
     currentStep: {},
     selectedOptions: {},
-    note: '',
-    rating: 0,
     startTime: null,
     themeClass: 'theme-default',
     recommendedLesson: null,
@@ -86,7 +84,7 @@ Page({
         currentStep: nextStep
       })
     } else {
-      this.setData({ selectedOptions, phase: 'complete' })
+      this.saveEntry()
     }
   },
 
@@ -106,13 +104,9 @@ Page({
       const nextStep = this.resolveStep(this.data.steps[stepIndex + 1], null)
       this.setData({ stepIndex: stepIndex + 1, currentStep: nextStep })
     } else {
-      this.setData({ phase: 'complete' })
+      this.saveEntry()
     }
   },
-
-  onNoteInput(e) { this.setData({ note: e.detail.value }) },
-
-  setRating(e) { this.setData({ rating: parseInt(e.currentTarget.dataset.idx) + 1 }) },
 
   findLessonForEmotion(emotion) {
     const courses = require('../../data/courses')
@@ -138,11 +132,7 @@ Page({
     })
   },
 
-  deepDialogue() {
-    wx.navigateTo({ url: '/pages/dialogue/dialogue' })
-  },
-
-  saveAndExit() {
+  saveEntry() {
     const recoveryMinutes = Math.round((Date.now() - this.data.startTime) / 60000)
     const entry = {
       emotionType: this.data.selectedEmotion,
@@ -150,15 +140,18 @@ Page({
       bodyPart: Object.values(this.data.selectedOptions).join(','),
       completedSteps: true,
       recoveryMinutes,
-      note: this.data.note,
-      rating: this.data.rating,
+      note: '',
+      rating: 0,
       createdAt: new Date().toISOString()
     }
     const local = wx.getStorageSync('pendingEntries') || []
     local.push(entry)
     wx.setStorageSync('pendingEntries', local)
-    wx.showToast({ title: '已记录', icon: 'success' })
     this.setData({ phase: 'done' })
+  },
+
+  goWriteFeelings() {
+    wx.navigateTo({ url: '/pages/dialogue/dialogue' })
   },
 
   goBack() {
