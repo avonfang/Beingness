@@ -1,24 +1,22 @@
 const PATTERNS = {
-  '478': { name: '4-7-8 放松', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 7 }, { label: '呼气', sec: 8 }], icon: '🌙' },
-  '444': { name: '4-4-4 平衡', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }], icon: '⚖️' },
-  'box': { name: '箱式呼吸', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 4 }], icon: '🧊' },
-  'coherent': { name: '谐振呼吸', phases: [{ label: '吸气', sec: 5 }, { label: '呼气', sec: 5 }], icon: '🌊', premium: true },
-  'fire': { name: '火呼吸', phases: [{ label: '吸气', sec: 2 }, { label: '屏息', sec: 1 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 1 }], icon: '🔥', premium: true }
+  '478': { name: '4-7-8 放松', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 7 }, { label: '呼气', sec: 8 }], icon: '🌙', desc: '经典的深度放松节奏', premium: false },
+  '444': { name: '4-4-4 平衡', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }], icon: '⚖️', desc: '均衡的呼吸节奏', premium: false },
+  'box': { name: '箱式呼吸', phases: [{ label: '吸气', sec: 4 }, { label: '屏息', sec: 4 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 4 }], icon: '🧊', desc: '方形的稳定节奏', premium: false },
+  'coherent': { name: '谐振呼吸', phases: [{ label: '吸气', sec: 5 }, { label: '呼气', sec: 5 }], icon: '🌊', desc: '让心率和呼吸同步', premium: true },
+  'fire': { name: '火呼吸', phases: [{ label: '吸气', sec: 2 }, { label: '屏息', sec: 1 }, { label: '呼气', sec: 4 }, { label: '屏息', sec: 1 }], icon: '🔥', desc: '激活能量的节奏', premium: true }
 }
 
 Page({
   data: {
-    patterns: PATTERNS,
     selectedPattern: '478',
+    patternList: Object.entries(PATTERNS).map(([key, v]) => ({ key, ...v })),
+    currentPattern: PATTERNS['478'],
     phase: 'ready',
-    currentPhaseIndex: 0,
+    phaseLabel: '',
     countdown: 0,
-    phaseDuration: 0,
-    totalRounds: 0,
+    timerProgress: 0,
     currentRound: 1,
     targetRounds: 6,
-    timerProgress: 0,
-    phaseLabel: '',
     phaseIcon: '🌙',
     isPremium: false,
     themeClass: 'theme-default'
@@ -26,7 +24,6 @@ Page({
 
   onLoad() {
     this.refreshState()
-    this.resetReady()
   },
 
   onShow() {
@@ -40,27 +37,23 @@ Page({
   },
 
   onUnload() {
-    if (this._timer) {
-      clearTimeout(this._timer)
-    }
+    if (this._timer) clearTimeout(this._timer)
   },
 
   selectPattern(e) {
-    if (this.data.phase === 'running') return
+    if (this.data.phase !== 'ready') return
     const key = e.currentTarget.dataset.key
     const pattern = PATTERNS[key]
+    if (!pattern) return
 
-    // Premium gate
     if (pattern.premium && !this.data.isPremium) {
       wx.showModal({
         title: '高级呼吸模式',
-        content: '「' + pattern.name + '」仅限无限版订阅用户使用。升级后还可解锁更多主题和内容。',
+        content: '「' + pattern.name + '」仅限无限版订阅用户使用。',
         confirmText: '查看升级',
         cancelText: '稍后',
         success: (res) => {
-          if (res.confirm) {
-            wx.navigateTo({ url: '/pages/profile/profile' })
-          }
+          if (res.confirm) wx.navigateTo({ url: '/pages/profile/profile' })
         }
       })
       return
@@ -69,9 +62,9 @@ Page({
     wx.vibrateShort({ type: 'light' }).catch(() => {})
     this.setData({
       selectedPattern: key,
+      currentPattern: pattern,
       phaseIcon: pattern.icon
     })
-    this.resetReady()
   },
 
   setTarget(e) {
@@ -80,48 +73,33 @@ Page({
     this.setData({ targetRounds: n })
   },
 
-  resetReady() {
-    this.setData({
-      phase: 'ready',
-      currentPhaseIndex: 0,
-      countdown: 0,
-      phaseDuration: 0,
-      currentRound: 1,
-      totalRounds: 0,
-      timerProgress: 0,
-      phaseLabel: ''
-    })
-  },
-
   start() {
     wx.vibrateShort({ type: 'medium' }).catch(() => {})
     const pattern = PATTERNS[this.data.selectedPattern]
-    const sec = pattern.phases[0].sec
+    const firstPhase = pattern.phases[0]
     this.setData({
-      phase: 'inhale',
-      currentPhaseIndex: 0,
+      phase: 'running',
       currentRound: 1,
-      totalRounds: 0,
-      countdown: sec,
-      phaseDuration: sec,
+      countdown: firstPhase.sec,
       timerProgress: 100,
-      phaseLabel: pattern.phases[0].label
+      phaseLabel: firstPhase.label,
+      currentPhaseIndex: 0
     })
     this.runTimer()
   },
 
   runTimer() {
-    const pattern = PATTERNS[this.data.selectedPattern]
+    const pattern = this.data.currentPattern
     const idx = this.data.currentPhaseIndex
     const phase = pattern.phases[idx]
     const totalSec = phase.sec
     const startedAt = Date.now()
-    this.setData({ phaseDuration: totalSec })
 
-    // Haptic at phase transitions
-    if (phase.label === '吸气') wx.vibrateShort({ type: 'medium' }).catch(() => {})
-    else if (phase.label === '屏息') wx.vibrateShort({ type: 'light' }).catch(() => {})
-    else if (phase.label === '呼气') wx.vibrateShort({ type: 'heavy' }).catch(() => {})
+    // Haptic feedback
+    const label = phase.label
+    if (label === '吸气') wx.vibrateShort({ type: 'medium' }).catch(() => {})
+    else if (label === '屏息') wx.vibrateShort({ type: 'light' }).catch(() => {})
+    else if (label === '呼气') wx.vibrateShort({ type: 'heavy' }).catch(() => {})
 
     const tick = () => {
       const elapsed = Math.round((Date.now() - startedAt) / 1000)
@@ -138,7 +116,6 @@ Page({
         timerProgress: (remaining / totalSec) * 100
       })
 
-      // Self-correcting: schedule next tick at next second boundary
       const drift = (Date.now() - startedAt) - (elapsed * 1000)
       this._timer = setTimeout(tick, Math.max(50, 1000 - drift))
     }
@@ -147,21 +124,31 @@ Page({
   },
 
   nextPhase() {
-    const pattern = PATTERNS[this.data.selectedPattern]
+    const pattern = this.data.currentPattern
     let nextIdx = this.data.currentPhaseIndex + 1
 
     if (nextIdx >= pattern.phases.length) {
-      // Round complete
       const round = this.data.currentRound + 1
       if (round > this.data.targetRounds) {
-        this.setData({ phase: 'done', currentRound: this.data.currentRound, totalRounds: this.data.currentRound })
+        this.setData({ phase: 'done', currentRound: this.data.currentRound })
         this.giveReward()
         return
       }
-      this.setData({ currentRound: round, currentPhaseIndex: 0, totalRounds: this.data.currentRound })
-      this.setData({ phaseLabel: pattern.phases[0].label, phase: 'inhale' })
+      this.setData({
+        currentRound: round,
+        currentPhaseIndex: 0,
+        countdown: pattern.phases[0].sec,
+        timerProgress: 100,
+        phaseLabel: pattern.phases[0].label
+      })
     } else {
-      this.setData({ currentPhaseIndex: nextIdx, phaseLabel: pattern.phases[nextIdx].label })
+      const nextPhase = pattern.phases[nextIdx]
+      this.setData({
+        currentPhaseIndex: nextIdx,
+        countdown: nextPhase.sec,
+        timerProgress: 100,
+        phaseLabel: nextPhase.label
+      })
     }
 
     this.runTimer()
@@ -173,16 +160,23 @@ Page({
   },
 
   finish() {
+    if (this._timer) clearTimeout(this._timer)
     wx.navigateBack()
   },
 
   restart() {
-    this.resetReady()
+    this.setData({
+      phase: 'ready',
+      countdown: 0,
+      timerProgress: 0,
+      currentRound: 1,
+      phaseLabel: ''
+    })
   },
 
   onShareAppMessage() {
     const { addCoins } = require('../../utils/coins')
     addCoins(1, '分享呼吸')
-    return { title: '刚做完一组呼吸，心很静 🧘 推荐这个练习给你', path: '/pages/breath/breath' }
+    return { title: '刚做完一组呼吸，心很静 🧘', path: '/pages/breath/breath' }
   }
 })

@@ -8,3 +8,4 @@ cloudfunctions/*/node_modules/
 screenshots/
 project.private.config.json
 /log/
+.claude/

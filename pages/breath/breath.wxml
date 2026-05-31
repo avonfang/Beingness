@@ -1,59 +1,98 @@
-<view class="container {{themeClass}}">
-  <!-- Pattern selector -->
-  <view class="pattern-selector" wx:if="{{phase === 'ready'}}">
-    <view class="pattern-tag {{selectedPattern === key ? 'active' : ''}} {{item.premium && !isPremium ? 'locked' : ''}}" wx:for="{{patterns}}" wx:key="key" data-key="{{key}}" bindtap="selectPattern">
-      <text>{{item.premium && !isPremium ? '🔒' : item.icon}} {{item.name}}</text>
-      <text class="premium-badge" wx:if="{{item.premium && !isPremium}}">无限版</text>
+<view class="page-bg"></view>
+
+<view class="container">
+
+  <!-- Header -->
+  <view class="header">
+    <view class="header-back" bindtap="finish">
+      <text class="header-back-icon">←</text>
     </view>
+    <text class="header-title serif">呼吸</text>
+    <view class="header-right"></view>
   </view>
 
   <!-- Ready state -->
-  <view class="ready-area" wx:if="{{phase === 'ready'}}">
-    <view class="breath-circle idle">
-      <text class="breath-icon">{{phaseIcon}}</text>
-    </view>
-    <view class="round-selector">
-      <text class="round-label">练习轮数</text>
-      <view class="round-options">
-        <view class="round-opt {{targetRounds === 3 ? 'active' : ''}}" data-n="3" bindtap="setTarget">3</view>
-        <view class="round-opt {{targetRounds === 6 ? 'active' : ''}}" data-n="6" bindtap="setTarget">6</view>
-        <view class="round-opt {{targetRounds === 10 ? 'active' : ''}}" data-n="10" bindtap="setTarget">10</view>
+  <view wx:if="{{phase === 'ready'}}" class="ready-view">
+
+    <!-- Breathing animation preview -->
+    <view class="breath-preview">
+      <view class="breath-ring breath-ring-3"></view>
+      <view class="breath-ring breath-ring-2"></view>
+      <view class="breath-ring breath-ring-1"></view>
+      <view class="breath-center">
+        <text class="breath-center-icon">{{phaseIcon}}</text>
       </view>
     </view>
-    <view class="start-btn-area">
-      <view class="btn btn-primary btn-lg" bindtap="start">开始练习</view>
+
+    <text class="ready-title serif">{{currentPattern.name}}</text>
+    <text class="ready-desc">{{currentPattern.desc}}</text>
+
+    <!-- Pattern selector -->
+    <scroll-view class="pattern-scroll" scroll-x enable-flex>
+      <view
+        class="pattern-chip {{selectedPattern === key ? 'active' : ''}} {{item.premium && !isPremium ? 'locked' : ''}}"
+        wx:for="{{patternList}}"
+        wx:key="key"
+        data-key="{{item.key}}"
+        bindtap="selectPattern"
+      >
+        <text class="pattern-chip-icon">{{item.premium && !isPremium ? '🔒' : item.icon}}</text>
+        <text class="pattern-chip-label">{{item.name}}</text>
+        <text class="pattern-premium" wx:if="{{item.premium && !isPremium}}">无限</text>
+      </view>
+    </scroll-view>
+
+    <!-- Round selector -->
+    <view class="round-select">
+      <text class="round-label">轮次</text>
+      <view class="round-options">
+        <view
+          class="round-opt {{targetRounds === n ? 'active' : ''}}"
+          wx:for="{{[3, 6, 9]}}"
+          wx:key="*this"
+          data-n="{{item}}"
+          bindtap="setTarget"
+        >{{item}}</view>
+      </view>
     </view>
+
+    <view class="btn btn-primary start-btn" bindtap="start">开始练习</view>
   </view>
 
   <!-- Running state -->
-  <view class="running-area" wx:if="{{phase === 'inhale'}}">
-    <view class="breath-ring-wrap">
-      <view class="breath-ring" style="animation-duration: {{phaseDuration * 2}}s"></view>
-      <view class="breath-circle animating" style="animation-duration: {{phaseDuration * 2}}s">
-        <text class="breath-countdown">{{countdown}}</text>
-        <text class="breath-label">{{phaseLabel}}</text>
+  <view wx:if="{{phase === 'running'}}" class="running-view">
+    <view class="breath-animation-box">
+      <view class="breath-glow {{phaseLabel}}"></view>
+      <view class="breath-circle-animated {{phaseLabel}}">
+        <text class="breath-circle-icon">{{currentPattern.icon}}</text>
       </view>
     </view>
-    <view class="progress-info">
-      <text class="round-indicator">第 {{currentRound}} / {{targetRounds}} 轮</text>
-      <view class="progress-dots">
-        <view class="progress-dot {{i < currentRound ? 'done' : ''}}" wx:for="{{targetRounds}}" wx:key="index"></view>
-      </view>
+
+    <text class="phase-label-text">{{phaseLabel}}</text>
+    <text class="countdown-num">{{countdown}}</text>
+
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{timerProgress}}%"></view>
     </view>
+
+    <text class="round-text">第 {{currentRound}} / {{targetRounds}} 轮</text>
   </view>
 
   <!-- Done state -->
-  <view class="done-area" wx:if="{{phase === 'done'}}">
-    <view class="breath-circle done">
-      <text class="breath-icon">✨</text>
+  <view wx:if="{{phase === 'done'}}" class="done-view">
+    <view class="breath-preview">
+      <view class="breath-ring breath-ring-1" style="animation: breatheIn 2.5s ease-in-out infinite;"></view>
+      <view class="breath-ring breath-ring-2" style="animation: breatheIn 2.5s ease-in-out infinite 0.3s;"></view>
+      <view class="breath-center">
+        <text class="breath-center-icon">🌿</text>
+      </view>
     </view>
-    <text class="done-title">练习完成</text>
-    <text class="done-desc">你完成了 {{totalRounds}} 轮呼吸</text>
-    <text class="done-coin">+1 ❤️</text>
+    <text class="done-title serif">练习完成</text>
+    <text class="done-desc">每一次呼吸，都是回到当下的一步。</text>
     <view class="done-actions">
-      <view class="btn btn-outline btn-md" bindtap="restart">再来一次</view>
-      <view class="btn btn-primary btn-md" bindtap="finish">完成</view>
+      <view class="btn btn-primary start-btn" bindtap="restart">再来一次</view>
+      <view class="btn btn-ghost" bindtap="finish">完成</view>
     </view>
-    <button class="btn btn-outline btn-sm" open-type="share" style="margin-top: var(--space-12)">分享此刻</button>
   </view>
+
 </view>

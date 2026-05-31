@@ -28,12 +28,13 @@
       "outputPath": ""
     }
   },
-  "appid": "wx7fb0465a927b8ec9",
+  "appid": "wx53e40a223cb57f40",
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "editorSetting": {}
+  "editorSetting": {},
+  "libVersion": "3.16.1"
 }

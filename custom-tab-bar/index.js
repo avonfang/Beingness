@@ -2,9 +2,10 @@ Component({
   data: {
     active: 0,
     tabs: [
-      { icon: '🧘', label: '此刻', pagePath: '/pages/index/index' },
-      { icon: '📖', label: '学习', pagePath: '/pages/learning/learning' },
-      { icon: '📝', label: '日志', pagePath: '/pages/log/log' }
+      { icon: '🏠', label: '主页', pagePath: '/pages/index/index' },
+      { icon: '🔍', label: '探索', pagePath: '/pages/learning/learning' },
+      { icon: '📄', label: '记录', pagePath: '/pages/log/log' },
+      { icon: '👤', label: '我的', pagePath: '/pages/profile/profile' }
     ]
   },
 

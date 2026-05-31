@@ -21,9 +21,10 @@
     "color": "#C4C0B8",
     "selectedColor": "#C4A06A",
     "list": [
-      { "pagePath": "pages/index/index", "text": "此刻" },
-      { "pagePath": "pages/learning/learning", "text": "学习" },
-      { "pagePath": "pages/log/log", "text": "日志" }
+      { "pagePath": "pages/index/index", "text": "主页" },
+      { "pagePath": "pages/learning/learning", "text": "探索" },
+      { "pagePath": "pages/log/log", "text": "记录" },
+      { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   }
 }

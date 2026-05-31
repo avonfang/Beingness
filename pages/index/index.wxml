@@ -1,120 +1,109 @@
-<onboarding-guide wx:if="{{!hasSeenOnboarding}}" bind:finish="onOnboardingFinish" />
-<transition-guide wx:elif="{{showTransitionGuide}}" streakDays="{{streakDays}}" bind:finish="onTransitionFinish" />
+<view class="container">
 
-<view class="container {{themeClass}}">
-  <!-- Header with clear nav buttons -->
-  <view class="header-bar">
-    <text class="logo-word">此刻</text>
-    <view class="header-right">
-      <view class="nav-btn nav-btn-profile" bindtap="goProfile" hover-class="none">
-        <text class="nav-btn-icon">🔥</text>
-        <text class="nav-btn-label">{{streakDays}}天</text>
-        <text class="nav-btn-arrow">›</text>
+  <!-- ====== Header ====== -->
+  <view class="header">
+    <view class="header-left">
+      <text class="header-title">此刻 · Being</text>
+      <text class="header-subtitle">今天，你想关注哪种情绪？</text>
+    </view>
+    <view class="header-notif" bindtap="goProfile">
+      <text class="header-notif-icon">🔔</text>
+    </view>
+  </view>
+
+  <!-- ====== 情绪选择 ====== -->
+  <scroll-view class="emotion-scroll" scroll-x enable-flex>
+    <view
+      class="emotion-btn {{selectedEmotion === 'anxiety' ? 'active' : ''}}"
+      data-emotion="anxiety"
+      bindtap="onEmotionTap"
+    >
+      <text class="emotion-emoji">😮‍💨</text>
+      <text class="emotion-label">焦虑</text>
+    </view>
+    <view
+      class="emotion-btn {{selectedEmotion === 'anger' ? 'active' : ''}}"
+      data-emotion="anger"
+      bindtap="onEmotionTap"
+    >
+      <text class="emotion-emoji">😤</text>
+      <text class="emotion-label">愤怒</text>
+    </view>
+    <view
+      class="emotion-btn {{selectedEmotion === 'low' ? 'active' : ''}}"
+      data-emotion="low"
+      bindtap="onEmotionTap"
+    >
+      <text class="emotion-emoji">😔</text>
+      <text class="emotion-label">低落</text>
+    </view>
+    <view
+      class="emotion-btn {{selectedEmotion === 'tangled' ? 'active' : ''}}"
+      data-emotion="tangled"
+      bindtap="onEmotionTap"
+    >
+      <text class="emotion-emoji">🌀</text>
+      <text class="emotion-label">纠结</text>
+    </view>
+  </scroll-view>
+
+  <!-- ====== 今日练习 ====== -->
+  <view class="today-card" bindtap="goEmergency">
+    <view class="today-content">
+      <text class="today-badge">今日练习</text>
+      <text class="today-title">3分钟情绪安抚</text>
+      <text class="today-desc">呼吸引导 · 渐进放松</text>
+      <view class="today-btn">
+        <text>开始练习 →</text>
       </view>
-      <view class="nav-btn nav-btn-shop" bindtap="openCoinMenu" hover-class="none">
-        <text class="nav-btn-icon">❤️</text>
-        <text class="nav-btn-label">{{awakeningCoins}}</text>
-        <text class="nav-btn-arrow">›</text>
+    </view>
+    <view class="today-icon">
+      <text class="today-icon-text">🌿</text>
+    </view>
+  </view>
+
+  <!-- ====== 情绪急救 (SOS) ====== -->
+  <view class="sos-card" bindtap="goEmergency">
+    <view class="sos-left">
+      <view class="sos-tag">
+        <text>SOS</text>
+      </view>
+      <view class="sos-info">
+        <text class="sos-title">情绪急救</text>
+        <text class="sos-desc">当你感到难以坚持的时候</text>
       </view>
     </view>
+    <text class="sos-arrow">→</text>
   </view>
 
-  <!-- New hero — 你现在感觉怎样？ -->
-  <view class="mood-hero">
-    <text class="mood-icon">🧘</text>
-    <text class="mood-question">你现在感觉怎样？</text>
-  </view>
+  <!-- ====== 为你推荐 ====== -->
+  <view class="recommend-section">
+    <text class="section-title">为你推荐</text>
 
-  <!-- Quick emotion tags — always visible -->
-  <view class="emotion-tags">
-    <view class="emotion-tag" data-emotion="anxiety" bindtap="onEmotionSelect">
-      <text class="emotion-tag-icon">😰</text>
-      <text class="emotion-tag-label">焦虑</text>
-    </view>
-    <view class="emotion-tag" data-emotion="anger" bindtap="onEmotionSelect">
-      <text class="emotion-tag-icon">😤</text>
-      <text class="emotion-tag-label">愤怒</text>
-    </view>
-    <view class="emotion-tag" data-emotion="low" bindtap="onEmotionSelect">
-      <text class="emotion-tag-icon">😔</text>
-      <text class="emotion-tag-label">低落</text>
-    </view>
-    <view class="emotion-tag" data-emotion="tangled" bindtap="onEmotionSelect">
-      <text class="emotion-tag-icon">😵‍💫</text>
-      <text class="emotion-tag-label">纠结</text>
-    </view>
-  </view>
-
-  <!-- Quick actions -->
-  <view class="quick-actions">
-    <view class="quick-action" bindtap="goBreath">
-      <text class="quick-action-icon">🌬️</text>
-      <text class="quick-action-label">不想说话，先呼吸</text>
-    </view>
-    <view class="quick-action" bindtap="goDialogue">
-      <text class="quick-action-icon">💌</text>
-      <text class="quick-action-label">写一封信给自己</text>
-    </view>
-  </view>
-
-  <!-- Daily practice card -->
-  <view class="daily-card {{dailyPractice.premium && !isPremium ? 'locked' : ''}}" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
-    <view class="daily-header">
-      <text class="daily-badge">今日练习</text>
-      <text class="daily-path">{{dailyPractice.pathLabel}}</text>
-      <text class="daily-premium-badge" wx:if="{{dailyPractice.premium && !isPremium}}">无限版</text>
-    </view>
-    <text class="daily-title">{{dailyPractice.premium && !isPremium ? '🔒 ' : ''}}{{dailyPractice.title}}</text>
-    <text class="daily-subtitle">{{dailyPractice.subtitle}}</text>
-  </view>
-
-  <!-- Recommendation -->
-  <view class="rec-strip" wx:if="{{recommendation}}" bindtap="goRecommendLesson">
-    <text class="rec-strip-icon">💡</text>
-    <view class="rec-strip-info">
-      <text class="rec-strip-title">{{recommendation.title}}</text>
-      <text class="rec-strip-desc">{{recommendation.desc}}</text>
-    </view>
-    <text class="rec-strip-arrow">→</text>
-  </view>
-
-  <!-- ❤️ Shop overlay — direct on homepage -->
-  <view class="shop-overlay {{shopVisible ? 'visible' : ''}}" wx:if="{{shopVisible}}" catchtap="closeShop">
-    <view class="shop-card" catchtap="">
-      <text class="shop-title">❤️ 心意商店</text>
-      <text class="shop-balance">余额：{{awakeningCoins}} ❤️</text>
-
-      <view class="shop-item {{shopItems.ocean.owned ? 'owned' : ''}}" catchtap="buyShopItem" data-key="ocean">
-        <text class="shop-item-icon">🌊</text>
-        <view class="shop-item-info">
-          <text class="shop-item-name">海洋主题</text>
-          <text class="shop-item-desc">静谧蓝色调，永久解锁</text>
-        </view>
-        <text class="shop-item-price" wx:if="{{!shopItems.ocean.owned}}">20 ❤️</text>
-        <text class="shop-item-owned" wx:if="{{shopItems.ocean.owned}}">已拥有</text>
+    <view class="rec-card" bindtap="onRecommendTap" data-path="presence" data-index="0">
+      <view class="rec-icon rec-icon-morning">
+        <text>🌅</text>
       </view>
-
-      <view class="shop-item {{shopItems.forest.owned ? 'owned' : ''}}" catchtap="buyShopItem" data-key="forest">
-        <text class="shop-item-icon">🌿</text>
-        <view class="shop-item-info">
-          <text class="shop-item-name">森林主题</text>
-          <text class="shop-item-desc">清新绿色调，永久解锁</text>
-        </view>
-        <text class="shop-item-price" wx:if="{{!shopItems.forest.owned}}">20 ❤️</text>
-        <text class="shop-item-owned" wx:if="{{shopItems.forest.owned}}">已拥有</text>
+      <view class="rec-info">
+        <text class="rec-name">晨间冥想</text>
+        <text class="rec-desc">开启平静的一天</text>
       </view>
+      <text class="rec-duration">5分钟</text>
+    </view>
 
-      <view class="shop-item {{shopItems.trial.owned ? 'owned' : ''}}" catchtap="buyShopItem" data-key="trial">
-        <text class="shop-item-icon">💌</text>
-        <view class="shop-item-info">
-          <text class="shop-item-name">此刻·陪伴体验（7天）</text>
-          <text class="shop-item-desc">解锁全部高级功能</text>
-        </view>
-        <text class="shop-item-price" wx:if="{{!shopItems.trial.owned}}">50 ❤️</text>
-        <text class="shop-item-owned" wx:if="{{shopItems.trial.owned}}">已激活</text>
+    <view class="rec-card" bindtap="onRecommendTap" data-path="openness" data-index="1">
+      <view class="rec-icon rec-icon-release">
+        <text>🌿</text>
       </view>
-
-      <view class="btn btn-ghost btn-md" catchtap="closeShop">关闭</view>
+      <view class="rec-info">
+        <text class="rec-name">释放压力</text>
+        <text class="rec-desc">让紧绷慢慢松开</text>
+      </view>
+      <text class="rec-duration">8分钟</text>
     </view>
   </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-spacer"></view>
+
 </view>
