@@ -20,6 +20,28 @@
 .complete-title { font-size: var(--text-title); color: var(--text); font-weight: 600; display: block; }
 .complete-desc { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-4); }
 
+.note-section { width: 100%; margin-top: var(--space-24); }
+.note-input {
+  width: 100%; height: 200rpx; background: var(--card);
+  border-radius: var(--radius-sm); padding: var(--space-16);
+  font-size: var(--text-body); color: var(--text);
+  box-sizing: border-box; border: 2rpx solid var(--border); line-height: 1.8;
+  transition: border-color 0.2s;
+}
+.note-input:focus { border-color: var(--primary); box-shadow: 0 0 0 6rpx rgba(196,160,106,0.1); }
+
+/* Star rating */
+.rating-area { width: 100%; margin-top: var(--space-24); text-align: center; }
+.rating-label { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-bottom: var(--space-12); }
+.stars { display: flex; justify-content: center; gap: var(--space-12); }
+.star {
+  font-size: 72rpx; color: var(--border); line-height: 1;
+  padding: var(--space-4); transition: transform 0.15s, color 0.2s;
+  display: inline-block;
+}
+.star.active { color: var(--gold); transform: scale(1.1); }
+.star:active { transform: scale(0.8); }
+
 /* Crisis */
 .crisis-card {
   width: 80%; background: var(--accent-warm-bg); border-radius: var(--radius-sm);

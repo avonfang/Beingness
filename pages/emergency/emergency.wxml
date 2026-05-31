@@ -18,6 +18,23 @@
     />
   </view>
 
+  <!-- Complete + note -->
+  <view wx:elif="{{phase === 'complete'}}" class="complete-view">
+    <text class="complete-icon">🌿</text>
+    <text class="complete-title">你在这里。一切都好。</text>
+    <text class="complete-desc">想记录点什么吗？</text>
+    <view class="note-section">
+      <textarea class="note-input" placeholder="写下此刻的感受..." bindinput="onNoteInput"></textarea>
+    </view>
+    <view class="rating-area">
+      <text class="rating-label">现在感觉好些了吗？</text>
+      <view class="stars">
+        <view class="star {{rating > idx ? 'active' : ''}}" wx:for="{{[1,2,3,4,5]}}" wx:for-index="idx" wx:key="idx" catchtap="setRating" data-idx="{{idx}}">★</view>
+      </view>
+    </view>
+    <button class="btn btn-primary btn-lg btn-block" bindtap="saveAndExit">保存并完成</button>
+  </view>
+
   <!-- Done screen -->
   <view wx:elif="{{phase === 'done'}}" class="complete-view">
     <view class="done-celebration">
@@ -29,7 +46,7 @@
     <view class="crisis-card" wx:if="{{showCrisis}}">
       <text class="crisis-text">💛 如果需要倾诉，可以拨打心理援助热线：400-161-9995</text>
     </view>
-    <button class="btn btn-primary btn-lg btn-block" bindtap="goWriteFeelings">✏️ 写写感受</button>
+    <button class="btn btn-primary btn-lg btn-block" bindtap="deepDialogue">深入聊聊 →</button>
     <button class="btn btn-outline btn-lg btn-block" wx:if="{{recommendedLesson}}" bindtap="goRecommendedLesson">📖 推荐学习：{{recommendedLesson.lessonTitle}} →</button>
     <button class="btn btn-outline btn-lg btn-block" open-type="share">分享此刻</button>
     <button class="btn btn-ghost btn-lg btn-block" bindtap="goBack">返回首页</button>
