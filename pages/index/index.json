@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "此刻 · Being",
+  "navigationBarTitleText": "此刻",
   "usingComponents": {
     "onboarding-guide": "/components/onboarding-guide/onboarding-guide",
     "transition-guide": "/components/transition-guide/transition-guide"

@@ -2,17 +2,77 @@
 <transition-guide wx:elif="{{showTransitionGuide}}" streakDays="{{streakDays}}" bind:finish="onTransitionFinish" />
 
 <view class="container {{themeClass}}">
+  <!-- Header with clear nav buttons -->
   <view class="header-bar">
-    <text class="logo-word">此刻<text class="logo-sub"> · Being</text></text>
+    <text class="logo-word">此刻</text>
+    <view class="header-right">
+      <view class="nav-btn nav-btn-profile" bindtap="goProfile" hover-class="none">
+        <text class="nav-btn-icon">🔥</text>
+        <text class="nav-btn-arrow">›</text>
+      </view>
+      <view class="nav-btn nav-btn-shop" bindtap="showCoins" hover-class="none">
+        <text class="nav-btn-icon">❤️</text>
+        <text class="nav-btn-label">{{awakeningCoins}}</text>
+      </view>
+    </view>
   </view>
 
-  <view class="hero-section">
-    <text class="hero-icon">🧘</text>
-    <view class="start-btn" bindtap="startSession" hover-class="none">
-      <text class="start-btn-label">开始</text>
+  <!-- New hero — 你现在感觉怎样？ -->
+  <view class="mood-hero">
+    <text class="mood-icon">🧘</text>
+    <text class="mood-question">今天还好吗？</text>
+  </view>
+
+  <!-- Quick emotion tags — always visible -->
+  <view class="emotion-tags">
+    <view class="emotion-tag" data-emotion="anxiety" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😰</text>
+      <text class="emotion-tag-label">焦虑</text>
     </view>
-    <view class="chill-link" bindtap="goBreath" hover-class="none">
-      <text>不想做任何事，就想呆一会儿</text>
+    <view class="emotion-tag" data-emotion="anger" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😤</text>
+      <text class="emotion-tag-label">愤怒</text>
     </view>
+    <view class="emotion-tag" data-emotion="low" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😔</text>
+      <text class="emotion-tag-label">低落</text>
+    </view>
+    <view class="emotion-tag" data-emotion="tangled" bindtap="onEmotionSelect">
+      <text class="emotion-tag-icon">😵‍💫</text>
+      <text class="emotion-tag-label">纠结</text>
+    </view>
+  </view>
+
+  <!-- Quick actions -->
+  <view class="quick-actions">
+    <view class="quick-action" bindtap="goBreath">
+      <text class="quick-action-icon">🌬️</text>
+      <text class="quick-action-label">呆一会儿</text>
+    </view>
+    <view class="quick-action" bindtap="goDialogue">
+      <text class="quick-action-icon">🗑️</text>
+      <text class="quick-action-label">倒点垃圾</text>
+    </view>
+  </view>
+
+  <!-- Daily practice card -->
+  <view class="daily-card {{dailyPractice.premium && !isPremium ? 'locked' : ''}}" wx:if="{{dailyPractice}}" bindtap="goDailyPractice">
+    <view class="daily-header">
+      <text class="daily-badge">今日练习</text>
+      <text class="daily-path">{{dailyPractice.pathLabel}}</text>
+      <text class="daily-premium-badge" wx:if="{{dailyPractice.premium && !isPremium}}">无限版</text>
+    </view>
+    <text class="daily-title">{{dailyPractice.premium && !isPremium ? '🔒 ' : ''}}{{dailyPractice.title}}</text>
+    <text class="daily-subtitle">{{dailyPractice.subtitle}}</text>
+  </view>
+
+  <!-- Recommendation -->
+  <view class="rec-strip" wx:if="{{recommendation}}" bindtap="goRecommendLesson">
+    <text class="rec-strip-icon">💡</text>
+    <view class="rec-strip-info">
+      <text class="rec-strip-title">{{recommendation.title}}</text>
+      <text class="rec-strip-desc">{{recommendation.desc}}</text>
+    </view>
+    <text class="rec-strip-arrow">→</text>
   </view>
 </view>

@@ -1,35 +1,104 @@
-/* Home page v7 — 极简 */
+/* Home page v6 — Apple-grade */
 .container { min-height: 100vh; padding: 0 var(--space-20) calc(100rpx + env(safe-area-inset-bottom) + var(--space-20)); display: flex; flex-direction: column; }
 
 /* Header */
 .header-bar { display: flex; align-items: center; justify-content: space-between; padding: var(--space-16) 0 var(--space-8); }
 .logo-word { font-size: var(--text-headline); font-weight: 700; color: var(--text); letter-spacing: 2rpx; }
-.logo-sub { font-weight: 400; opacity: 0.5; font-size: var(--text-body); letter-spacing: 1rpx; }
+.header-right { display: flex; align-items: center; gap: var(--space-8); }
+.nav-btn {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4) var(--space-12); border-radius: var(--radius-lg);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+.nav-btn:active { transform: scale(0.92); }
+.nav-btn-icon { font-size: var(--text-body); }
+.nav-btn-label { font-size: var(--text-caption); font-weight: 500; }
+.nav-btn-arrow { font-size: 18rpx; color: var(--text-tertiary); opacity: 0.6; }
+.nav-btn-profile { background: var(--card); box-shadow: var(--shadow-sm); color: var(--text-secondary); }
+.nav-btn-shop { background: var(--gold-subtle); color: var(--gold); font-weight: 600; }
 
-/* Hero — 只有一个按钮 */
-.hero-section {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding-bottom: 20vh;
+/* Mood hero — centered, spacious */
+.mood-hero {
+  text-align: center;
+  padding: var(--space-32) 0 var(--space-24);
   animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
-.hero-icon { font-size: 80rpx; display: block; margin-bottom: var(--space-16); }
+.mood-icon { font-size: 80rpx; display: block; margin-bottom: var(--space-12); }
+.mood-question { font-size: var(--text-title); font-weight: 700; color: var(--text); display: block; letter-spacing: 1rpx; }
 
-.start-btn {
-  width: 280rpx; height: 280rpx; border-radius: 50%;
-  background: var(--primary); color: #FFF;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8rpx 32rpx var(--primary-subtle);
+/* Emotion tags — pill style */
+.emotion-tags {
+  display: flex; gap: var(--space-8);
+  margin-bottom: var(--space-20);
+  padding: 0 var(--space-4);
+  animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.06s both;
+}
+.emotion-tag {
+  flex: 1;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16) var(--space-4);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+.emotion-tag:active { transform: scale(0.94); box-shadow: var(--shadow-md); }
+.emotion-tag-icon { font-size: 48rpx; display: block; margin-bottom: var(--space-4); }
+.emotion-tag-label { font-size: var(--text-caption); color: var(--text-secondary); display: block; font-weight: 500; letter-spacing: 0.5rpx; }
+
+/* Quick actions */
+.quick-actions {
+  display: flex; gap: var(--space-8);
+  margin-bottom: var(--space-20);
+  padding: 0 var(--space-4);
+  animation: fadeUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+}
+.quick-action {
+  flex: 1;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20) var(--space-16);
+  display: flex; align-items: center; gap: var(--space-8);
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+}
+.quick-action:active { transform: scale(0.96); box-shadow: var(--shadow-md); }
+.quick-action-icon { font-size: 36rpx; display: block; }
+.quick-action-label { font-size: var(--text-body); color: var(--text-secondary); font-weight: 500; }
+
+/* Daily practice card — Apple card style */
+.daily-card {
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: var(--space-20);
+  margin-bottom: var(--space-12);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+}
+.daily-card:active { transform: scale(0.98); box-shadow: var(--shadow-md); }
+.daily-header { display: flex; align-items: center; gap: var(--space-8); margin-bottom: var(--space-8); }
+.daily-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-subtle); padding: 2rpx 14rpx; border-radius: 20rpx; font-weight: 600; letter-spacing: 1rpx; }
+.daily-path { font-size: var(--text-caption); color: var(--text-tertiary); margin-left: auto; }
+.daily-title { font-size: var(--text-body-large); font-weight: 600; color: var(--text); display: block; }
+.daily-subtitle { font-size: var(--text-body); color: var(--text-secondary); display: block; margin-top: var(--space-2); line-height: 1.5; }
+.daily-card.locked { opacity: 0.65; }
+.daily-premium-badge { font-size: 18rpx; color: var(--gold); background: var(--gold-light); padding: 2rpx 10rpx; border-radius: 12rpx; font-weight: 500; }
+
+/* Recommendation strip — subtle */
+.rec-strip {
+  display: flex; align-items: center; gap: var(--space-8);
+  background: var(--primary-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-12) var(--space-16);
+  margin-bottom: var(--space-12);
   transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  margin-bottom: var(--space-32);
 }
-.start-btn:active { transform: scale(0.92); }
-.start-btn-label { font-size: var(--text-title); font-weight: 600; letter-spacing: 2rpx; }
-
-.chill-link {
-  display: block; text-align: center;
-  font-size: var(--text-body); color: var(--text-tertiary);
-  padding: var(--space-8) var(--space-16);
-  transition: color 0.2s ease;
-}
-.chill-link:active { color: var(--text-secondary); }
+.rec-strip:active { transform: scale(0.98); }
+.rec-strip-icon { font-size: 32rpx; }
+.rec-strip-info { flex: 1; }
+.rec-strip-title { font-size: var(--text-body); font-weight: 500; color: var(--text); display: block; }
+.rec-strip-desc { font-size: var(--text-caption); color: var(--text-secondary); display: block; margin-top: var(--space-2); }
+.rec-strip-arrow { font-size: var(--text-body); color: var(--gold); opacity: 0.6; }

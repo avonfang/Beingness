@@ -11,7 +11,7 @@
     "pages/profile/profile"
   ],
   "window": {
-    "navigationBarTitleText": "此刻 · Being",
+    "navigationBarTitleText": "此刻",
     "navigationBarTextStyle": "black",
     "navigationBarBackgroundColor": "#F7F7F7",
     "backgroundColor": "#F7F7F7"
@@ -22,8 +22,8 @@
     "selectedColor": "#C4A06A",
     "list": [
       { "pagePath": "pages/index/index", "text": "此刻" },
-      { "pagePath": "pages/log/log", "text": "日志" },
-      { "pagePath": "pages/profile/profile", "text": "个人" }
+      { "pagePath": "pages/learning/learning", "text": "学习" },
+      { "pagePath": "pages/log/log", "text": "日志" }
     ]
   }
 }

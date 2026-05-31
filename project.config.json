@@ -1,5 +1,5 @@
 {
-  "description": "此刻 · Being - 情绪觉察小程序",
+  "description": "此刻 - AI 觉醒导师",
   "miniprogramRoot": "./",
   "setting": {
     "darkmode": true,
@@ -28,13 +28,12 @@
       "outputPath": ""
     }
   },
-  "appid": "wx53e40a223cb57f40",
+  "appid": "wx7fb0465a927b8ec9",
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "editorSetting": {},
-  "libVersion": "3.16.1"
+  "editorSetting": {}
 }

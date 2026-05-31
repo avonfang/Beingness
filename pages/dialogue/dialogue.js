@@ -252,6 +252,15 @@ Page({
 
     // Check milestone bonus
     let bonus = 0
-    return { streakDays }
+    if (streakDays === 3) bonus = 5
+    else if (streakDays === 7) bonus = 10
+    else if (streakDays === 30) bonus = 30
+
+    if (bonus > 0) {
+      const { addCoins } = require('../../utils/coins')
+      addCoins(bonus, `连续 ${streakDays} 天里程碑`)
+    }
+
+    return { streakDays, bonus }
   }
 })

@@ -1,12 +1,11 @@
 const util = require('../../utils/util')
 
 Page({
-  data: { list: [], isPremium: false, themeClass: 'theme-default' },
+  data: { list: [], themeClass: 'theme-default' },
 
   onShow() {
     const theme = wx.getStorageSync('appTheme') || 'default'
-    const isPremium = wx.getStorageSync('isPremium') || false
-    this.setData({ themeClass: 'theme-' + theme, isPremium })
+    this.setData({ themeClass: 'theme-' + theme })
     this.loadEntries()
   },
 
@@ -56,19 +55,5 @@ Page({
 
   goBreath() {
     wx.navigateTo({ url: '/pages/breath/breath' })
-  },
-
-  buyPremium() {
-    wx.showModal({
-      title: '此刻 · 陪伴',
-      content: '¥9.9/月 — 无限使用此刻信箱 · 高级呼吸模式 · 每周专属练习\n\n微信支付开通后即可订阅。点击确认模拟激活 30 天。',
-      success: (res) => {
-        if (res.confirm) {
-          wx.setStorageSync('isPremium', true)
-          this.setData({ isPremium: true })
-          wx.showToast({ title: '此刻 · 陪伴已激活 ✓', icon: 'success' })
-        }
-      }
-    })
   }
 })

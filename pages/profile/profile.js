@@ -1,5 +1,6 @@
 const util = require('../../utils/util')
 const report = require('../../utils/report')
+const { getLedger } = require('../../utils/coins')
 
 Page({
   data: {
@@ -8,6 +9,7 @@ Page({
     avgRecovery: 0,
     totalLessons: 0,
     totalDialogues: 0,
+    awakeningCoins: 0,
     emotionDistribution: [],
     insight: '加载中...',
     milestone: null,
@@ -17,8 +19,8 @@ Page({
     weekReport: null,
     isPremium: false,
     themeClass: 'theme-default',
-    savedQuotes: [],
-    courseStats: []
+    coinLedger: [],
+    savedQuotes: []
   },
 
   onShow() {
@@ -50,22 +52,8 @@ Page({
     }))
 
     let totalLessons = 0;
-    const courseData = require('../../data/courses')
-    const courseStats = []
-    ;['presence', 'surrender', 'openness'].forEach(p => {
-      const course = courseData[p]
-      if (!course) return
-      const progress = wx.getStorageSync(`progress_${p}`) || 0
-      totalLessons += progress
-      courseStats.push({
-        key: p,
-        icon: course.icon,
-        title: course.title,
-        source: course.source,
-        progress,
-        total: course.lessons.length,
-        percent: Math.round((progress / course.lessons.length) * 100)
-      })
+    ['presence', 'surrender', 'openness'].forEach(p => {
+      totalLessons += wx.getStorageSync(`progress_${p}`) || 0
     })
 
     const streakDays = wx.getStorageSync('streakDays') || 0
@@ -75,6 +63,7 @@ Page({
     const achievements = report.getAchievements(entries, streakDays)
     const weekReport = report.getWeekReport(entries)
 
+    const coinLedger = getLedger()
     const savedQuotes = wx.getStorageSync('savedQuotes') || []
     const isPremium = wx.getStorageSync('isPremium') || false
 
@@ -83,8 +72,8 @@ Page({
       totalDialogues,
       avgRecovery,
       totalLessons,
+      awakeningCoins: wx.getStorageSync('awakeningCoins') || 0,
       emotionDistribution,
-      courseStats,
       insight: report.generateInsight(entries, streakDays, totalLessons, totalDialogues),
       streakDays,
       milestone,
@@ -92,6 +81,7 @@ Page({
       weekData,
       achievements,
       weekReport,
+      coinLedger: coinLedger.slice(0, 20),
       savedQuotes: savedQuotes.slice(0, 20)
     })
   },
@@ -151,10 +141,6 @@ Page({
     return util.formatDate(d)
   },
 
-  goLearning() {
-    wx.navigateTo({ url: '/pages/learning/learning' })
-  },
-
   exportData() {
     const entries = wx.getStorageSync('pendingEntries') || []
     const dialogues = wx.getStorageSync('dialogueHistory') || []
@@ -165,7 +151,7 @@ Page({
     text += `急救次数：${entries.length} 次\n`
     text += `信件次数：${dialogues.length} 次\n`
     text += `完成课程：${this.data.totalLessons} 课\n`
-    text += `\n\n`
+    text += `❤️ 心意：${this.data.awakeningCoins}\n\n`
 
     if (entries.length > 0) {
       text += '--- 情绪急救记录 ---\n'
